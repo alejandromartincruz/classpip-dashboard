@@ -5,7 +5,7 @@
         <mat-grid-list cols="1" rowHeight="60px">
           <mat-grid-tile>
             <mat-form-field>
-              <mat-select placeholder="{{ 'LOGIN.ROLE' | translate }}" name="role" [(ngModel)]="role" (change)="roleChange($event)" [required]=true>
+              <mat-select placeholder="{{ 'LOGIN.ROLE' | translate }}" name="role" [(ngModel)]="role" (selectionChange)="roleChange($event)" [required]=true>
                 <mat-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</mat-option>
               </mat-select>
             </mat-form-field>

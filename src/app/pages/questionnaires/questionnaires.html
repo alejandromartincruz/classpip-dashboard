@@ -12,7 +12,7 @@
       <h4 mat-line *ngIf= "questionnaire.groupid">{{ 'GROUPS.ID' | translate }}: {{questionnaire.groupid}}</h4>
 
      <button  mat-line mat-flat-button class="awards-but" (click)="showAwards(questionnaire)">{{ 'COMMON.AWARDS' | translate }}</button>
-      <mat-slide-toggle class="toggleActive" labelPosition = "before" (change)="onChange($event, questionnaire)" [checked]="questionnaire.active" >
+      <mat-slide-toggle class="toggleActive" labelPosition = "before" (selectionChange)="onChange($event, questionnaire)" [checked]="questionnaire.active" >
       </mat-slide-toggle>
 
     </mat-list-item>

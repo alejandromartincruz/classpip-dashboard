@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/mergeMap';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router } from '@angular/router';
 

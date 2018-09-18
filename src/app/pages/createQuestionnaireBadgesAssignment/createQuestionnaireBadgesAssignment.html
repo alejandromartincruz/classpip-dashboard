@@ -4,7 +4,7 @@
 
   <h3 mat-header>{{'BADGES.ASSIGN' | translate}}</h3>
   <br>
-  <mat-slide-toggle color = "secondary" [(ngModel)]="device[i]" (change)="onChange($event)"></mat-slide-toggle>
+  <mat-slide-toggle color = "secondary" [(ngModel)]="device[i]" (selectionChange)="onChange($event)"></mat-slide-toggle>
     <br>
   <mat-list *ngIf = "device[i]">
 

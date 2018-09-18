@@ -6,7 +6,7 @@
   <br>
   <p *ngIf="stringData[2] == null">{{'CARDS.ASSIGNFAIL1' | translate}}</p>
   <p *ngIf="collections.length == 0 && stringData[2] != null">{{'CARDS.ASSIGNFAIL2' | translate}}</p>
-  <mat-slide-toggle *ngIf="stringData[2] != null && collections.length !=0 " color = "secondary" [(ngModel)]="device[i]" (change)="onChange($event)"></mat-slide-toggle>
+  <mat-slide-toggle *ngIf="stringData[2] != null && collections.length !=0 " color = "secondary" [(ngModel)]="device[i]" (selectionChange)="onChange($event)"></mat-slide-toggle>
     <br>
     <mat-form-field *ngIf="stringData[2] != null && collections.length !=0">
         <mat-select [(value)]="collectionSelected" placeholder="{{'COLLECTIONS.CHOOSE' | translate}}">
