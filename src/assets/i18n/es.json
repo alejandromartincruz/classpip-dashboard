@@ -28,5 +28,8 @@
     "LOGIN_FAILED": "El nombre de usuario y/o la contraseña son inválidas.",
     "LOGIN_FAILED_EMAIL_NOT_VERIFIED": "Tu correo no ha sido verificado aún, por favor, revisa tu correo.",
     "INTERNAL_ERROR": "Ha ocurrido un error interno en el servidor. Por favor contacta con tu administrador. "
+  },
+  "MESA": {
+    "TITLE": "Mi mesa"
   }
 }

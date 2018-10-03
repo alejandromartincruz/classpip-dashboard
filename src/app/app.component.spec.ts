@@ -11,6 +11,8 @@ import { routing } from './app.routing';
 import { HomeComponent } from './pages/home/home';
 import { LoginComponent } from './pages/login/login';
 import { GroupsComponent } from './pages/groups/groups';
+import { MesaComponent } from './pages/mesa/mesa';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppMaterialModule } from './app.material.module';
@@ -21,7 +23,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthGuard } from './shared/auth/auth.guard';
 import {
   AvatarService, AlertService, LoadingService, SchoolService, LoginService,
-  UserService, GradeService, GroupService, UtilsService, MatterService
+  UserService, GradeService, GroupService, UtilsService, MatterService, MesaService
 } from './shared/services/index';
 
 export function createTranslateLoader(http: Http) {
@@ -37,6 +39,7 @@ describe('AppComponent', () => {
         LoginComponent,
         HomeComponent,
         GroupsComponent,
+        MesaComponent,
         // shared
         NavBarComponent,
         FooterComponent,
@@ -68,7 +71,8 @@ describe('AppComponent', () => {
         UtilsService,
         GroupService,
         GradeService,
-        MatterService
+        MatterService,
+        MesaService
       ]
     }).compileComponents();
   }));

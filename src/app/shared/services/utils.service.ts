@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { AppConfig } from '../../app.config';
 import { Error, Login, Role, School } from '../models/index';
+import {Mesa} from '../models/mesa';
 
 @Injectable()
 export class UtilsService {

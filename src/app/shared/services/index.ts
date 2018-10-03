@@ -8,3 +8,4 @@ export * from './avatar.service';
 export * from './grade.service';
 export * from './matter.service';
 export * from './group.service';
+export * from './mesa.service';

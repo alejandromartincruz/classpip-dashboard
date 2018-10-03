@@ -79,6 +79,8 @@ export class LoginComponent implements OnInit {
         this.utilsService.role = Number(localStorage.getItem(AppConfig.LS_ROLE));
 
         this.router.navigate([this.returnUrl]);
+        this.loadingService.hide();
+
       }),
       ((error: Response) => {
         this.loadingService.hide();

@@ -11,7 +11,7 @@ module.exports = function (app) {
 
   // All undefined asset routes should return a 404
   app.route("/:url(app)/*")
-    .get(errors[404]);
+   .get(errors[404]);
 
   // All other routes should redirect to the index.html
   app.route("/*")

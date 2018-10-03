@@ -17,6 +17,7 @@ import { routing } from './app.routing';
 import { LoginComponent } from './pages/login/login';
 import { HomeComponent } from './pages/home/home';
 import { GroupsComponent } from './pages/groups/groups';
+import { MesaComponent } from './pages/mesa/mesa';
 
 // shared (components)
 import { NavBarComponent } from './shared/navbar/navbar';
@@ -28,7 +29,7 @@ import { LoadingComponent } from './shared/loading/loading';
 import {
   UtilsService, LoginService, LoadingService, AlertService,
   SchoolService, AvatarService, UserService, GroupService,
-  GradeService, MatterService
+  GradeService, MatterService, MesaService
 } from './shared/services/index';
 
 // rxjs
@@ -49,6 +50,7 @@ export function createTranslateLoader(http: Http) {
     LoginComponent,
     HomeComponent,
     GroupsComponent,
+    MesaComponent,
     // shared
     NavBarComponent,
     FooterComponent,
@@ -80,7 +82,8 @@ export function createTranslateLoader(http: Http) {
     UtilsService,
     GroupService,
     GradeService,
-    MatterService
+    MatterService,
+    MesaService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ export class AppConfig {
   public static get MATTERS_URL(): string { return this.SERVER_URL + '/api/matters'; }
   public static get GRADES_URL(): string { return this.SERVER_URL + '/api/grades'; }
   public static get GROUP_URL(): string { return this.SERVER_URL + '/api/groups'; }
+  public static get MESA_URL(): string { return this.SERVER_URL + '/api/mesas'; }
 
   public static get LOGIN_URL(): string { return '/login'; }
   public static get LOGOUT_URL(): string { return '/logout'; }
@@ -21,6 +22,7 @@ export class AppConfig {
   public static get STUDENTS_URL(): string { return '/students'; }
   public static get COUNT_URL(): string { return '/count'; }
   public static get GROUPS_URL(): string { return '/groups'; }
+  public static get MYMESA_URL(): string { return '/mesa'; }
 
   public static get AUTH_HEADER(): string { return 'Authorization'; }
 

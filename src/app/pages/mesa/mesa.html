@@ -1,0 +1,12 @@
+<div class="mesa-content">
+  <h3 *ngIf="myRole == role.STUDENT">{{ 'MESA.TITLE' | translate }}</h3>
+  <mat-card *ngIf="mesas">
+    <mat-card-header>
+      <img [src]="mesas.imageM">
+      <mat-card-title>{{ mesas.nombreAula }}</mat-card-title>
+      <mat-card-subtitle>{{ 'Columna: ' }} {{ mesas.numColumna }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ 'Fila: ' }} {{ mesas.numFila }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+
