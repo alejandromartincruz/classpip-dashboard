@@ -1,0 +1,91 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="journeys-content">
+    <h5 *ngIf="competition"> {{ 'COMPETITIONS.TITLE' | translate }} > {{ competition.name }} >
+          {{ 'COMPETITIONS.CALENDAR' | translate }} </h5>
+
+    <div *ngIf="results">
+    <h4>{{ 'COMPETITIONS.CALENDAR_OF2' | translate }} {{ 'TENNIS.TITLE' | translate }}: {{ competition.name }}</h4>
+        <mat-card class="journey-card" *ngFor="let date of dates; let i=index;">
+          <mat-card-content>
+              <p><u>{{ 'COMPETITIONS.JOURNEY' | translate }} {{i + 1}}</u></p>
+              <p class="date"><i>{{ 'COMPETITIONS.DATE' | translate }}: {{date}}</i></p>
+           <table *ngIf="matchesPrincipal[i].length !== 0">
+              <caption>
+               <p *ngIf="i !== numJourneys - 1">{{ 'TOURNAMENTS.PRINCIPAL' | translate }}</p>
+               <p *ngIf="i === numJourneys - 1">{{ 'TOURNAMENTS.FINAL' | translate }}</p>
+              </caption>
+              <thead>
+                <tr class="tableHeader">
+                  <th *ngIf="competition.mode === 'Individual'" class="player">{{ 'COMPETITIONS.PLAYER' | translate }} 1</th>
+                  <th *ngIf="competition.mode === 'Individual'" class="player">{{ 'COMPETITIONS.PLAYER' | translate }} 2</th>
+                  <th *ngIf="competition.mode === 'Equipos'" class="player">{{ 'COMPETITIONS.TEAM' | translate }} 1</th>
+                  <th *ngIf="competition.mode === 'Equipos'" class="player">{{ 'COMPETITIONS.TEAM' | translate }} 2</th>
+                  <th class="result">{{ 'COMPETITIONS.WINNER' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let match of matchesPrincipal[i]">
+                  <td class="player">{{match.namePlayerOne}}</td>
+                  <td class="player">{{match.namePlayerTwo}}</td>
+                  <td class="result">{{match.result}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="thead-tbody" *ngIf="matchesSecondary[i].length !== 0">
+            <p>{{ 'TOURNAMENTS.SECONDARY' | translate }}</p>
+            <table>
+              <thead>
+                <tr class="tableHeader">
+                  <th *ngIf="competition.mode === 'Individual'" class="player">{{ 'COMPETITIONS.PLAYER' | translate }} 1</th>
+                  <th *ngIf="competition.mode === 'Individual'" class="player">{{ 'COMPETITIONS.PLAYER' | translate }} 2</th>
+                  <th *ngIf="competition.mode === 'Equipos'" class="player">{{ 'COMPETITIONS.TEAM' | translate }} 1</th>
+                  <th *ngIf="competition.mode === 'Equipos'" class="player">{{ 'COMPETITIONS.TEAM' | translate }} 2</th>
+                  <th class="result">{{ 'COMPETITIONS.WINNER' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let match2 of matchesSecondary[i]">
+                  <td class="player">{{match2.namePlayerOne}}</td>
+                  <td class="player">{{match2.namePlayerTwo}}</td>
+                  <td class="result">{{match2.result}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="foot">
+        <mat-card>
+      * {{ 'TENNIS.GHOST1' | translate }}
+      {{ 'TENNIS.GHOST2' | translate }}.
+      </mat-card>
+    </div>
+    <div *ngIf="datesNoMatches">
+      <div *ngIf="datesNoMatches.length !==0">
+        <h6 *ngIf="!show">{{ 'TENNIS.MORE_JOURNEY1' | translate }}. {{ 'TENNIS.MORE_JOURNEY2' | translate }}:</h6>
+        <h6 *ngIf="show">{{ 'TENNIS.LESS_JOURNEY' | translate }}:</h6>
+        <button mat-fab color="warn" *ngIf="!show" (click)="showMore()"><mat-icon>add</mat-icon></button>
+        <button mat-fab color="warn" *ngIf="show" (click)="showMore()"><mat-icon>remove</mat-icon></button>
+        <div *ngIf="show" class="cardsNoMatch-div">
+        <mat-card class="dateNoMatch-card" *ngFor="let dateNoMatch of datesNoMatches; let i=index;">
+            <mat-card-header>
+                <mat-card-title><p><u>{{ 'COMPETITIONS.JOURNEY' | translate }} {{dateNoMatch.number}}</u></p></mat-card-title>
+                <mat-card-subtitle>{{ 'COMPETITIONS.DATE' | translate }}: {{dateNoMatch.date}}</mat-card-subtitle>
+              </mat-card-header>
+            <mat-card-content>
+              <mat-divider></mat-divider>
+              <mat-list role="list">
+                 <mat-list-item role="listitem" *ngFor="let tournament of tournaments[i]">- {{tournament}}</mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+    </div>
+  </div>
+  </div>
+  <div class="final-buttons">
+      <a mat-button [routerLink]="['/competition/tennis', competitionId]">
+        <mat-icon mat-list-icon>navigate_before</mat-icon>
+        {{ 'COMPETITIONS.RETURN' | translate }}
+      </a>
+  </div>
+  </div>

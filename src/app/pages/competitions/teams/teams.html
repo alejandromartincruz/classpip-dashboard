@@ -1,0 +1,33 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="teams-content">
+  <div *ngIf="competition">
+  <h5> {{ 'COMPETITIONS.TITLE' | translate }} > {{competition.name}} >
+    {{ 'COMPETITIONS.TEAMS' | translate }} </h5>
+  <h3>{{ 'COMPETITIONS.TEAMS' | translate }}</h3>
+    <mat-card class="team-card" *ngFor="let team of teams; let i=index;">
+        <mat-card-header>
+          <mat-card-title><strong>{{ 'COMPETITIONS.TEAM' | translate }} {{i + 1}}: {{team.name | uppercase}}</strong></mat-card-title>
+          <mat-card-subtitle>{{team.numPlayers}} {{ 'COMPETITIONS.PLAYERS' | translate }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-list class="team-list" role="list" *ngFor="let student of allStudents[i]">
+                <mat-list-item class="team-list-item" role="listitem">
+                    <mat-icon mat-list-icon>person</mat-icon>
+                  {{student.name}} {{student.surname}}
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="final-buttons">
+          <a mat-button *ngIf="competition.type === 'Liga'" [routerLink]="['/competition/league', competitionId]">
+            <mat-icon mat-list-icon>navigate_before</mat-icon>
+            {{ 'TEAMS.RETURN' | translate }}
+          </a>
+          <a mat-button *ngIf="competition.type === 'Tenis'" [routerLink]="['/competition/tennis', competitionId]">
+            <mat-icon mat-list-icon>navigate_before</mat-icon>
+            {{ 'TEAMS.RETURN' | translate }}
+          </a>
+      </div>
+    </div>
+</div>

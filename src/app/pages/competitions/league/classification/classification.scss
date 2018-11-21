@@ -1,0 +1,60 @@
+.classification-content{
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 1em 0;
+  caption-side: top;
+  border-collapse: collapse;
+}
+
+thead {
+  border: 0;
+}
+
+tbody {
+  border: 1px solid #999;
+  border-left: 0;
+  border-right: 0;
+}
+
+caption, td, th {
+  padding: 0.3em;
+}
+th, td {
+  border-bottom: 1px solid #999;
+  width: 14%;
+}
+caption {
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+table tr:nth-child(even) {
+  background-color: #efefef;
+}
+
+.name {
+  text-align: left;
+  width: 25%;
+}
+
+.position {
+  width: 5%;
+}
+
+.points {
+  background: khaki;
+}
+
+.information {
+  font-size: 75%;
+}
+
+#position_1 {
+  background: olivedrab;
+}

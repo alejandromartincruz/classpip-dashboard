@@ -1,0 +1,96 @@
+.journeys-content {
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.journey-card {
+  background-color: lightyellow;
+  width: 44%;
+  display: inline-flex;
+}
+
+mat-card-content {
+  width: 100%;
+}
+
+.dateNoMatch-card {
+  background-color: lightyellow;
+  width: 44%;
+  display: inline-block;
+}
+
+h4, p {
+  text-align: center;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: 90%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  caption-side: top;
+  border-collapse: collapse;
+}
+
+thead {
+  border: 0;
+  text-align: left;
+}
+
+tbody {
+  border: 1px solid #999;
+  border-left: 0;
+  border-right: 0;
+}
+
+thead th {
+  background-color: lightyellow;
+}
+
+caption, td, th {
+  padding: 0.3em;
+}
+th, td {
+  border-bottom: 1px solid #999;
+}
+.date {
+  text-align: right;
+  margin-bottom: 0;
+}
+ 
+.cardsNoMatch-div {
+margin-top: 10px;
+}
+
+.foot {
+  margin-top: 10px;
+  font-size: 90%;
+}
+
+
+table tr:nth-child(odd) {
+  background-color: #efefef;
+}
+
+table tr:nth-child(even) {
+  background-color: whitesmoke;
+}
+
+button { 
+  margin: auto 46%; 
+}
+
+.result {
+  background: khaki;
+  text-align: center;
+  width: 40%;
+}
+
+.player {
+   width: 30%;
+}
+
