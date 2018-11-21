@@ -1,0 +1,43 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="journeys-content">
+  <h5 *ngIf="competition"> {{ 'COMPETITIONS.TITLE' | translate }} > {{ competition.name }} >
+        {{ 'COMPETITIONS.CALENDAR' | translate }} </h5>
+
+  <div *ngIf="dates">
+  <h4>{{ 'COMPETITIONS.CALENDAR_OF' | translate }} {{ 'COMPETITIONS.LEAGUE' | translate }}: {{ competition.name }}</h4>
+      <mat-card class="journey-card" *ngFor="let date of dates; let i=index;">
+        <mat-card-content>
+            <p>{{ 'COMPETITIONS.JOURNEY' | translate }} {{i + 1}}</p>
+         <table>
+            <caption>
+              {{ 'COMPETITIONS.DATE' | translate }}: {{date}}
+            </caption>
+            <thead>
+              <tr class="tableHeader">
+                <th *ngIf="competition.mode === 'Individual'" class="player">{{ 'COMPETITIONS.PLAYER' | translate }} 1</th>
+                <th *ngIf="competition.mode === 'Individual'" class="player">{{ 'COMPETITIONS.PLAYER' | translate }} 2</th>
+                <th *ngIf="competition.mode === 'Equipos'" class="player">{{ 'COMPETITIONS.TEAM' | translate }} 1</th>
+                <th *ngIf="competition.mode === 'Equipos'" class="player">{{ 'COMPETITIONS.TEAM' | translate }} 2</th>
+                <th class="result">{{ 'COMPETITIONS.WINNER' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let score of matchesJourneys[i]">
+                <td class="player">{{score.namePlayerOne}}</td>
+                <td class="player">{{score.namePlayerTwo}}</td>
+                <td class="result">{{score.result}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </mat-card-content>
+      </mat-card>
+  </div>
+
+  <div class="final-buttons">
+      <a mat-button [routerLink]="['/competition/league', competitionId]">
+        <mat-icon mat-list-icon>navigate_before</mat-icon>
+        {{ 'COMPETITIONS.RETURN' | translate }}
+      </a>
+  </div>
+
+</div>

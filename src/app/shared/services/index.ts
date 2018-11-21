@@ -14,3 +14,7 @@ export * from './badge.service';
 export * from './pointRelation.service';
 export * from './point.service';
 export * from './collection.service';
+export * from './competition.service';
+export * from './journey.service';
+export * from './matches.service';
+export * from './team.service';

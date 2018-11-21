@@ -1,0 +1,72 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="tournaments-content">
+  <h5 *ngIf="competition"> {{ 'COMPETITIONS.TITLE' | translate }} > {{ competition.name }} >
+      {{ 'TENNIS.TOURNAMENT_TRACKING' | translate }} </h5>
+
+  <div *ngIf="finished">
+    <h3 class="title">{{ 'TENNIS.TOURNAMENT_TRACKING' | translate }}: {{ competition.name }}</h3>
+    <mat-card *ngIf="winner" class="winner-card">
+     <b>{{ 'TOURNAMENTS.FINISHED' | translate }}.</b>
+     <p class="winner"><b>{{ 'COMPETITIONS.WINNER' | translate }}: {{winner}}</b></p>
+    </mat-card>
+    <h4 *ngIf="!winner">{{ 'TOURNAMENTS.PARTICIPANTS' | translate }} ({{ 'COMPETITIONS.JOURNEY_NUMBER' | translate }} {{lastJourney + 1}}):</h4>
+    <div *ngIf="!final">
+    <mat-card class="tournaments-card">
+      <mat-card-content>
+        <mat-list>
+          <h3 class="subtitle">{{ 'TOURNAMENTS.PRINCIPAL' | translate }}</h3>
+          <mat-list-item *ngFor="let primary of participantsPrimary">
+            <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+            <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+            <p>{{primary}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <h3 class="subtitle">{{ 'TOURNAMENTS.SECONDARY' | translate }}</h3>
+          <mat-list-item *ngFor="let secondary of participantsSecondary">
+            <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+            <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+            <p>{{secondary}}</p>
+          </mat-list-item>
+          <mat-list-item *ngIf="participantsSecondary.length === 0">{{ 'TOURNAMENTS.NO_PLAYER_SECONDARY' | translate }}.</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf="final">
+   <h4 class="final">{{ 'TOURNAMENTS.FINAL' | translate }}:</h4>
+     <mat-card class="eliminated-card">
+       <mat-card-content>
+         <mat-list>
+           <h3 class="subtitle">{{ 'TOURNAMENTS.FINALISTS' | translate }}</h3>
+           <mat-list-item *ngFor="let final of participantsPrimary">
+             <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+             <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+             <p>{{final}}</p>
+           </mat-list-item>
+         </mat-list>
+       </mat-card-content>
+     </mat-card>
+  </div>
+  <div>
+      <h4>{{ 'TOURNAMENTS.PLAYERS_ELIMINATED' | translate }}:</h4>
+      <mat-card class="eliminated-card">
+        <mat-card-content>
+          <mat-list>
+            <h3 class="subtitle">{{ 'TOURNAMENTS.ELIMINATED' | translate }}</h3>
+            <mat-list-item *ngFor="let eliminated of participantsEliminated">
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+              <p>{{eliminated}}</p>
+            </mat-list-item>
+            <mat-list-item *ngIf="participantsEliminated.length === 0">{{ 'TOURNAMENTS.NO_PLAYER_ELIMINATED' | translate }}.</mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+     </div>
+  </div>
+  <div class="final-buttons">
+      <a mat-button [routerLink]="['/competition/tennis', competitionId]">
+        <mat-icon mat-list-icon>navigate_before</mat-icon>
+        {{ 'COMPETITIONS.RETURN' | translate }}
+      </a>
+  </div>
+</div>

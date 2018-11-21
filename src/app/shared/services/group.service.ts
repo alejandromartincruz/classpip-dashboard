@@ -7,7 +7,7 @@ import { AvatarService } from './avatar.service';
 import { GradeService } from './grade.service';
 import { MatterService } from './matter.service';
 import { AppConfig } from '../../app.config';
-import { Group, Grade, Matter, Student } from '../models/index';
+import { Group, Grade, Matter, Student, Team } from '../models/index';
 
 @Injectable()
 export class GroupService {
@@ -53,7 +53,7 @@ export class GroupService {
    * Returns the list of students by a group id.
    * @return {Array<Stuent>} returns the list of students
    */
-  public getMyGroupStudents(id: string): Observable<Array<Student>> {
+  public getMyGroupStudents(id: string | number): Observable<Array<Student>> {
 
     const ret: Array<Student> = new Array<Student>();
 
@@ -78,7 +78,7 @@ export class GroupService {
    * Returns the list of students by a group id.
    * @return {Array<Stuent>} returns the list of students
    */
-  private getGroupStudents(id: string): Observable<Array<Student>> {
+  private getGroupStudents(id: string | number): Observable<Array<Student>> {
 
     const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
@@ -105,6 +105,37 @@ export class GroupService {
 
     return this.http.get(url, options)
       .map((response: Response, index: number) => Group.toObjectArray(response.json()));
+  }
+
+  /**
+   * Returns the information of the group by a group id
+   * @return {Group} returns the group
+   */
+  public getGroup(id: number): Observable<Group> {
+
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
+    return this.http.get(AppConfig.GROUP_URL + '/' + id, options)
+      .map((response: Response, index: number) => Group.toObject(response.json()))
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+  }
+
+  /**
+  * GET: Returns the list of teams of a group
+  * @return {Observable<Array<Team>>} returns the list of teams
+  */
+  public getGroupTeams(groupId: string | number): Observable<Array<Team>> {
+
+   const options: RequestOptions = new RequestOptions({
+    headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+   });
+   const url: string = AppConfig.GROUP_URL + '/' + groupId + AppConfig.TEAMS_URL;
+
+   return this.http.get(url, options)
+    .map((response: Response, index: number) => Team.toObjectArray(response.json()))
+    .catch((error: Response) => this.utilsService.handleAPIError(error));
   }
 
 }

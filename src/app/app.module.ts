@@ -6,6 +6,7 @@ import { Http, HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 import { NgxLoremIpsumModule } from 'ngx-lorem-ipsum';
+import {DatePipe} from '@angular/common';
 
 // aplication
 import { AppComponent } from './app.component';
@@ -21,6 +22,20 @@ import { PointsBadgesComponent } from './pages/pointsbadges/pointsbadges';
 import { CollectionsComponent } from './pages/collections/collections';
 import { CollectionComponent } from './pages/collection/collection';
 import { CollectionStudentComponent } from './pages/collectionStudent/collectionStudent';
+
+import { CompetitionsComponent } from './pages/competitions/competitions';
+import { CreateTeamsComponent } from './pages/create-teams/create-teams';
+// pages (competitions)
+import { LeagueComponent} from './pages/competitions/league/league';
+import { TennisComponent} from './pages/competitions/tennis/tennis';
+import { CreateLeagueCompetitionComponent } from './pages/competitions/create-league-competition/create-league-competition';
+import { CreateTennisCompetitionComponent } from './pages/competitions/create-tennis-competition/create-tennis-competition';
+import { DeleteCompetitionComponent } from './pages/competitions/delete-competition/delete-competition';
+import { TeamsComponent } from './pages/competitions/teams/teams';
+import { ClassificationComponent } from './pages/competitions/league/classification/classification';
+import { JourneysLeagueComponent } from './pages/competitions/league/journeys-league/journeys-league';
+import { JourneysTennisComponent } from './pages/competitions/tennis/journeys-tennis/journeys-tennis';
+import { TournamentsComponent } from './pages/competitions/tennis/tournaments/tournaments';
 
 import { CreateCardComponent } from './pages/createCard/createCard';
 
@@ -59,8 +74,9 @@ import { LoadingComponent } from './shared/loading/loading';
 import {
   UtilsService, LoginService, LoadingService, AlertService,
   SchoolService, AvatarService, UserService, GroupService,
-  GradeService, MatterService, QuestionnaireService,CollectionService, PointService, PointRelationService, BadgeService, BadgeRelationService
-} from './shared/services/index';
+  GradeService, MatterService, QuestionnaireService, CollectionService,
+  PointService, PointRelationService, BadgeService, BadgeRelationService,
+  CompetitionService, JourneyService, MatchesService, TeamService } from './shared/services/index';
 
 // rxjs
 import 'rxjs/add/observable/fromPromise';
@@ -73,12 +89,7 @@ import { CreateCollectionComponent } from './pages/createCollection/createCollec
 import { DeleteCollectionComponent } from './pages/deleteCollection/deleteCollection';
 import { QuestionnaireAwardsComponent } from './pages/questionnaireAwards/questionnaireAwards';
 import { GroupStudentsComponent } from './pages/groupStudents/groupStudents';
-
-
-
-
-
-
+import {from} from 'rxjs/observable/from';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, AppConfig.LANG_PATH, AppConfig.LANG_EXT);
@@ -119,6 +130,20 @@ export function createTranslateLoader(http: Http) {
     CreateQuestionnaireTextArea1Component,
     CreateQuestionnaireTextArea2Component,
     LanguageComponent,
+
+    CompetitionsComponent,
+    CreateTeamsComponent,
+    // pages (competitions)
+    LeagueComponent,
+    TennisComponent,
+    CreateLeagueCompetitionComponent,
+    CreateTennisCompetitionComponent,
+    DeleteCompetitionComponent,
+    TeamsComponent,
+    ClassificationComponent,
+    JourneysLeagueComponent,
+    JourneysTennisComponent,
+    TournamentsComponent,
     // shared
     NavBarComponent,
     FooterComponent,
@@ -160,8 +185,12 @@ export function createTranslateLoader(http: Http) {
     PointRelationService,
     BadgeService,
     BadgeRelationService,
-    CollectionService
-
+    CollectionService,
+    CompetitionService,
+    JourneyService,
+    MatchesService,
+    TeamService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

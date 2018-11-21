@@ -1,0 +1,59 @@
+<div class="competitions-content" *ngIf="utilsService.role == 1 || utilsService.role == 0">
+
+  <mat-list>
+    <h3 mat-subheader> {{ 'COMPETITIONS.TITLE' | translate }} </h3>
+
+    <div *ngIf="utilsService.role == 1">
+      <mat-list-item class="create-competition">
+      <button mat-raised-button color="primary" style="width:100%" [matMenuTriggerFor]="menu">
+        {{ 'COMPETITIONS.CREATE_NEW_COMPETITION' | translate }}
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled><span><b>{{ 'COMPETITIONS.AVAILABLE' | translate }}:</b></span></button>
+        <a mat-menu-item routerLink="/competition/league/create">
+          <mat-icon>chevron_right</mat-icon>
+          <span>{{ 'COMPETITIONS.LEAGUE' | translate }}</span>
+        </a>
+        <a mat-menu-item routerLink="/competition/tennis/create">
+          <mat-icon>chevron_right</mat-icon>
+          {{ 'TENNIS.TITLE' | translate }}
+        </a>
+      </mat-menu>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-divider></mat-divider>
+    </div>
+
+    <mat-list-item>
+      <h2 mat-dialog-title>{{ 'COMPETITIONS.SUBTITLE' | translate }}</h2>
+   </mat-list-item>
+
+  </mat-list>
+
+
+  <mat-grid-list cols="1" rowHeight="9:1">
+
+      <mat-grid-tile *ngIf="competitions.length === 0">
+          <p *ngIf="utilsService.role == 1 ">{{ 'COMPETITIONS.NONE_TEACHER' | translate }} </p>
+          <p *ngIf="utilsService.role == 0 ">{{ 'COMPETITIONS.NONE_STUDENT' | translate }} </p>
+      </mat-grid-tile>
+
+    <div *ngIf="competitions">
+      <mat-grid-tile *ngFor="let competition of competitions">
+          <a mat-raised-button class="League" *ngIf="competition.type === 'Liga' " [routerLink]="['/competition/league', competition.id]">
+            <img src="../../../assets/img/liga-icon.svg" alt="angular">
+            <span><strong>{{competition.name}}</strong> <br> {{competition.grade.name}} {{competition.matter.name}}
+              <strong>{{competition.mode}}</strong></span>
+          </a>
+          <a mat-raised-button class="Tennis" *ngIf="competition.type === 'Tenis' " [routerLink]="['/competition/tennis', competition.id]">
+            <img src="../../../assets/img/tenis-icon.svg" alt="angular">
+            <span><strong>{{competition.name}}</strong> <br>{{competition.grade.name}} {{competition.matter.name}}
+              <strong>{{competition.mode}}</strong></span>
+          </a>
+      </mat-grid-tile>
+    </div>
+
+  </mat-grid-list>
+
+  </div>

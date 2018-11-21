@@ -1,0 +1,33 @@
+.tournaments-content {
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.title {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.winner {
+  text-align: center;
+}
+
+.winner-card {
+  background-color: lightgreen;
+}
+
+.subtitle {
+  padding-left: 25px;
+}
+
+mat-card {
+  background-color: lightyellow;
+}
+
+mat-list {
+  padding-top: 0;
+}
+
+mat-divider {
+  margin: 35px 0;
+}

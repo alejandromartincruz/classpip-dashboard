@@ -1,0 +1,124 @@
+<div class="stepper-content">
+<h4>{{ 'COMPETITION_CREATION.TITLE' | translate }} {{ 'COMPETITIONS.LEAGUE' | translate }}:</h4>
+<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+  <mat-step label="{{ 'COMPETITIONS.INITIALIZATION' | translate }}"  [stepControl]="competitionFormGroup" editable="false">
+
+    <form [formGroup]="competitionFormGroup" (ngSubmit)="competitionStep(competitionFormGroup.value)">
+       <div class="form-group">
+         <mat-form-field>
+           <input matInput type="text" class="form-control" placeholder="{{ 'COMPETITIONS.NAME' | translate }}" required formControlName="name">
+         </mat-form-field>
+       </div>
+
+       <div class="form-group">
+         <mat-form-field>
+           <mat-select class="form-control" placeholder="{{ 'GROUPS.SINGULAR' | translate }}" formControlName="groupId" required>
+             <mat-option *ngFor="let group of groups" [value]="group.id">
+              {{ group.grade.name + ' ' + group.matter.name}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+        </div>
+
+        <div class="form-group-radio">
+           <mat-radio-group class="form-control-radio" required formControlName="mode">
+             <mat-radio-button [value]="'Individual'">
+                {{ 'COMPETITIONS.INDIVIDUAL' | translate }}
+             </mat-radio-button>
+             <mat-radio-button [value]="'Equipos'">
+                {{ 'COMPETITIONS.TEAMS' | translate }}
+            </mat-radio-button>
+           </mat-radio-group>
+        </div>
+
+        <div class="form-group">
+           <mat-form-field>
+             <input matInput type="number" class="form-control" required formControlName="numJourneys" placeholder="{{ 'COMPETITIONS.NUMBER_JOURNEYS' | translate }}">
+           </mat-form-field>
+         </div>
+       <div>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="!competitionFormGroup.valid">{{ 'COMPETITIONS.NEXT' | translate }}</button>
+      </div>
+   </form>
+  </mat-step>
+
+
+  <mat-step label="Participantes" 
+            [stepControl]="participantsFormGroup" editable="false">
+    <p>{{ 'COMPETITION_CREATION.PARTICIPANT' | translate }}</p>
+    <p>{{ 'COMPETITION_CREATION.MIN_2' | translate }}</p>
+    <mat-selection-list #list>
+      <mat-list-option *ngFor="let participant of participants"
+           [selected]="participant.selected" [value]="participant.id">
+            {{participant.name}} {{participant.surname}}
+      </mat-list-option>
+    </mat-selection-list>
+    <div>
+      <button mat-raised-button color="primary" matStepperNext 
+        (click)="participantStep(list)"
+        [disabled]="list.selectedOptions.selected.length < 2">
+        {{ 'COMPETITIONS.NEXT' | translate }}
+      </button>
+    </div>
+  </mat-step>
+
+
+  <mat-step label="{{ 'COMPETITIONS.JOURNEYS' | translate }}" class="mat-horizontal-step" [stepControl]="journeysFormGroup" editable="false">
+
+    <form [formGroup]="journeysFormGroup" (ngSubmit)="journeyStep(journeysFormGroup.value)">
+        <p>{{ 'COMPETITIONS.INTR_JOURNEY' | translate }}</p>
+
+       <div class="form-group" formArrayName="journeys">
+          <div *ngFor="let journey of journeysFormGroup.get('journeys')['controls'] ;let i=index;">
+
+                <div class="panel-body" [formGroupName]="i">
+                    <div class="form-group">
+                      <mat-form-field>
+                          <input matInput [matDatepicker]="picker" formControlName="date"
+                          placeholder=" {{ 'COMPETITIONS.JOURNEY' | translate }} {{i + 1}}">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+                </div>
+
+          </div>
+       </div>
+
+       <div>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="!journeysFormGroup.valid">{{ 'COMPETITIONS.NEXT' | translate }}</button>
+       </div>
+    </form>
+
+   </mat-step>
+
+
+  <mat-step label="{{ 'COMPETITIONS.MORE_INFO' | translate }}" class="mat-horizontal-step" [stepControl]="informationFormGroup"
+  (click)="journeyStep(journeysFormGroup.value)" editable="false">
+   <form [formGroup]="informationFormGroup" (ngSubmit)="informationStep(informationFormGroup.value)">
+      <p>{{ 'COMPETITIONS.EXPL_INFO' | translate }}</p>
+        <div>
+       <mat-form-field class="text-info">
+           <textarea matInput placeholder="Deje su comentario" formControlName="information"></textarea>
+        </mat-form-field>
+      </div>
+
+     <div>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="!informationFormGroup.valid">{{ 'COMPETITIONS.NEXT' | translate }}</button>
+     </div>
+    </form>
+  </mat-step>
+
+  <mat-step label="{{ 'COMPETITIONS.FINISHED2' | translate }}" (click)="informationStep(informationFormGroup.value)">
+     <div *ngIf="finished">
+      <p>{{ 'COMPETITIONS.FINISHED' | translate }}</p>
+      <div class="final-buttons">
+        <a mat-raised-button color="primary" class="Clasificacion" routerLink="/competitions">
+          <strong>{{ 'COMPETITIONS.DONE' | translate }}</strong>
+        </a>
+      </div>
+    </div>
+  </mat-step>
+ </mat-horizontal-stepper>
+</div>

@@ -1,0 +1,41 @@
+.competitions-content {
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.create-competition {
+  margin: 0 0 30px 0;
+}
+
+.League {
+  background-color:#98B8FF;
+}
+
+.Tennis {
+  background-color: yellowgreen;
+}
+
+.liga-icon {
+  height: 10px;
+}
+
+img {
+  height: 80px;
+  margin: 0 0 0 -10px;
+  display: inline-block;
+}
+
+span {
+  display: inline-block;   /* Clave pa que el texto no se quede uno al lado
+                            y la otra linea debajo */
+}
+
+.mat-menu-item {
+  color: #474641;
+}
+
+button.mat-menu-item {
+  color: #474641;
+  font-size: 15px;
+}
+
