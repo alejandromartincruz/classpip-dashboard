@@ -4,9 +4,9 @@ import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AppConfig } from '../../../app.config';
-import { Login, Group, Role, Competition, Journey, Match } from '../../../shared/models/index';
+import { Login, Group, Role, Student, Competition, Journey, Match, Team } from '../../../shared/models/index';
 import { TranslateService } from 'ng2-translate/ng2-translate';
-import { LoadingService, UtilsService, GroupService, AlertService, CompetitionService,
+import { LoadingService, UtilsService, GroupService, AlertService, CompetitionService, TeamService,
 JourneyService, MatchesService } from '../../../shared/services/index';
 import { Observable } from 'rxjs/Observable';
 import { DeleteCompetitionComponent } from '../delete-competition/delete-competition';
@@ -34,7 +34,15 @@ export class LeagueComponent implements OnInit {
   public information: string;
   public journeys = new Array<Journey>();
   public matchesJourneys: Match[][];
+
+  // Clasification
+  public scores = new Array<Score>();
+  public score: Score;
+  public modeIndividual: boolean;
+  public participants: Participant[];
+  public odd: boolean;
   //
+
   public countJourneys: number;
   public countCompleted: number;
   public notCompletedJourneys = new Array<Journey>();
@@ -62,6 +70,7 @@ export class LeagueComponent implements OnInit {
     public translateService: TranslateService,
     public journeyService: JourneyService,
     public competitionService: CompetitionService,
+    private teamService: TeamService,
     private route: ActivatedRoute,
     private router: Router,
     private matchesService: MatchesService,
@@ -221,11 +230,6 @@ export class LeagueComponent implements OnInit {
       this.option === 'Manualmente' ? this.option = 'Aleatoriamente' : this.option = 'Manualmente';
     }
 
-    gotoClassification() {
-      this.url = this.route.snapshot.url.join('/') + '/classification';
-      this.router.navigate([this.url]);
-    }
-
     gotoJourneys() {
       this.url = this.route.snapshot.url.join('/') + '/journeys';
       this.router.navigate([this.url]);
@@ -305,4 +309,98 @@ export class LeagueComponent implements OnInit {
       });
     }
 
+    /* Clasification method 1 */
+    getParticipants(): void {
+      this.participants = [];
+      if (this.competition.mode === 'Individual') {
+        this.modeIndividual = true;
+        this.competitionService.getStudentsCompetition(this.competition.id)
+        .subscribe(( (students: Array<Student>) => {
+          if (students.length % 2 === 0 ) { this.odd = false; } else { this.odd = true; }
+          for (let _s = 0; _s < students.length; _s++) {
+            this.participants[_s] = {
+              id: +students[_s].id,
+              name: students[_s].name.concat(' ', students[_s].surname)
+            };
+          }
+          this.getScores();
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+        } else {
+        this.modeIndividual = false;
+        this.teamService.getTeamsCompetition(this.competitionId)
+        .subscribe(( (teams: Array<Team>) => {
+          if (teams.length % 2 === 0 ) { this.odd = false; } else { this.odd = true; }
+          for (let _t = 0; _t < teams.length; _t++) {
+            this.participants[_t] = {
+              id: +teams[_t].id,
+              name: teams[_t].name
+            };
+          }
+          this.getScores();
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+        }
+    }
+
+    getScores(): void {
+      this.scores = [];
+      for (let _p = 0; _p < this.participants.length; _p++) {
+        this.score = { position: 0, name: this.participants[_p].name,
+                       played: 0, won: 0, draw: 0, lost: 0, points: 0};
+        for (let _j = 0; _j < this.journeys.length; _j++) {
+          let found = false;
+          for (let _m = 0; _m < this.matchesJourneys[_j].length && !found; _m++) {
+            if ( +this.participants[_p].id === this.matchesJourneys[_j][_m].playerOne ||
+            +this.participants[_p].id === this.matchesJourneys[_j][_m].playerTwo ) {
+              if ( this.matchesJourneys[_j][_m].winner === +this.participants[_p].id ) {
+                this.score.points = this.score.points + 3;
+                this.score.won = this.score.won + 1;
+                this.score.played = this.score.played + 1;
+              } else if ( this.matchesJourneys[_j][_m].winner === 1 ) {
+                this.score.points = this.score.points + 1;
+                this.score.draw = this.score.draw + 1;
+                this.score.played = this.score.played + 1;
+              } else if ( this.matchesJourneys[_j][_m].winner === 2
+              || this.matchesJourneys[_j][_m].winner === 0 ) {
+              } else {
+                this.score.lost = this.score.lost + 1;
+                this.score.played = this.score.played + 1;
+              }
+              found = true;
+            }
+          }
+        }
+        this.scores.push(this.score);
+      }
+      this.scores.sort(function (a, b) {
+        return (b.points - a.points);
+      });
+      for (let _s = 0; _s < this.scores.length; _s++) {
+        this.scores[_s].position = _s + 1;
+       }
+       this.loadingService.hide();
   }
+
+}
+
+export interface Score {
+  position: number;
+  name: string;
+  played: number;
+  won: number;
+  draw: number;
+  lost: number;
+  points: number;
+}
+
+export interface Participant {
+  id: number;
+  name: string;
+}

@@ -382,7 +382,9 @@
     "LOST": "Perdidos",
     "POINTS": "Puntuación",
     "N": "No.",
-    "INFORMATION": "*Los participantes con un número menos de enfrentamientos realizados se debe a la irregularidad de ser un número impar de participantes totales en esta liga. Los descansos que deben realizarse en cada jornada por parte de algún participante conlleva a no sumar puntos en esa jornada."
+    "INFORMATION": "*Los participantes con un número menos de enfrentamientos realizados se debe a la irregularidad de ser un número impar de participantes totales en esta liga. Los descansos que deben realizarse en cada jornada por parte de algún participante conlleva a no sumar puntos en esa jornada.",
+    "UPDATE": "Actualizar Clasificación",
+    "UPDATEINFO": "*Para ver la clasificación actual debes cargar otra vez la página después de actualizar"
   },
   "TOURNAMENTS": {
     "PARTICIPANTS": "Participantes del torneo actuales",
