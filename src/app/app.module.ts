@@ -1,7 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {CdkTableModule} from '@angular/cdk/table';
+import {MatInputModule, MatTableModule, MatToolbarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { MatTableModule } from '@angular/material/table';
+
 import { Http, HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
@@ -54,9 +59,11 @@ import { CreateQuestionnaireTextArea1Component } from './pages/createQuestionnai
 import { CreateQuestionnaireTextArea2Component } from './pages/createQuestionnaireTextArea2/createQuestionnaireTextArea2';
 
 import { CreatePointComponent } from './pages/createPoint/createPoint';
+import { AssistanceComponent } from './pages/assistance/assistance';
 import { DeletePointComponent } from './pages/deletePoint/deletePoint';
 import { CreateBadgeComponent } from './pages/createBadge/createBadge';
 import { DeleteBadgeComponent } from './pages/deleteBadge/deleteBadge';
+// import { AssistanceComponent } from './pages/assistance/assistance';
 
 import { LanguageComponent } from './pages/language/language';
 
@@ -76,7 +83,7 @@ import {
   SchoolService, AvatarService, UserService, GroupService,
   GradeService, MatterService, QuestionnaireService, CollectionService,
   PointService, PointRelationService, BadgeService, BadgeRelationService,
-  CompetitionService, JourneyService, MatchesService, TeamService } from './shared/services/index';
+  CompetitionService, JourneyService, MatchesService, TeamService} from './shared/services/index';
 
 // rxjs
 import 'rxjs/add/observable/fromPromise';
@@ -111,7 +118,7 @@ export function createTranslateLoader(http: Http) {
     DeleteCardComponent,
     CreateCollectionComponent,
     DeleteCollectionComponent,
-
+    AssistanceComponent,
     CreateQuestionnairePointsAssignmentComponent,
     CreateQuestionnaireBadgesAssignmentComponent,
     CreateQuestionnairePackCardsAssignmentComponent,
@@ -154,8 +161,18 @@ export function createTranslateLoader(http: Http) {
   ],
   imports: [
     BrowserModule,
+
+    FormsModule,
+    CommonModule,
+    MatToolbarModule,
+    CdkTableModule,
+    MatInputModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    MatTableModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatTableModule,
     AppMaterialModule,
     ReactiveFormsModule,
     FormsModule,

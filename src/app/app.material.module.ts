@@ -8,6 +8,7 @@ import {MatSlideToggleModule, MatTabsModule,
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
+import {MatTableModule} from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { CommonModule } from '@angular/common';
     MatGridListModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatTableModule,
     MatSnackBarModule,
     MatListModule,
     MatIconModule,
@@ -48,6 +50,7 @@ import { CommonModule } from '@angular/common';
     RouterModule,
     CommonModule,
     MatGridListModule,
+    MatTableModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSnackBarModule,

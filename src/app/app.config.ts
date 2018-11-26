@@ -36,10 +36,12 @@ export class AppConfig {
   public static get STUDENTS_URL(): string { return '/students'; }
   public static get COUNT_URL(): string { return '/count'; }
   public static get GROUPS_URL(): string { return '/groups'; }
+  public static get ASSISTANCE_URL(): string { return '/assistance'; }
   public static get QUESTIONNAIRES_URL(): string { return '/questionnaires'; }
   public static get QUESTIONS_URL(): string { return '/questions'; }
   public static get ANSWERS_URL(): string { return '/answers'; }
   public static get CORRECTANSWERS_URL(): string { return '/correctAnswers'; }
+  // public static get ASSISTANCE_URL(): string { return '/assis'}
   public static get POINTS_URL(): string { return '/points'; }
   public static get BADGES_URL(): string { return '/badges'; }
   public static get POINTSRELATION_URL(): string { return '/pointRelations'; }

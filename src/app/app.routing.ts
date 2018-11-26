@@ -13,7 +13,7 @@ import { CollectionStudentComponent } from './pages/collectionStudent/collection
 
 import { CollectionComponent } from './pages/collection/collection';
 import { CreateCardComponent } from './pages/createCard/createCard';
-
+import { AssistanceComponent } from './pages/assistance/assistance';
 import { QuestionnaireComponent } from './pages/questionnaire/questionnaire';
 import { QuestionnaireResultsComponent } from './pages/questionnaireResults/questionnaireResults';
 import { QuestionnaireAwardsComponent } from './pages/questionnaireAwards/questionnaireAwards';
@@ -85,8 +85,7 @@ const appRoutes: Routes = [
 
   { path: 'createCard', component: CreateCardComponent, canActivate: [AuthGuard] },
   { path: 'deleteCard', component: DeleteCardComponent, canActivate: [AuthGuard] },
-
-
+  { path: 'assistance', component: AssistanceComponent, canActivate: [AuthGuard]},
   { path: 'questionnaires', component: QuestionnairesComponent, canActivate: [AuthGuard] },
   { path: 'questionnaireAwards', component: QuestionnaireAwardsComponent, canActivate: [AuthGuard]},
   { path: 'questionnaire/:id', component: QuestionnaireComponent, canActivate: [AuthGuard] },

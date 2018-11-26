@@ -1,0 +1,36 @@
+<div class="example-container mat-elevation-z8">
+  <!-- <mat-divider></mat-divider> -->
+  <mat-card class="tar">
+    <mat-select class="pesta" [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
+
+      <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents()">
+        {{group.name}}
+      </mat-option>
+    </mat-select>
+    <button mat-raised-button color="primary" (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
+  </mat-card>
+  <mat-card>
+    <table>
+      <thead>
+        <tr>
+          <th class="stdtit">{{ 'ASSISTANCE.STUDENT' | translate }}</th>
+          <th>{{ 'ASSISTANCE.ASSIST' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of listStudents; let i=index;">
+          <td class="student">{{student.name}} {{" "}} {{student.surname}}</td>
+          <!-- <th><input type="checkbox" ng-model="model.allItemsSelected" ng-change="selectAll()"></th> -->
+          <!-- <th><input type="checkbox" [(value)]="toassist[i+1]"></th> -->
+          <th><input type="checkbox"></th>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <mat-divider></mat-divider> -->
+    <!-- <mat-card-actions>
+          <button mat-raised-button color="primary" class="finished">{{ 'ASSISTANCE.CHECK' | translate}}</button>
+      </mat-card-actions> -->
+  </mat-card>
+  <button mat-raised-button class="finished" color="primary" (click)="checklist()">{{ 'ASSISTANCE.CHECK' | translate}}</button>
+  <!-- <button mat-raised-button class="finish">{{"Pasar Lista"}}</button> -->
+</div>

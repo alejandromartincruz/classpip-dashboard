@@ -41,7 +41,11 @@ export class PointsBadgesComponent implements OnInit {
   public studentSelected2: string;
   public pointSelected: string;
   public badgeSelected: string;
+  public nullpoints: boolean;
   public valueSelected: number;
+  public puntoss: number;
+  public scores = new Array<Score>();
+  public score: Score;
   public points: Array<Point>;
   public studentPoints: Array<PointRelation> = new Array<PointRelation>();
   public valuePoints: Array<PointRelation> = new Array<PointRelation>();
@@ -49,12 +53,14 @@ export class PointsBadgesComponent implements OnInit {
 
   public listStudents: Array<Student> = new Array<Student>();
   public listStudentsPoints: Array<Student> = new Array<Student>();
-
+  public listStudentsPointsordenada: Array<Student> = new Array<Student>();
 
   public listPoints: Array<ResultPoints>;
   public listBadges: Array<ResultBadges>;
 
   public pointId: string;
+  public maxx_: number;
+  public posit: number;
   public resultDeletePoint: number;
   public totalPoints: number;
   public totalPointsStudent: number;
@@ -93,6 +99,17 @@ export class PointsBadgesComponent implements OnInit {
 
     if(this.utilsService.role == Role.STUDENT)
     {
+      this.groupService.getMyGroups().subscribe(
+        ((mygroups: Array<Group>) => {
+          this.mygroups = mygroups;
+          this.loadingService.hide();
+
+
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
       this.listPoints = new Array<ResultPoints>();
       this.listBadges = new Array<ResultBadges>();
 
@@ -203,7 +220,8 @@ export class PointsBadgesComponent implements OnInit {
 
   }
   public showStudents(){
-
+    this.scores = [];
+    this.nullpoints=true;
     this.listStudentsPoints = [];
 
     if(this.groupSelectedList)
@@ -215,21 +233,29 @@ export class PointsBadgesComponent implements OnInit {
 
         for(let st of this.listStudents)
         {
+          this.sortstudents();
+          // this.score = { position: 0, nameees: st.name, points: 0};
           this.pointRelationService.getStudentPoints(st.id).subscribe(
             ((valuePoints: Array<PointRelation>) =>{
+              // this.score = { position: 0, nameees: st.name, points: 0};
                 this.valuePoints= valuePoints;
               this.totalPointsStudent = 0;
               st.totalPoints = 0;
+              this.puntoss=0;
               this.loadingService.hide();
               for(let rel of this.valuePoints)
               {
+                if(rel.groupId==+this.groupSelectedList){
+
                 this.pointService.getPoint(rel.pointId).subscribe(
                   ((valuep: Point) =>{
                     this.loadingService.hide();
 
                   // this.totalPointsStudent += Number(valuep.value) * Number(rel.value);
                     st.totalPoints +=Number(valuep.value) * Number(rel.value);
-
+                    this.puntoss +=Number(valuep.value) * Number(rel.value);
+                    if (st.totalPoints !== 0){ this.nullpoints=false}
+                    this.sortstudents();
                   }),
                   ((error: Response) => {
                     this.loadingService.hide();
@@ -238,14 +264,17 @@ export class PointsBadgesComponent implements OnInit {
 
 
                 }
+              }
 
               // st.totalPoints = this.totalPointsStudent;
 
                 //st.totalPoints = this.totalPointsStudent;
 
                 this.listStudentsPoints.push(st);
+                // this.score.nameees=st.surname;
+                // this.score.points=this.puntoss;
                 this.totalPointsStudent = 0;
-
+                // this.scores.push(this.score);
             }
           ),
           ((error: Response) => {
@@ -253,7 +282,7 @@ export class PointsBadgesComponent implements OnInit {
             this.alertService.show(error.toString());
           }));
 
-
+        // this.scores.push(this.score)
         }
 
 
@@ -261,12 +290,44 @@ export class PointsBadgesComponent implements OnInit {
       ((error: Response) => {
         this.loadingService.hide();
         this.alertService.show(error.toString());
-      }));
+      }))
     }
+}
+
+public sortstudents()
+{
+  if(this.nullpoints==false){
+  this.scores=[];
+      for(let st2 of this.listStudentsPoints)
+        {
+          // students[_s].name.concat(' ', students[_s].surname)
+          this.score = { position: 0, nameees: st2.name.concat(' ',st2.surname), points: 0};
+          // this.score.nameees=st2.surname;
+          this.score.points=st2.totalPoints;
+          this.score.position=0;
+          this.scores.push(this.score);
+        }} else {
+          this.scores=[];
+          for(let st3 of this.listStudents)
+                {
+                  // students[_s].name.concat(' ', students[_s].surname)
+                  this.score = { position: 0, nameees: st3.name.concat(' ',st3.surname), points: 0};
+                  // this.score.nameees=st2.surname;
+                  this.score.points=0;
+                  this.score.position=0;
+                  this.scores.push(this.score);
+
+        }
+      }
+        this.scores.sort(function (a, b) {
+          return (b.points - a.points);
+        });
+        for (let _s = 0; _s < this.scores.length; _s++) {
+          this.scores[_s].position = _s + 1;
+         }
+}
 
 
-
-  }
   public openStudents(){
 
 
@@ -438,4 +499,9 @@ sendBadgeRelation(){
   }
 
 
+}
+export interface Score {
+  nameees: string;
+  position: number;
+  points: number;
 }

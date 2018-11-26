@@ -25,8 +25,15 @@
     "STUDENT": "Estudiant",
     "SCHOOLADMIN": "Director d'escola"
   },
+  "ASSISTANCE":{
+    "TITLE":"Assistència",
+    "ASSIST":"Assistència",
+    "STUDENT":"Estudiant",
+    "CHECK": "Passar llista"
+  },
   "GROUPS": {
     "TITLE": "Grups",
+    "SINGULAR": "Grup",
     "LIST": "Llistat de grups",
 	  "ID": "Id. Grup",
     "CHOOSE": "Tria el grup",
@@ -126,11 +133,10 @@
     "CREATEBADGE": "Crear insígnia",
     "POINTID": "Id. Punt",
     "BADGEID": "Id. Insígnia"
-
-
   },
-  "POINTS": {
+    "POINTS": {
     "TITLE": "Punts",
+    "CLASSIFICATION": "Classificació",
     "LIST": "Llista de punts",
     "CREATED": "Punt creat correctament!",
     "MYPOINTS": "Els meus punts",
@@ -377,13 +383,15 @@
     "TITLE": "Clasificación",
     "LEAGUE": "Clasificación de la liga:",
     "STUDENT": "Nombre del estudiante",
+    "POSITION" : "Pos.",
+    "STUDENTS":"Estudiants",
+    "POINTS":"Puntuació",
     "TEAM": "Nombre del equipo",
     "PLAYED": "Jugados",
     "WON": "Ganados",
     "DRAW": "Empatados",
     "DRAW2": "Empate",
     "LOST": "Perdidos",
-    "POINTS": "Puntuación",
     "N": "No.",
     "AWARDS1": "Asignar premios al primer clasificado",
     "AWARDS2": "Asignar premios al segundo clasificado",

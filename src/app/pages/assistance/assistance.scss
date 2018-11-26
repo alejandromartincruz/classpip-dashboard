@@ -1,0 +1,64 @@
+/* Structure */
+
+/*
+ * Styles to make the demo's cdk-table match the material design spec
+ * https://material.io/guidelines/components/data-tables.html
+ */
+tar{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+ table {
+  width: 35%;
+  text-align: center;
+  // margin: 0 0 1em 0;
+  caption-side: top;
+  margin-left: 0%; 
+  margin-right:auto;
+  border-collapse: collapse;
+}
+thead {
+  border: 0;
+}
+
+tbody {
+  border: 1px solid #999;
+  border-left: 0;
+  border-right: 0;
+}
+
+
+caption {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.student{
+  text-align: left;
+}
+.stdtit{
+  text-align: left;
+}
+.assist{
+  text-align: center;
+  width: 10%;
+}
+.pesta{
+  // background-color: rgb(67, 76, 201);
+  // border-bottom-color: aqua;
+  height: 30%;
+  text-align: center;
+  width: 30%;
+}
+.finished{
+  width: 30%;
+  margin-left: auto; 
+  margin-right: auto;
+  // height: 15px;
+  // background-color: white;
+  // color: black;
+  // border: 2px solid #4CAF50; /* Green */
+}

@@ -3,7 +3,48 @@
     <h3 mat-header>{{ 'POINTSBADGES.TITLE' | translate }}</h3>
 
     <mat-tab-group>
+      <mat-tab label = "{{ 'POINTS.CLASSIFICATION' | translate }}">
+        <br>
 
+        <mat-card class="selectGroup" >
+        <mat-form-field>
+            <mat-select [(value)]="groupSelectedList" placeholder="{{ 'GROUPS.CHOOSE' | translate }}" >
+
+              <mat-option *ngFor="let group of mygroups" [value]="group.id">
+                {{group.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+          <button mat-raised-button (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
+          <!-- <button mat-raised-button (click)="sortstudents()">{{ 'STUDIENTS.SHOW' | translate }}</button> -->
+        </mat-card>
+
+
+
+
+          <table>
+            <thead>
+              <tr class="tableHeader">
+                <th class="positiontit">{{ 'CLASSIFICATION.POSITION' | translate }}</th>
+                <th class="studenttit">{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+                <th class="pointstit">{{ 'CLASSIFICATION.POINTS' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let score of scores; let i=index;">
+                <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
+                <td class="name">{{score.nameees}}</td>
+                <td class="points">{{score.points}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+  </mat-tab>
       <mat-tab label ="{{ 'POINTS.TITLE' | translate }}">
           <ol>
               <mat-card class="assign-content" *ngIf="isTeacher">
@@ -174,40 +215,7 @@
 
 
       </mat-tab>
-      <mat-tab label = "{{ 'POINTS.STUDIENTS' | translate }}" *ngIf="isTeacher">
-            <br>
 
-            <mat-card class="selectGroup" >
-            <mat-form-field>
-                <mat-select [(value)]="groupSelectedList" placeholder="{{ 'GROUPS.CHOOSE' | translate }}" >
-
-                  <mat-option *ngFor="let group of mygroups" [value]="group.id">
-                    {{group.name}}
-                  </mat-option>
-                </mat-select>
-
-              </mat-form-field>
-              <button mat-raised-button (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
-            </mat-card>
-              <mat-nav-list *ngFor="let student of listStudentsPoints">
-                  <mat-list-item>
-                      <img matListAvatar src="{{student.avatar.image}}" >
-                      <h4 mat-line>{{student.name}}</h4>
-                      <p align="end">{{ 'POINTS.TOTAL' | translate }}: {{student.totalPoints}}</p>
-                      <p mat-line>{{student.surname}}</p>
-                      <p mat-line>ID: {{student.id}}</p>
-
-
-                  </mat-list-item>
-
-
-              </mat-nav-list>
-
-
-
-
-
-      </mat-tab>
 
 
 
