@@ -37,6 +37,7 @@
     "@angular/platform-browser-dynamic": "4.4.4",
     "@angular/router": "4.4.4",
     "core-js": "2.4.1",
+    "hammerjs": "^2.0.8",
     "newrelic": "1.34.0",
     "ng2-translate": "5.0.0",
     "ngx-lorem-ipsum": "0.1.1",

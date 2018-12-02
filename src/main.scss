@@ -1,15 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/theming';
-@import './app-theme';
-@import './styles/general';
+@import './sass/styles.scss';
 
-@include mat-core();
-
-// classpip palettes
-$classpip-app-primary: mat-palette($mat-indigo);
-$classpip-app-accent:  mat-palette($mat-pink, A200, A100, A400);
-
-// classpip theme
-$theme: mat-light-theme($classpip-app-primary, $classpip-app-accent);
-@include angular-material-theme($theme);
-@include material-classpip-app-theme($theme);
+//** el código css va en el archivo src/sass/styles **//
+//** no escribir código en este archivo **//
