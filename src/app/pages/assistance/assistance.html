@@ -1,36 +1,49 @@
-<div class="example-container mat-elevation-z8">
-  <!-- <mat-divider></mat-divider> -->
-  <mat-card class="tar">
-    <mat-select class="pesta" [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
+<div *ngIf="utilsService.role == 1" class="creation-teams-content">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-select class="pesta" [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
 
-      <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents()">
-        {{group.name}}
-      </mat-option>
-    </mat-select>
-    <button mat-raised-button color="primary" (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
+        <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents()">
+          {{group.name}}
+        </mat-option>
+      </mat-select>
+      <button mat-raised-button color="primary" (click)=showStudents()>Mostrar estudiantes</button>
+      <!-- <button (click)=checklist()>Mostrar2</button> -->
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-check" *ngFor="let tag of Assistancelist; let i = index;">
+        <label class="form-check-label" for="tag{{tag.value}}">
+          <input class="form-check-input" type="checkbox" id="tag{{tag.value}}" name="tagOptions" (change)="changeCheckbox(i)"
+            [checked]="tag.checked">
+          {{tag.name}}{{ ' '}}{{tag.surname}}
+        </label>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="but_award" color="primary" (click)="darpremios()">Pasar Lista</button>
+    </mat-card-actions>
   </mat-card>
-  <mat-card>
-    <table>
-      <thead>
-        <tr>
-          <th class="stdtit">{{ 'ASSISTANCE.STUDENT' | translate }}</th>
-          <th>{{ 'ASSISTANCE.ASSIST' | translate }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of listStudents; let i=index;">
-          <td class="student">{{student.name}} {{" "}} {{student.surname}}</td>
-          <!-- <th><input type="checkbox" ng-model="model.allItemsSelected" ng-change="selectAll()"></th> -->
-          <!-- <th><input type="checkbox" [(value)]="toassist[i+1]"></th> -->
-          <th><input type="checkbox"></th>
-        </tr>
-      </tbody>
-    </table>
-    <!-- <mat-divider></mat-divider> -->
-    <!-- <mat-card-actions>
-          <button mat-raised-button color="primary" class="finished">{{ 'ASSISTANCE.CHECK' | translate}}</button>
-      </mat-card-actions> -->
-  </mat-card>
-  <button mat-raised-button class="finished" color="primary" (click)="checklist()">{{ 'ASSISTANCE.CHECK' | translate}}</button>
-  <!-- <button mat-raised-button class="finish">{{"Pasar Lista"}}</button> -->
+  <div *ngIf="check_l">
+    <mat-card>
+      <table>
+        <thead>
+          <tr class="tableHeader">
+            <th>{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+            <th>{{ 'ID' | translate }}</th>
+            <th>{{ 'CLASSIFICATION.GROUPS' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Assis of AssList; let i=index;">
+            <td>{{Assis.name}}</td>
+            <td>{{Assis.studentId}}</td>
+            <td>{{Assis.groupId}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card>
+  </div>
+</div>
+<div *ngIf="utilsService.role === 0 || utilsService.role == 2" class="creation-teams-content">
+  {{ 'TEAMS.TEACHER' | translate }}.
 </div>

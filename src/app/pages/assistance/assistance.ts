@@ -26,6 +26,11 @@ export class AssistanceComponent implements OnInit {
   public listStudents: Array<Student> = new Array<Student>();
   public Assistancelist: Array<Assistance> = new Array<Assistance>();
   public Assistance: Assistance;
+  public yesorno: Array<Boolean>;
+  public indexx: number;
+  public As2: HanAsistido;
+  public check_l: Boolean;
+  public AssList: Array<HanAsistido> = new Array<HanAsistido>();
 
   constructor(
     public translateService: TranslateService,
@@ -60,12 +65,14 @@ export class AssistanceComponent implements OnInit {
 
   }
   public showStudents() {
+    this.check_l = false;
     this.listStudents = [];
 
     if (this.groupSelected) {
       this.groupService.getMyGroupStudents(this.groupSelected).subscribe(
         ((students: Array<Student>) => {
           this.listStudents = students;
+          this.checklist();
           this.loadingService.hide();
           ((error: Response) => {
             this.loadingService.hide();
@@ -82,23 +89,46 @@ export class AssistanceComponent implements OnInit {
 
 
   }
+  public changeCheckbox(i) {
+    // public changeCheckbox(tags, i) {
+    // if (tags) {
+    this.Assistancelist[i].checked = !this.Assistancelist[i].checked;
+
+    // }
+  }
   public checklist() {
     this.Assistancelist = [];
+    this.indexx = 0;
     for (let st of this.listStudents) {
-      this.Assistance = { groupId: this.groupSelected, studentId: st.id, assist: false };
+      this.Assistance = { value: this.indexx, name: st.name.concat(' ', st.surname), studentId: st.id, checked: false };
       // for (let ass of this.toassist) {
       //   this.Assistance.assist = true;
       // }
-
+      this.indexx = this.indexx + 1;
       this.Assistancelist.push(this.Assistance);
     }
   }
-
+  public darpremios() {
+    this.check_l = true;
+    this.AssList = [];
+    for (let asiste of this.Assistancelist) {
+      if (asiste.checked) {
+        this.As2 = { name: asiste.name, studentId: asiste.studentId, groupId: this.groupSelected };
+        this.AssList.push(this.As2);
+      }
+    }
+  }
 }
 
 export interface Assistance {
-  // name: string;
-  groupId: string;
+  value: number
+  name: string;
+  // groupId: string;
   studentId: string;
-  assist: boolean;
+  checked: boolean;
+}
+export interface HanAsistido {
+  name: string;
+  studentId: string;
+  groupId: string;
 }

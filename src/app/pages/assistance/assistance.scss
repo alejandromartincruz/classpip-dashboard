@@ -4,22 +4,34 @@
  * Styles to make the demo's cdk-table match the material design spec
  * https://material.io/guidelines/components/data-tables.html
  */
-tar{
+tar {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
 
+.creation-teams-content {
+  margin: 40px auto;
+  max-width: 800px;
+}
 
- table {
-  width: 35%;
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+table {
+  width: 70%;
   text-align: center;
   // margin: 0 0 1em 0;
   caption-side: top;
-  margin-left: 0%; 
-  margin-right:auto;
+  margin-left: 0%;
+  margin-right: auto;
   border-collapse: collapse;
 }
+
 thead {
   border: 0;
 }
@@ -36,29 +48,39 @@ caption {
   font-style: italic;
 }
 
-.student{
+.student {
   text-align: left;
 }
-.stdtit{
+
+.stdtit {
   text-align: left;
 }
-.assist{
+
+.assist {
   text-align: center;
   width: 10%;
 }
-.pesta{
+
+.pesta {
   // background-color: rgb(67, 76, 201);
   // border-bottom-color: aqua;
   height: 30%;
   text-align: center;
   width: 30%;
 }
-.finished{
+
+.finished {
   width: 30%;
-  margin-left: auto; 
+  margin-left: auto;
   margin-right: auto;
   // height: 15px;
   // background-color: white;
   // color: black;
   // border: 2px solid #4CAF50; /* Green */
+}
+
+.but_award {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }

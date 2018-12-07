@@ -2,17 +2,19 @@
   margin: 40px auto;
   max-width: 800px;
 }
-.point-content .mat-form-field{
+
+.point-content .mat-form-field {
 
   margin-left: 20px;
 }
+
 table {
   width: 80%;
   text-align: center;
   // margin: 0 0 1em 0;
   caption-side: top;
-  margin-left:auto; 
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   border-collapse: collapse;
 }
 
@@ -38,6 +40,18 @@ caption {
   width: 50%;
 }
 
+.namecurrent {
+  text-align: left;
+  width: 50%;
+  font-style: oblique;
+}
+
+.pointscurrent {
+  text-align: right;
+  font-style: oblique;
+}
+
+
 .position {
   text-align: center;
   width: 10%;
@@ -47,60 +61,69 @@ caption {
   text-align: right;
 }
 
-.positiontit{
+.positiontit {
   text-align: center;
 }
 
-.studenttit{
+.studenttit {
   text-align: left;
 }
 
-.pointstit{
+.pointstit {
   text-align: right;
 }
 
 #position_1 {
   background: rgb(255, 215, 0);
 }
+
 #position_2 {
   background: rgb(185, 184, 181);
 }
+
 #position_3 {
   background: rgb(205, 127, 50);
 }
-.buttonsend{
+
+.buttonsend {
 
   width: 150px;
   margin-left: 100px;
 
 }
-.buttonsend2{
+
+.buttonsend2 {
 
   width: 175px;
   margin-left: 20px;
 
 }
-.assign-content{
 
-background-color: lightcyan;
+.assign-content {
+
+  background-color: lightcyan;
 
 }
-.selectGroup{
+
+.selectGroup {
 
   background-color: azure;
 
 }
-.total{
+
+.total {
   margin-bottom: 10px;
   font-weight: 500;
   background-color: azure;
-  
-  }
-.studentlist .mat-list-item{
+
+}
+
+.studentlist .mat-list-item {
   border: 1px solid;
   margin-top: 5px;
 
 }
+
 // .table {
 //   overflow: auto;
 //   max-height: 500px;

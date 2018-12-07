@@ -1,227 +1,237 @@
 <div class="point-content">
 
-    <h3 mat-header>{{ 'POINTSBADGES.TITLE' | translate }}</h3>
+  <h3 mat-header>{{ 'POINTSBADGES.TITLE' | translate }}</h3>
 
-    <mat-tab-group>
-      <mat-tab label = "{{ 'POINTS.CLASSIFICATION' | translate }}">
-        <br>
+  <mat-tab-group>
+    <mat-tab label="{{ 'POINTS.CLASSIFICATION' | translate }}">
+      <br>
 
-        <mat-card class="selectGroup" >
+      <mat-card class="selectGroup">
         <mat-form-field>
-            <mat-select [(value)]="groupSelectedList" placeholder="{{ 'GROUPS.CHOOSE' | translate }}" >
+          <mat-select [(value)]="groupSelectedList" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
 
-              <mat-option *ngFor="let group of mygroups" [value]="group.id">
+            <mat-option *ngFor="let group of mygroups" [value]="group.id">
+              {{group.name}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+
+        <button mat-raised-button (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
+        <!-- <button mat-raised-button (click)="sortstudents()">{{ 'STUDIENTS.SHOW' | translate }}</button> -->
+      </mat-card>
+
+
+
+      <mat-card>
+        <table>
+          <thead>
+            <tr class="tableHeader">
+              <th class="positiontit">{{ 'CLASSIFICATION.POSITION' | translate }}</th>
+              <th class="studenttit">{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+              <th class="pointstit">{{ 'CLASSIFICATION.POINTS' | translate }}</th>
+              <!-- <th class="pointstit">{{ 'CLASSIFICATION.BADGES' | translate }}</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let score of scores; let i=index;">
+              <!-- <div *ngif="score.currentuser; else noCurrUser"> -->
+              <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
+              <td class="namecurrent">{{score.nameees}}</td>
+              <!-- <td class="pointscurrent">{{score.points}}</td> -->
+              <td class="pointscurrent">{{score.points}}</td>
+              <!-- </div> -->
+              <!-- <ng-template #noCurrUser>
+                <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
+                <td class="name">{{score.nameees}}</td>
+                <td class="points">{{score.points}}</td> -->
+              <!-- <td class="points">{{score.points}}</td> -->
+              <!-- </ng-template> -->
+            </tr>
+          </tbody>
+        </table>
+      </mat-card>
+
+
+
+    </mat-tab>
+    <mat-tab label="{{ 'POINTS.TITLE' | translate }}">
+      <ol>
+        <mat-card class="assign-content" *ngIf="isTeacher">
+          <h5 mat-subheader>{{ 'POINTS.ASSIGN' | translate }}</h5>
+          <mat-form-field>
+            <mat-select [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
+
+              <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents()">
                 {{group.name}}
               </mat-option>
             </mat-select>
 
           </mat-form-field>
+          <mat-form-field>
+            <mat-select [(value)]="studentSelected" placeholder="{{ 'STUDIENTS.CHOOSE' | translate }}" [formControl]="myControl">
 
-          <button mat-raised-button (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
-          <!-- <button mat-raised-button (click)="sortstudents()">{{ 'STUDIENTS.SHOW' | translate }}</button> -->
+              <mat-option *ngFor="let student of mystudents" [value]="student.id">
+                {{student.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+
+          <mat-form-field>
+            <mat-select [(value)]="pointSelected" placeholder="{{ 'POINTS.CHOOSE' | translate }}" [formControl]="myControl">
+
+              <mat-option *ngFor="let point of points" [value]="point.id">
+                {{point.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput type="number" min="0" [(ngModel)]="valueSelected" placeholder="{{ 'COMMON.CHOOSEAMOUNT' | translate }}">
+          </mat-form-field>
+
+          <button class="buttonsend" mat-raised-button (click)="sendPointRelation()">{{ 'POINTS.SEND' | translate }}</button>
+
+
         </mat-card>
+      </ol>
+
+      <mat-nav-list class="studentlist" *ngIf="listPoints">
+        <h3 mat-subheader>{{ 'POINTS.MYPOINTS' | translate }}</h3>
+        <mat-list-item class="total">
+          <h4 mat-line>{{ 'POINTS.TOTAL' | translate }}</h4>
+          <p> {{totalPoints}}</p>
+          <p mat-line>{{ 'POINTS.DESCOP' | translate }}</p>
+        </mat-list-item>
+
+        <mat-list-item *ngFor="let resultPoint of listPoints">
+          <img matListAvatar src={{resultPoint.point.image}}>
+          <h4 mat-line>{{resultPoint.point.name}}</h4>
+          <p>{{ 'POINTS.OBTAINED' | translate }}: {{resultPoint.relationPoint.value}}</p>
+          <p mat-line>{{ 'POINTS.VALUEOF' | translate }}: {{resultPoint.point.value}}</p>
+        </mat-list-item>
+
+
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </mat-nav-list>
+
+      <mat-nav-list *ngIf="points">
+        <h3 mat-subheader>{{ 'POINTS.LIST' | translate }}</h3>
+
+        <mat-list-item *ngFor="let point of points">
+          <img matListAvatar src={{point.image}}>
+          <h4 mat-line>{{point.name}}</h4>
+          <p mat-line>{{ 'POINTSBADGES.POINTID' | translate }}{{point.id}}</p>
+        </mat-list-item>
+
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </mat-nav-list>
+      <ol *ngIf="isTeacher">
+        <button mat-raised-button (click)="createPoint()">{{ 'POINTSBADGES.CREATEPOINT' | translate }}</button>
+      </ol>
+
+
+      <ol *ngIf="isTeacher">
+        <mat-form-field>
+          <input matInput [(ngModel)]="pointId" placeholder="{{'POINTSBADGES.POINTID' | translate}}">
+        </mat-form-field>
+        <button mat-raised-button (click)="deletePoint()">{{ 'POINTS.DELETE' | translate }}</button>
+      </ol>
+
+
+    </mat-tab>
+
+    <mat-tab label="{{ 'BADGES.TITLE' | translate }}">
+      <mat-nav-list class="studentlist" *ngIf="listBadges">
+        <h3 mat-subheader>{{ 'BADGES.MYBADGES' | translate }} ({{studentBadges.length}})</h3>
+
+
+        <mat-list-item *ngFor="let resultBadge of listBadges">
+          <img matListAvatar src={{resultBadge.badge.image}}>
+          <h4 mat-line>{{resultBadge.badge.name}}</h4>
+          <p>{{ 'BADGES.VALUEOF' | translate }}: {{resultBadge.badge.value}}</p>
+
+        </mat-list-item>
+
+
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </mat-nav-list>
+      <ol>
+        <mat-card class="assign-content" *ngIf="isTeacher">
+          <h5 mat-subheader>{{ 'BADGES.ASSIGN' | translate }}</h5>
+          <mat-form-field>
+            <mat-select [(value)]="groupSelected2" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
+
+              <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents2()">
+                {{group.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select [(value)]="studentSelected2" placeholder="{{ 'STUDIENTS.CHOOSE' | translate }}" [formControl]="myControl">
+
+              <mat-option *ngFor="let student of mystudents" [value]="student.id">
+                {{student.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+
+          <mat-form-field>
+            <mat-select [(value)]="badgeSelected" placeholder="{{ 'BADGES.CHOOSE' | translate }}" [formControl]="myControl">
+
+              <mat-option *ngFor="let badge of badges" [value]="badge.id">
+                {{badge.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          <br>
+          <button class="buttonsend2" mat-raised-button (click)="sendBadgeRelation()">{{ 'BADGES.SEND' | translate }}</button>
+
+
+        </mat-card>
+      </ol>
+
+      <br>
+      <mat-nav-list *ngIf="badges">
+
+        <h3 mat-subheader>{{ 'BADGES.LIST' | translate }}</h3>
+        <mat-list-item *ngFor="let badge of badges">
+          <img matListAvatar src={{badge.image}}>
+          <h4 mat-line>{{badge.name}}</h4>
+          <p mat-line>{{ 'POINTSBADGES.BADGEID' | translate }}{{badge.id}}</p>
+        </mat-list-item>
+        <mat-progress-bar mode="buffer"></mat-progress-bar>
+      </mat-nav-list>
+
+
+      <ol *ngIf="isTeacher">
+        <button mat-raised-button (click)="createBadge()">{{ 'POINTSBADGES.CREATEBADGE' | translate }}</button>
+      </ol>
+
+      <ol *ngIf="isTeacher">
+        <mat-form-field>
+          <input matInput [(ngModel)]="badgeId" placeholder="{{ 'POINTSBADGES.BADGEID' | translate }}">
+        </mat-form-field>
+        <button mat-raised-button (click)="deleteBadge()">{{ 'BADGES.DELETE' | translate }}</button>
+      </ol>
 
 
 
-
-          <table>
-            <thead>
-              <tr class="tableHeader">
-                <th class="positiontit">{{ 'CLASSIFICATION.POSITION' | translate }}</th>
-                <th class="studenttit">{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
-                <th class="pointstit">{{ 'CLASSIFICATION.POINTS' | translate }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let score of scores; let i=index;">
-                <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
-                <td class="name">{{score.nameees}}</td>
-                <td class="points">{{score.points}}</td>
-              </tr>
-            </tbody>
-          </table>
-
-
-
-
-  </mat-tab>
-      <mat-tab label ="{{ 'POINTS.TITLE' | translate }}">
-          <ol>
-              <mat-card class="assign-content" *ngIf="isTeacher">
-                  <h5 mat-subheader>{{ 'POINTS.ASSIGN' | translate }}</h5>
-                <mat-form-field >
-                    <mat-select [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
-
-                      <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents()">
-                        {{group.name}}
-                      </mat-option>
-                    </mat-select>
-
-                  </mat-form-field>
-                  <mat-form-field >
-                      <mat-select [(value)]="studentSelected" placeholder="{{ 'STUDIENTS.CHOOSE' | translate }}" [formControl]= "myControl">
-
-                        <mat-option *ngFor="let student of mystudents" [value]="student.id">
-                          {{student.name}}
-                        </mat-option>
-                      </mat-select>
-
-                    </mat-form-field>
-
-
-                    <mat-form-field >
-                        <mat-select [(value)]="pointSelected" placeholder="{{ 'POINTS.CHOOSE' | translate }}" [formControl]= "myControl">
-
-                          <mat-option *ngFor="let point of points" [value]="point.id">
-                            {{point.name}}
-                          </mat-option>
-                        </mat-select>
-
-                      </mat-form-field>
-                      <br>
-                      <mat-form-field>
-                          <input matInput type="number" min="0" [(ngModel)]="valueSelected" placeholder="{{ 'COMMON.CHOOSEAMOUNT' | translate }}">
-                        </mat-form-field>
-
-                        <button class="buttonsend" mat-raised-button (click)="sendPointRelation()">{{ 'POINTS.SEND' | translate }}</button>
-
-
-                </mat-card>
-            </ol>
-
-            <mat-nav-list class = "studentlist" *ngIf="listPoints">
-                <h3 mat-subheader>{{ 'POINTS.MYPOINTS' | translate }}</h3>
-                <mat-list-item class="total">
-                    <h4 mat-line>{{ 'POINTS.TOTAL' | translate }}</h4>
-                    <p> {{totalPoints}}</p>
-                    <p mat-line>{{ 'POINTS.DESCOP' | translate }}</p>
-                  </mat-list-item>
-
-                <mat-list-item *ngFor="let resultPoint of listPoints" >
-                  <img matListAvatar src={{resultPoint.point.image}}>
-                  <h4 mat-line>{{resultPoint.point.name}}</h4>
-                  <p>{{ 'POINTS.OBTAINED' | translate }}: {{resultPoint.relationPoint.value}}</p>
-                  <p mat-line>{{ 'POINTS.VALUEOF' | translate }}: {{resultPoint.point.value}}</p>
-                </mat-list-item>
-
-
-                <mat-progress-bar mode="buffer"></mat-progress-bar>
-              </mat-nav-list>
-
-            <mat-nav-list *ngIf="points">
-                <h3 mat-subheader>{{ 'POINTS.LIST' | translate }}</h3>
-
-                <mat-list-item *ngFor="let point of points" >
-                    <img matListAvatar src={{point.image}}>
-                  <h4 mat-line>{{point.name}}</h4>
-                  <p mat-line>{{ 'POINTSBADGES.POINTID' | translate }}{{point.id}}</p>
-                </mat-list-item>
-
-                <mat-progress-bar mode="buffer"></mat-progress-bar>
-              </mat-nav-list>
-              <ol *ngIf="isTeacher" >
-                  <button mat-raised-button (click)="createPoint()">{{ 'POINTSBADGES.CREATEPOINT' | translate }}</button>
-                </ol>
-
-
-                <ol *ngIf="isTeacher">
-                    <mat-form-field>
-                      <input matInput [(ngModel)]="pointId" placeholder="{{'POINTSBADGES.POINTID' | translate}}">
-                    </mat-form-field>
-                    <button mat-raised-button (click)="deletePoint()">{{ 'POINTS.DELETE' | translate }}</button>
-                </ol>
-
-
-      </mat-tab>
-
-      <mat-tab label= "{{ 'BADGES.TITLE' | translate }}">
-          <mat-nav-list class = "studentlist" *ngIf="listBadges">
-              <h3 mat-subheader>{{ 'BADGES.MYBADGES' | translate }} ({{studentBadges.length}})</h3>
-
-
-              <mat-list-item *ngFor="let resultBadge of listBadges" >
-                <img matListAvatar src={{resultBadge.badge.image}}>
-                <h4 mat-line>{{resultBadge.badge.name}}</h4>
-                <p>{{ 'BADGES.VALUEOF' | translate }}: {{resultBadge.badge.value}}</p>
-
-              </mat-list-item>
-
-
-              <mat-progress-bar mode="buffer"></mat-progress-bar>
-            </mat-nav-list>
-          <ol>
-              <mat-card class="assign-content" *ngIf="isTeacher">
-                  <h5 mat-subheader>{{ 'BADGES.ASSIGN' | translate }}</h5>
-                <mat-form-field >
-                    <mat-select [(value)]="groupSelected2" placeholder="{{ 'GROUPS.CHOOSE' | translate }}" >
-
-                      <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="openStudents2()">
-                        {{group.name}}
-                      </mat-option>
-                    </mat-select>
-
-                  </mat-form-field>
-                  <mat-form-field >
-                      <mat-select [(value)]="studentSelected2" placeholder="{{ 'STUDIENTS.CHOOSE' | translate }}" [formControl]= "myControl">
-
-                        <mat-option *ngFor="let student of mystudents" [value]="student.id">
-                          {{student.name}}
-                        </mat-option>
-                      </mat-select>
-
-                    </mat-form-field>
-
-
-                    <mat-form-field >
-                        <mat-select [(value)]="badgeSelected" placeholder="{{ 'BADGES.CHOOSE' | translate }}" [formControl]= "myControl">
-
-                          <mat-option *ngFor="let badge of badges" [value]="badge.id">
-                            {{badge.name}}
-                          </mat-option>
-                        </mat-select>
-
-                      </mat-form-field>
-                      <br>
-                      <button class="buttonsend2" mat-raised-button (click)="sendBadgeRelation()">{{ 'BADGES.SEND' | translate }}</button>
-
-
-                </mat-card>
-            </ol>
-
-            <br>
-        <mat-nav-list *ngIf="badges">
-
-            <h3 mat-subheader>{{ 'BADGES.LIST' | translate }}</h3>
-            <mat-list-item *ngFor="let badge of badges" >
-                <img matListAvatar src={{badge.image}}>
-                <h4 mat-line>{{badge.name}}</h4>
-              <p mat-line>{{ 'POINTSBADGES.BADGEID' | translate }}{{badge.id}}</p>
-            </mat-list-item>
-            <mat-progress-bar mode="buffer"></mat-progress-bar>
-          </mat-nav-list>
-
-
-          <ol *ngIf="isTeacher">
-              <button mat-raised-button (click)="createBadge()">{{ 'POINTSBADGES.CREATEBADGE' | translate }}</button>
-          </ol>
-
-          <ol *ngIf="isTeacher">
-              <mat-form-field>
-                <input matInput [(ngModel)]="badgeId" placeholder="{{ 'POINTSBADGES.BADGEID' | translate }}">
-              </mat-form-field>
-              <button mat-raised-button (click)="deleteBadge()">{{ 'BADGES.DELETE' | translate }}</button>
-          </ol>
-
-
-
-      </mat-tab>
+    </mat-tab>
 
 
 
 
 
-    </mat-tab-group>
+  </mat-tab-group>
 
 
 
-  </div>
+</div>

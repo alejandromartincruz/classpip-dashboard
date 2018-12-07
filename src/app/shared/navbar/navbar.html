@@ -4,19 +4,26 @@
     <span>{{ 'APP.NAME' | translate }}</span>
   </a>
   <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/home">{{ 'HOME.TITLE' | translate }}</a>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-select [(value)]="groupSelectedList" placeholder="{{ 'GROUPS.CHOOSE' | translate }}" >
       <mat-option *ngFor="let group of mygroups" [value]="group.id">
         {{group.name}}
       </mat-option>
     </mat-select>
-  </mat-form-field>
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/assistance">{{ 'ASSISTANCE.TITLE' | translate }}</a>
+  </mat-form-field> -->
+  <!-- <ol *ngIf="isTeacher"> -->
+  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/assistance">{{ 'ASSISTANCE.TITLE' | translate
+    }}</a>
   <!-- <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/groups">{{ 'GROUPS.TITLE' | translate }}</a> -->
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/pointsbadges">{{ 'POINTSBADGES.TITLE' | translate }}</a>
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/questionnaires">{{ 'QUESTIONNAIRES.TITLE' | translate }}</a>
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/collections">{{ 'COLLECTIONS.TITLE' | translate }}</a>
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/competitions">{{ 'COMPETITIONS.TITLE' | translate }}</a>
+  <!-- </ol> -->
+  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/pointsbadges">{{ 'POINTSBADGES.TITLE' |
+    translate }}</a>
+  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/questionnaires">{{ 'QUESTIONNAIRES.TITLE' |
+    translate }}</a>
+  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/collections">{{ 'COLLECTIONS.TITLE' | translate
+    }}</a>
+  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/competitions">{{ 'COMPETITIONS.TITLE' |
+    translate }}</a>
   <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/create-teams">{{ 'TEAMS.TITLE' | translate }}</a>
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/login" >{{ 'APP.LOGOUT' | translate }}</a>
+  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="/login">{{ 'APP.LOGOUT' | translate }}</a>
 </nav>
