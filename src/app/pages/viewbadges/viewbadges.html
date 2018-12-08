@@ -1,0 +1,20 @@
+<div class="createPoint-content">
+
+  <mat-nav-list class="studentlist" *ngIf="listBadges">
+    <h3 mat-subheader>{{ 'BADGES.MYBADGES' | translate }} ({{studentBadges.length}})</h3>
+
+
+    <mat-list-item *ngFor="let resultBadge of listBadges">
+      <img matListAvatar src={{resultBadge.badge.image}}>
+      <h4 mat-line>{{resultBadge.badge.name}}</h4>
+      <p>{{ 'BADGES.VALUEOF' | translate }}: {{resultBadge.badge.value}}</p>
+      <!-- <divider></divider> -->
+    </mat-list-item>
+
+
+    <!-- <mat-progress-bar mode="buffer"></mat-progress-bar> -->
+  </mat-nav-list>
+
+  <button mat-raised-button color="accent" (click)="cancel()">{{'COMMON.CANCEL'| translate}}</button>
+
+</div>

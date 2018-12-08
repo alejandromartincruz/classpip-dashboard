@@ -37,9 +37,12 @@
             <tr *ngFor="let score of scores; let i=index;">
               <!-- <div *ngif="score.currentuser; else noCurrUser"> -->
               <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
-              <td class="namecurrent">{{score.nameees}}</td>
+              <td>{{score.nameees}}</td>
               <!-- <td class="pointscurrent">{{score.points}}</td> -->
-              <td class="pointscurrent">{{score.points}}</td>
+              <td>{{score.points}}</td>
+              <td>
+                <button mat-raised-button color="primary" (click)="showAwards(score.studentId)">View Badges</button>
+              </td>
               <!-- </div> -->
               <!-- <ng-template #noCurrUser>
                 <td id="position_{{i + 1}}" class="position">{{score.position}}</td>

@@ -14,7 +14,7 @@ import { DeletePointComponent } from '../../pages/deletePoint/deletePoint';
 import { CreateBadgeComponent } from '../../pages/createBadge/createBadge';
 import { DeleteBadgeComponent } from '../../pages/deleteBadge/deleteBadge';
 import { TranslateService } from 'ng2-translate';
-
+import { ViewBadgesComponent } from '../viewbadges/viewbadges';
 
 
 @Component({
@@ -69,7 +69,6 @@ export class PointsBadgesComponent implements OnInit {
   public responsePointRelation: PointRelation;
   public responseBadgeRelation: BadgeRelation;
   public stu: Student;
-  public currentstudentid: number;
 
   public resultCreate: string;
 
@@ -91,7 +90,7 @@ export class PointsBadgesComponent implements OnInit {
   ) {
     this.utilsService.currentUser = Login.toObject(localStorage.getItem(AppConfig.LS_USER));
     this.utilsService.role = Number(localStorage.getItem(AppConfig.LS_ROLE));
-    this.currentstudentid = this.utilsService.currentUser.userId;
+    // this.currentstudentid = this.utilsService.currentUser.userId;
   }
 
   ngOnInit(): void {
@@ -218,6 +217,14 @@ export class PointsBadgesComponent implements OnInit {
     }
 
   }
+  public showAwards(studentId: string) {
+    const dialogRef = this.dialog.open(ViewBadgesComponent, {
+      height: '600px',
+      width: '700px',
+      data: { studentId: studentId }
+
+    });
+  }
   public showStudents() {
     this.scores = [];
     this.nullpoints = true;
@@ -230,7 +237,7 @@ export class PointsBadgesComponent implements OnInit {
           this.loadingService.hide();
 
           for (let st of this.listStudents) {
-            this.sortstudents();
+            // this.sortstudents();
             // this.score = { position: 0, nameees: st.name, points: 0};
             this.pointRelationService.getStudentPoints(st.id).subscribe(
               ((valuePoints: Array<PointRelation>) => {
@@ -295,12 +302,9 @@ export class PointsBadgesComponent implements OnInit {
       this.scores = [];
       for (let st2 of this.listStudentsPoints) {
         // students[_s].name.concat(' ', students[_s].surname)
-        this.score = { position: 0, nameees: st2.name.concat(' ', st2.surname), points: 0, currentuser: false };
+        this.score = { position: 0, nameees: st2.name.concat(' ', st2.surname), points: 0, currentuser: false, studentId: st2.id };
         // this.score.nameees=st2.surname;
         this.score.points = st2.totalPoints;
-        if (st2.id += this.currentstudentid) {
-          this.score.currentuser = true;
-        }
         this.score.position = 0;
         this.scores.push(this.score);
       }
@@ -308,11 +312,8 @@ export class PointsBadgesComponent implements OnInit {
       this.scores = [];
       for (let st3 of this.listStudents) {
         // students[_s].name.concat(' ', students[_s].surname)
-        this.score = { position: 0, nameees: st3.name.concat(' ', st3.surname), points: 0, currentuser: false };
+        this.score = { position: 0, nameees: st3.name.concat(' ', st3.surname), points: 0, currentuser: false, studentId: st3.id };
         // this.score.nameees=st2.surname;
-        if (st3.id += this.currentstudentid) {
-          this.score.currentuser = true;
-        }
         this.score.points = 0;
         this.score.position = 0;
         this.scores.push(this.score);
@@ -497,4 +498,5 @@ export interface Score {
   position: number;
   points: number;
   currentuser: Boolean;
+  studentId: string;
 }
