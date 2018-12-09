@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppConfig } from '../../app.config';
 
 import { UtilsService } from './utils.service';
+import { LoginService } from './login.service';
 import { AvatarService } from './avatar.service';
 import { Profile, Role, Avatar, Student } from '../models/index';
 
@@ -13,7 +14,18 @@ export class UserService {
   constructor(
     public http: Http,
     public avatarService: AvatarService,
-    public utilsService: UtilsService) { }
+    public utilsService: UtilsService,
+    public loginService: LoginService ) { }
+
+  public getLoggedProfile(): Observable<Profile> {
+
+    return Observable.create(observer => {
+      this.getProfile().subscribe(
+        profile => {
+          observer.next(profile);
+        }, error => observer.error(error));
+    });
+  }
 
   /**
    * This method returns the profile information of the current logged
@@ -45,6 +57,10 @@ export class UserService {
     let options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
+
+    if(this.utilsService.currentUser.id) {
+      this.loginService.loggedIn.next(true);
+    }
 
     var url: string = this.utilsService.getMyUrl();
 

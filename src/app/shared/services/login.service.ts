@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import { UtilsService } from './utils.service';
 import { AppConfig } from '../../app.config';
@@ -8,6 +9,12 @@ import { Credentials, Role, Login } from '../models/index';
 
 @Injectable()
 export class LoginService {
+
+  public loggedIn = new BehaviorSubject<boolean>(false);
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
 
   constructor(
     public http: Http,
@@ -38,6 +45,7 @@ export class LoginService {
 
     return this.http.post(url, credentials)
       .map(response => {
+        this.loggedIn.next(true);
         this.utilsService.currentUser = Login.toObject(response.json());
         return response;
       })
@@ -73,6 +81,7 @@ export class LoginService {
 
     return this.http.post(url, {}, options)
       .map(response => {
+        this.loggedIn.next(false);
         this.utilsService.currentUser = null;
         return true;
       })

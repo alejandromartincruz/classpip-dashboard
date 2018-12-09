@@ -3,15 +3,14 @@
   flex-wrap: wrap;
   align-items: center;
   padding: 8px 16px;
-  >.mat-button {
-    &:last-child {
-      margin-left: auto;
-    }
-  }
-}
 
-.docs-classpip-logo {
-  height: 26px;
-  margin: 0 4px 3px 0;
-  vertical-align: middle;
+  .docs-classpip-logo {
+    height: 26px;
+    margin: 0 4px 3px 0;
+    vertical-align: middle;
+  }
+
+  .nav-close-session {
+    margin-left: auto;
+  }
 }
