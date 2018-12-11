@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { School, Role, Login, Profile } from '../../shared/models/index';
-import { UtilsService, SchoolService, AlertService, LoadingService, UserService } from '../../shared/services/index';
+import {
+  School, Role, Login,
+  Profile, Rango, BadgeRelation,
+  Badge
+} from '../../shared/models/index';
+// tslint:disable-next-line:max-line-length
+import {
+  UtilsService, SchoolService, AlertService,
+  LoadingService, UserService, PointRelationService,
+  LevelService, BadgeRelationService
+} from '../../shared/services/index';
 import { AppConfig } from '../../app.config';
 import { TranslateService } from 'ng2-translate/ng2-translate';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LanguageComponent } from '../../pages/language/language';
-
 
 @Component({
   selector: 'app-home',
@@ -16,6 +22,13 @@ export class HomeComponent implements OnInit {
 
   public profile: Profile;
   public school: School;
+  public myPoints: Number;
+  public isStudentProfile = false;
+  public isTeacherProfile = false;
+  public level: Number;
+  public rank: Rango;
+  public nextLevelPoints: number;
+  public listBadges: Array<Badge>;
 
   constructor(
     public alertService: AlertService,
@@ -24,22 +37,13 @@ export class HomeComponent implements OnInit {
     public translateService: TranslateService,
     public loadingService: LoadingService,
     public userService: UserService,
-    public dialog: MatDialog
+    public pointRelationService: PointRelationService,
+    public levelService: LevelService,
+    public badgeRelationService: BadgeRelationService
   ) {
 
     this.utilsService.currentUser = Login.toObject(localStorage.getItem(AppConfig.LS_USER));
     this.utilsService.role = Number(localStorage.getItem(AppConfig.LS_ROLE));
-  }
-
- public choose() {
-    const dialogRef = this.dialog.open(LanguageComponent, {
-      height: '390px',
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
-    });
   }
 
   ngOnInit(): void {
@@ -56,7 +60,33 @@ export class HomeComponent implements OnInit {
       }));
 
     if (this.utilsService.role === Role.TEACHER) {
+      this.isTeacherProfile = true;
+      this.schoolService.getMySchool().subscribe(
+        ((school: School) => {
+          this.loadingService.hide();
+          this.school = school;
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+    }
 
+    if (this.utilsService.role === Role.STUDENT) {
+      this.isStudentProfile = true;
+      this.pointRelationService.getMyPointsNumber()
+        .subscribe((totalPoints => {
+          this.myPoints = totalPoints;
+          this.level = this.levelService.getLevel(totalPoints);
+          this.rank = this.levelService.getRank(totalPoints);
+          this.nextLevelPoints = this.levelService.getNextLevelPoints(totalPoints);
+        }),
+          ((error: Response) => {
+            this.loadingService.hide();
+            this.alertService.show(error.toString());
+          })
+        );
+      this.getStudentBadges();
       this.schoolService.getMySchool().subscribe(
         ((school: School) => {
           this.loadingService.hide();
@@ -68,4 +98,12 @@ export class HomeComponent implements OnInit {
         }));
     }
   }
+
+  getStudentBadges() {
+    this.badgeRelationService.getMyBadges().subscribe((badges: Badge[]) => {
+      this.listBadges = badges;
+      this.listBadges.slice(0, 5);
+    });
+  }
+
 }

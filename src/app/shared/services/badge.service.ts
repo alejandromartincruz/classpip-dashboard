@@ -85,20 +85,20 @@ export class BadgeService {
 
 
 
-/**
-   * Returns the list of students by a group id.
-   * @return {Array<Badge>} returns the list of badges
-   */
-   private getMySchoolBadges(): Observable<Array<Badge>> {
+  /**
+     * Returns the list of students by a group id.
+     * @return {Array<Badge>} returns the list of badges
+     */
+  private getMySchoolBadges(): Observable<Array<Badge>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
+    const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
 
     return this.http.get(url, options)
-      .map((response: Response, index: number) => Badge.toObjectArray(response.json()))
+      .map((response: Response, index: number) => Badge.toObjectArray(response.json()));
   }
 
 
@@ -110,12 +110,12 @@ export class BadgeService {
    */
   public postBadge(badge: Badge): Observable<Response> {
 
-	let options: RequestOptions = new RequestOptions({
+    let options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-	var url: string;
-	url = AppConfig.BADGE_URL;
+    var url: string;
+    url = AppConfig.BADGE_URL;
 
     return this.http.post(url, badge)
       .map(response => {
@@ -132,12 +132,12 @@ export class BadgeService {
     let url: string;
     url = AppConfig.BADGE_URL;
     let postParams = {
-        name: name,
-        value: value,
-        image: image,
-        teacherId: this.utilsService.currentUser.userId,
-        schoolId: this.utilsService.currentSchool.id
-      }
+      name: name,
+      value: value,
+      image: image,
+      teacherId: this.utilsService.currentUser.userId,
+      schoolId: this.utilsService.currentSchool.id
+    }
 
     return this.http.post(url, postParams, options)
       .map(response => {

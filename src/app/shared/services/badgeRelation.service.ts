@@ -27,22 +27,35 @@ export class BadgeRelationService {
     public userService: UserService,
     public badgeService: BadgeService
 
-    ) { }
+  ) { }
+
+
+  public getMyBadges(): Observable<Badge[]> {
+
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
+    const url: string = AppConfig.SERVER_URL + '/api/students/' + this.utilsService.currentUser.userId + '/badges';
+
+    return this.http.get(url, options)
+      .map((response: Response, index: number) => Badge.toObjectArray(response.json()));
+  }
 
   /**
    * Returns the list of students by a group id.
    * @return {Array<BadgeRelation>} returns the list of badges
    */
-   public getBadgeRelation(): Observable<Array<BadgeRelation>> {
+  public getBadgeRelation(): Observable<Array<BadgeRelation>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGESRELATION_URL;
+    const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGESRELATION_URL;
 
     return this.http.get(url, options)
-      .map((response: Response, index: number) => BadgeRelation.toObjectArray(response.json()))
+      .map((response: Response, index: number) => BadgeRelation.toObjectArray(response.json()));
   }
 
   /**
@@ -52,24 +65,24 @@ export class BadgeRelationService {
    */
   public getMyStudentBadges(): Observable<Array<BadgeRelation>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMyUrl() + AppConfig.BADGESRELATION_URL;
+    const url: string = this.utilsService.getMyUrl() + AppConfig.BADGESRELATION_URL;
 
     return this.http.get(url, options)
-      .map((response: Response, index: number) => BadgeRelation.toObjectArray(response.json()))
+      .map((response: Response, index: number) => BadgeRelation.toObjectArray(response.json()));
   }
 
 
 
-   /**
-   * This method returns all the relation badges of the student in this group
-   * of the current students logged into the application
-   * @return {Array<BadgeRelation>} returns the list of groups
-   */
-  public getMyStudentBadges1(groupId: string ): Observable<Array<BadgeRelation>> {
+  /**
+  * This method returns all the relation badges of the student in this group
+  * of the current students logged into the application
+  * @return {Array<BadgeRelation>} returns the list of groups
+  */
+  public getMyStudentBadges1(groupId: string): Observable<Array<BadgeRelation>> {
 
     var ret: Array<BadgeRelation> = new Array<BadgeRelation>();
     var obj: Array<BadgeRelation> = new Array<BadgeRelation>();
@@ -83,7 +96,7 @@ export class BadgeRelationService {
     var numGroupid = parseFloat(groupId)
 
     return Observable.create(observer => {
-       this.getMyStudentBadges().subscribe(
+      this.getMyStudentBadges().subscribe(
         badgeRelations => {
           badgeRelations.sort(function (a, b) {
             if (a.badgeId > b.badgeId) {
@@ -96,7 +109,7 @@ export class BadgeRelationService {
           });
           badgeRelations.forEach(badgeRelation => {
             /*ok*/
-            if (badgeRelation.groupId != numGroupid){
+            if (badgeRelation.groupId != numGroupid) {
               /*ok*/
               /* Si no coincide el grupo*/
               count = count + 1
@@ -104,18 +117,18 @@ export class BadgeRelationService {
                 count3 = true
               }
             }
-            if (badgeRelation.groupId == numGroupid){
+            if (badgeRelation.groupId == numGroupid) {
               /*ok*/
               /* Si coincide el grupo*/
-              if (ret.length > 0){
+              if (ret.length > 0) {
                 /*ok*/
                 /* El segundo valor lo miramos para ver si ya existe en el array ret*/
                 count4 = true
                 count5 = false
                 count6 = ret.length
                 count7 = 0
-                ret.forEach(itemRet =>{
-                  if (itemRet.badgeId == badgeRelation.badgeId){
+                ret.forEach(itemRet => {
+                  if (itemRet.badgeId == badgeRelation.badgeId) {
                     itemRet.value = itemRet.value + 1
                     count2 = count2 + 1
                     count4 = false;
@@ -123,10 +136,10 @@ export class BadgeRelationService {
                     count7 = count7 + 1
                     /*OK*/
                   }
-                  if (itemRet.badgeId != badgeRelation.badgeId){
+                  if (itemRet.badgeId != badgeRelation.badgeId) {
                     count7 = count7 + 1
-                    if(count6 === count7){
-                      if (count4 = true){
+                    if (count6 === count7) {
+                      if (count4 = true) {
                         ret.push(badgeRelation);
                         count5 = true
                       }
@@ -135,7 +148,7 @@ export class BadgeRelationService {
                   }
                 });
               }
-              if (ret.length === 0){
+              if (ret.length === 0) {
                 /*ok*/
                 /* El primer valor lo introduce en el array ret por defecto*/
                 ret.push(badgeRelation);
@@ -147,27 +160,27 @@ export class BadgeRelationService {
             }
           });
           if (count3 = true) {
-              ret.sort(function (a, b) {
-                if (a.value > b.value) {
-                  return -1;
-                }
-                if (a.value < b.value) {
-                  return 1;
-                }
-                return 0;
-              });
-              ret.forEach(itemRet =>{
-                this.badgeService.getBadgeName(itemRet.badgeId).subscribe(
-                  badge => {
-                    itemRet.badge = badge;
-                    obj.push(itemRet)
-                    if (obj.length === ret.length) {
-                      observer.next(obj);
-                      observer.complete();
-                    }
-                  }, error => observer.error(error))
-                });
+            ret.sort(function (a, b) {
+              if (a.value > b.value) {
+                return -1;
               }
+              if (a.value < b.value) {
+                return 1;
+              }
+              return 0;
+            });
+            ret.forEach(itemRet => {
+              this.badgeService.getBadgeName(itemRet.badgeId).subscribe(
+                badge => {
+                  itemRet.badge = badge;
+                  obj.push(itemRet)
+                  if (obj.length === ret.length) {
+                    observer.next(obj);
+                    observer.complete();
+                  }
+                }, error => observer.error(error))
+            });
+          }
         }, error => observer.error(error)
       )
     });
@@ -194,7 +207,7 @@ export class BadgeRelationService {
    * of the current students logged into the application
    * @return {Array<BadgeRelation>} returns the list of groups
    */
-  public getMyStudentBadges2(groupId: string, studentId: string ): Observable<Array<BadgeRelation>> {
+  public getMyStudentBadges2(groupId: string, studentId: string): Observable<Array<BadgeRelation>> {
 
     var ret: Array<BadgeRelation> = new Array<BadgeRelation>();
     var obj: Array<BadgeRelation> = new Array<BadgeRelation>();
@@ -221,7 +234,7 @@ export class BadgeRelationService {
           });
           badgeRelations.forEach(badgeRelation => {
             /*ok*/
-            if (badgeRelation.groupId != numGroupid){
+            if (badgeRelation.groupId != numGroupid) {
               /*ok*/
               /* Si no coincide el grupo*/
               count = count + 1
@@ -229,18 +242,18 @@ export class BadgeRelationService {
                 count3 = true
               }
             }
-            if (badgeRelation.groupId == numGroupid){
+            if (badgeRelation.groupId == numGroupid) {
               /*ok*/
               /* Si coincide el grupo*/
-              if (ret.length > 0){
+              if (ret.length > 0) {
                 /*ok*/
                 /* El segundo valor lo miramos para ver si ya existe en el array ret*/
                 count4 = true
                 count5 = false
                 count6 = ret.length
                 count7 = 0
-                ret.forEach(itemRet =>{
-                  if (itemRet.badgeId == badgeRelation.badgeId){
+                ret.forEach(itemRet => {
+                  if (itemRet.badgeId == badgeRelation.badgeId) {
                     itemRet.value = itemRet.value + 1
                     count2 = count2 + 1
                     count4 = false;
@@ -248,10 +261,10 @@ export class BadgeRelationService {
                     count7 = count7 + 1
                     /*OK*/
                   }
-                  if (itemRet.badgeId != badgeRelation.badgeId){
+                  if (itemRet.badgeId != badgeRelation.badgeId) {
                     count7 = count7 + 1
-                    if(count6 === count7){
-                      if (count4 = true){
+                    if (count6 === count7) {
+                      if (count4 = true) {
                         ret.push(badgeRelation);
                         count5 = true
                       }
@@ -260,7 +273,7 @@ export class BadgeRelationService {
                   }
                 });
               }
-              if (ret.length === 0){
+              if (ret.length === 0) {
                 /*ok*/
                 /* El primer valor lo introduce en el array ret por defecto*/
                 ret.push(badgeRelation);
@@ -272,34 +285,34 @@ export class BadgeRelationService {
             }
           });
           if (count3 = true) {
-              ret.sort(function (a, b) {
-                if (a.value > b.value) {
-                  return -1;
-                }
-                if (a.value < b.value) {
-                  return 1;
-                }
-                return 0;
-              });
-              ret.forEach(itemRet =>{
-                this.badgeService.getBadgeName(itemRet.badgeId).subscribe(
-                  badge => {
-                    itemRet.badge = badge;
-                    obj.push(itemRet)
-                    if (obj.length === ret.length) {
-                      observer.next(obj);
-                      observer.complete();
-                    }
-                  }, error => observer.error(error))
-                });
+            ret.sort(function (a, b) {
+              if (a.value > b.value) {
+                return -1;
               }
+              if (a.value < b.value) {
+                return 1;
+              }
+              return 0;
+            });
+            ret.forEach(itemRet => {
+              this.badgeService.getBadgeName(itemRet.badgeId).subscribe(
+                badge => {
+                  itemRet.badge = badge;
+                  obj.push(itemRet)
+                  if (obj.length === ret.length) {
+                    observer.next(obj);
+                    observer.complete();
+                  }
+                }, error => observer.error(error))
+            });
+          }
         }, error => observer.error(error)
       )
     });
   }
 
   /**Funcion antigua, no se usa*/
-  public getMyStudentBadges3(groupId: string, studentId: string ): Observable<Array<BadgeRelation>> {
+  public getMyStudentBadges3(groupId: string, studentId: string): Observable<Array<BadgeRelation>> {
 
     var ret: Array<BadgeRelation> = new Array<BadgeRelation>();
     var obj: Array<BadgeRelation> = new Array<BadgeRelation>();
@@ -323,61 +336,61 @@ export class BadgeRelationService {
             return 0;
           });
           badgeRelations.forEach(badgeRelation => {
-            if (badgeRelation.groupId == numGroupid){
-              if (badgeRelations.length == 1){
+            if (badgeRelation.groupId == numGroupid) {
+              if (badgeRelations.length == 1) {
                 /* El primer valor lo introduce en el array obj por defecto*/
                 this.badgeService.getBadgeName(badgeRelation.badgeId).subscribe(
+                  badge => {
+                    badgeRelation.badge = badge;
+                    this.userService.getStudentName(badgeRelation.studentId).subscribe(
+                      student => {
+                        badgeRelation.student = student;
+                        ret.push(badgeRelation);
+                        observer.next(ret);
+                        observer.complete();
+                      }, error => observer.error(error))
+                  }, error => observer.error(error))
+              }
+              if (badgeRelations.length > 1) {
+                /* Si la longitud del Array badgeRelations es mayor que 1, hay 2 o mas puntos */
+                if (ret.length == 0) {
+                  /* El primer valor lo introduce en el array ret por defecto*/
+                  this.badgeService.getBadgeName(badgeRelation.badgeId).subscribe(
                     badge => {
                       badgeRelation.badge = badge;
                       this.userService.getStudentName(badgeRelation.studentId).subscribe(
                         student => {
                           badgeRelation.student = student;
-                          ret.push(badgeRelation);
-                          observer.next(ret);
-                          observer.complete();
                         }, error => observer.error(error))
                     }, error => observer.error(error))
-              }
-              if (badgeRelations.length > 1){
-                  /* Si la longitud del Array badgeRelations es mayor que 1, hay 2 o mas puntos */
-                  if (ret.length == 0){
-                    /* El primer valor lo introduce en el array ret por defecto*/
-                    this.badgeService.getBadgeName(badgeRelation.badgeId).subscribe(
-                        badge => {
-                          badgeRelation.badge = badge;
-                          this.userService.getStudentName(badgeRelation.studentId).subscribe(
-                            student => {
-                              badgeRelation.student = student;
-                            }, error => observer.error(error))
-                        }, error => observer.error(error))
-                    ret.push(badgeRelation);
-                  }
-                  /* En el resto de casos, 1 punto en ret como mínimo*/
-                  count4 = 0;
-                  ret.forEach(itemRet =>{
-                    count4 = count4 + 1
-                    if (itemRet.badgeId == badgeRelation.badgeId){
-                      if (ret.length ==1){
-                        /* solo entra en el caso de que haya 1 punto diferente recorrido */
-                        count2 = count2 + 1
-                        count3 = 2
-                      }
-                      else {
+                  ret.push(badgeRelation);
+                }
+                /* En el resto de casos, 1 punto en ret como mínimo*/
+                count4 = 0;
+                ret.forEach(itemRet => {
+                  count4 = count4 + 1
+                  if (itemRet.badgeId == badgeRelation.badgeId) {
+                    if (ret.length == 1) {
+                      /* solo entra en el caso de que haya 1 punto diferente recorrido */
+                      count2 = count2 + 1
+                      count3 = 2
+                    }
+                    else {
                       itemRet.value = itemRet.value + 1
                       count2 = count2 + 1
                       count3 = 2
                       /*OK*/
-                      }
                     }
-                    if (itemRet.badgeId != badgeRelation.badgeId){
-                        /*OK*/
-                        if (count4 === ret.length){
-                        ret.push(badgeRelation);
-                        count4 = 0
-                        }
+                  }
+                  if (itemRet.badgeId != badgeRelation.badgeId) {
+                    /*OK*/
+                    if (count4 === ret.length) {
+                      ret.push(badgeRelation);
+                      count4 = 0
                     }
-                    if (ret.length + count + count2 === badgeRelations.length) {
-                    ret.forEach(itemRet =>{
+                  }
+                  if (ret.length + count + count2 === badgeRelations.length) {
+                    ret.forEach(itemRet => {
                       this.badgeService.getBadgeName(itemRet.badgeId).subscribe(
                         badge => {
                           itemRet.badge = badge;
@@ -397,10 +410,10 @@ export class BadgeRelationService {
                               observer.complete();
                             }, error => observer.error(error))
                         }, error => observer.error(error))
-                      });
-                    }
-                  });
-                  /* Una vez recorrido el Array obj si no se encontraba repetido se copia el nuevo punto*/
+                    });
+                  }
+                });
+                /* Una vez recorrido el Array obj si no se encontraba repetido se copia el nuevo punto*/
 
               }
             }
@@ -408,7 +421,7 @@ export class BadgeRelationService {
               /* Si no coincide el grupo*/
               count = count + 1
               if (ret.length + count + count2 === badgeRelations.length) {
-                ret.forEach(itemRet =>{
+                ret.forEach(itemRet => {
                   this.badgeService.getBadgeName(itemRet.badgeId).subscribe(
                     badge => {
                       itemRet.badge = badge;
@@ -484,7 +497,7 @@ export class BadgeRelationService {
    * of the current students logged into the application
    * @return {Array<BadgeRelation>} returns the list of groups
    */
-  public getMyBadgeBadges2(groupId: string, badgeId: string ): Observable<Array<BadgeRelation>> {
+  public getMyBadgeBadges2(groupId: string, badgeId: string): Observable<Array<BadgeRelation>> {
 
     var ret: Array<BadgeRelation> = new Array<BadgeRelation>();
     var obj: Array<BadgeRelation> = new Array<BadgeRelation>();
@@ -511,7 +524,7 @@ export class BadgeRelationService {
           });
           badgeRelationsBadge.forEach(badgeRelationBadge => {
             /*ok*/
-            if (badgeRelationBadge.groupId != numGroupid){
+            if (badgeRelationBadge.groupId != numGroupid) {
               /*ok*/
               /* Si no coincide el grupo*/
               count = count + 1
@@ -519,18 +532,18 @@ export class BadgeRelationService {
                 count3 = true
               }
             }
-            if (badgeRelationBadge.groupId == numGroupid){
+            if (badgeRelationBadge.groupId == numGroupid) {
               /*ok*/
               /* Si coincide el grupo*/
-              if (ret.length > 0){
+              if (ret.length > 0) {
                 /*ok*/
                 /* El segundo valor lo miramos para ver si ya existe en el array ret*/
                 count4 = true
                 count5 = false
                 count6 = ret.length
                 count7 = 0
-                ret.forEach(itemRet =>{
-                  if (itemRet.studentId == badgeRelationBadge.studentId){
+                ret.forEach(itemRet => {
+                  if (itemRet.studentId == badgeRelationBadge.studentId) {
                     itemRet.value = itemRet.value + 1
                     count2 = count2 + 1
                     count4 = false;
@@ -538,10 +551,10 @@ export class BadgeRelationService {
                     count7 = count7 + 1
                     /*OK*/
                   }
-                  if (itemRet.studentId != badgeRelationBadge.studentId){
+                  if (itemRet.studentId != badgeRelationBadge.studentId) {
                     count7 = count7 + 1
-                    if(count6 === count7){
-                      if (count4 = true){
+                    if (count6 === count7) {
+                      if (count4 = true) {
                         ret.push(badgeRelationBadge);
                         count5 = true
                       }
@@ -550,7 +563,7 @@ export class BadgeRelationService {
                   }
                 });
               }
-              if (ret.length === 0){
+              if (ret.length === 0) {
                 /*ok*/
                 /* El primer valor lo introduce en el array ret por defecto*/
                 ret.push(badgeRelationBadge);
@@ -562,27 +575,27 @@ export class BadgeRelationService {
             }
           });
           if (count3 = true) {
-              ret.sort(function (a, b) {
-                if (a.value > b.value) {
-                  return -1;
-                }
-                if (a.value < b.value) {
-                  return 1;
-                }
-                return 0;
-              });
-              ret.forEach(itemRet =>{
-                this.userService.getStudentName2(itemRet.studentId).subscribe(
-                  student => {
-                    itemRet.student = student;
-                    obj.push(itemRet)
-                    if (obj.length === ret.length) {
-                      observer.next(obj);
-                      observer.complete();
-                    }
-                  }, error => observer.error(error))
-                });
+            ret.sort(function (a, b) {
+              if (a.value > b.value) {
+                return -1;
               }
+              if (a.value < b.value) {
+                return 1;
+              }
+              return 0;
+            });
+            ret.forEach(itemRet => {
+              this.userService.getStudentName2(itemRet.studentId).subscribe(
+                student => {
+                  itemRet.student = student;
+                  obj.push(itemRet)
+                  if (obj.length === ret.length) {
+                    observer.next(obj);
+                    observer.complete();
+                  }
+                }, error => observer.error(error))
+            });
+          }
         }, error => observer.error(error)
       )
     });
@@ -624,31 +637,31 @@ export class BadgeRelationService {
       this.getMyGroupBadges(id).subscribe(
         badgeRelations => {
           badgeRelations.forEach(badgeRelation => {
-            if (badgeRelation.badgeId = badget){
+            if (badgeRelation.badgeId = badget) {
               count = count + 1
-            this.badgeService.getBadgeName(badgeRelation.badgeId).subscribe(
-              badge => {
-                badgeRelation.badge = badge;
-                this.userService.getStudentName(badgeRelation.studentId).subscribe(
-                  student => {
-                    badgeRelation.student = student;
-                    ret.push(badgeRelation);
-                    if (ret.length === badgeRelations.length) {
-                      observer.next(ret);
-                      observer.complete();
-                    }
-                  }, error => observer.error(error))
-              }, error => observer.error(error))
-              }
-            else{
-              ret.splice(count,1);
-            }
-          /*if (badgeRelation.studentId = studentId){
-              ret.push(badgeRelation);
+              this.badgeService.getBadgeName(badgeRelation.badgeId).subscribe(
+                badge => {
+                  badgeRelation.badge = badge;
+                  this.userService.getStudentName(badgeRelation.studentId).subscribe(
+                    student => {
+                      badgeRelation.student = student;
+                      ret.push(badgeRelation);
+                      if (ret.length === badgeRelations.length) {
+                        observer.next(ret);
+                        observer.complete();
+                      }
+                    }, error => observer.error(error))
+                }, error => observer.error(error))
             }
             else {
-              observer.next(ret);
-            }*/
+              ret.splice(count, 1);
+            }
+            /*if (badgeRelation.studentId = studentId){
+                ret.push(badgeRelation);
+              }
+              else {
+                observer.next(ret);
+              }*/
           });
         }, error => observer.error(error)
       )
@@ -669,7 +682,7 @@ export class BadgeRelationService {
     if (badgeRelation != null) {
       result.value = badgeRelation.value;
       result.badgeId = badgeRelation.badgeId;
-	    result.groupId = badgeRelation.groupId;
+      result.groupId = badgeRelation.groupId;
       result.studentId = badgeRelation.studentId;
       result.schoolId = badgeRelation.schoolId;
     }
@@ -679,27 +692,27 @@ export class BadgeRelationService {
   public postBadgeRelation(badgeId, studentId, schoolId, groupId, value): Observable<BadgeRelation> {
 
     let options: RequestOptions = new RequestOptions({
-        headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-      });
-      var url: string;
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+    var url: string;
     url = AppConfig.BADGERELATION_URL;
 
-      let postParams = {
+    let postParams = {
 
-        value: value,
-        badgeId: badgeId,
-        studentId: studentId,
-        schoolId: schoolId,
-        groupId: groupId
+      value: value,
+      badgeId: badgeId,
+      studentId: studentId,
+      schoolId: schoolId,
+      groupId: groupId
 
-      }
+    }
 
     return this.http.post(url, postParams, options)
 
-        .map(response => {
-          return BadgeRelation.toObject(response.json());
-        })
-        .catch((error: Response) => this.utilsService.handleAPIError(error));
+      .map(response => {
+        return BadgeRelation.toObject(response.json());
+      })
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
   }
 
 

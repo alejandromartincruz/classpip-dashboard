@@ -4,6 +4,16 @@
   align-items: center;
   padding: 8px 16px;
 
+  .language-button {
+    border-left: 1px solid #fff;
+    border-radius: 0;
+    float: left;
+
+    .mat-select-arrow {
+      color: #fff;
+    }
+  }
+
   .docs-classpip-logo {
     height: 26px;
     margin: 0 4px 3px 0;

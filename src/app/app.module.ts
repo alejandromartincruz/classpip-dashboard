@@ -30,8 +30,8 @@ import { QuestionnaireResultsComponent } from './pages/questionnaireResults/ques
 import { DeleteQuestionnaireComponent } from './pages/deleteQuestionnaire/deleteQuestionnaire';
 import { CreateQuestionnaireComponent } from './pages/createQuestionnaire/createQuestionnaire';
 import { CreateQuestionnairePointsAssignmentComponent } from './pages/createQuestionnairePointsAssignment/createQuestionnairePointsAssignment';
-import { CreateQuestionnaireBadgesAssignmentComponent} from './pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
-import { CreateQuestionnairePackCardsAssignmentComponent} from './pages/createQuestionnairePackCardsAssignment/createQuestionnairePackCardsAssignment';
+import { CreateQuestionnaireBadgesAssignmentComponent } from './pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
+import { CreateQuestionnairePackCardsAssignmentComponent } from './pages/createQuestionnairePackCardsAssignment/createQuestionnairePackCardsAssignment';
 
 import { CreateQuestionnaireTest1Component } from './pages/createQuestionnaireTest1/createQuestionnaireTest1';
 import { CreateQuestionnaireTest2Component } from './pages/createQuestionnaireTest2/createQuestionnaireTest2';
@@ -59,7 +59,9 @@ import { LoadingComponent } from './shared/loading/loading';
 import {
   UtilsService, LoginService, LoadingService, AlertService,
   SchoolService, AvatarService, UserService, GroupService,
-  GradeService, MatterService, QuestionnaireService,CollectionService, PointService, PointRelationService, BadgeService, BadgeRelationService
+  GradeService, MatterService, QuestionnaireService,
+  CollectionService, PointService, PointRelationService,
+  BadgeService, BadgeRelationService, LevelService
 } from './shared/services/index';
 
 // rxjs
@@ -160,8 +162,8 @@ export function createTranslateLoader(http: Http) {
     PointRelationService,
     BadgeService,
     BadgeRelationService,
-    CollectionService
-
+    CollectionService,
+    LevelService
   ],
   bootstrap: [AppComponent]
 })

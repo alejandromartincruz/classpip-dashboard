@@ -17,6 +17,7 @@ export * from './questionnaire';
 export * from './resultQuestionnaire';
 export * from './point';
 export * from './badge';
+export * from './rango';
 export * from './pointRelation';
 export * from './badgeRelation';
 export * from './card';

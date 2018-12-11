@@ -20,6 +20,7 @@ export class AppConfig {
   public static get RESULTQUESTIONNAIRE_URL(): string { return this.SERVER_URL + '/api/ResultQuestionnaires'; }
   public static get POINT_URL(): string { return this.SERVER_URL + '/api/points'; }
   public static get BADGE_URL(): string { return this.SERVER_URL + '/api/badges'; }
+  public static get RANGE_URL(): string { return this.SERVER_URL + '/api/ranges'; }
   public static get POINTRELATION_URL(): string { return this.SERVER_URL + '/api/pointRelations'; }
   public static get BADGERELATION_URL(): string { return this.SERVER_URL + '/api/badgeRelations'; }
   public static get COLLECTION_URL(): string { return this.SERVER_URL + '/api/collectionCards'; }

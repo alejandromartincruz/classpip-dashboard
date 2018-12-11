@@ -1,14 +1,23 @@
-import { Component, OnInit, Inject} from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatSnackBar} from '@angular/material';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatListModule} from '@angular/material/list';
-import {FormControl, FormsModule} from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatListModule } from '@angular/material/list';
+import { FormControl, FormsModule } from '@angular/forms';
 
-import { Login, Group, Role, Questionnaire,ResultPoints, Point, Badge, Student, PointRelation, BadgeRelation, ResultBadges } from '../../shared/models/index';
+import {
+  Login, Group, Role,
+  Questionnaire, ResultPoints, Point,
+  Badge, Student, PointRelation,
+  BadgeRelation, ResultBadges
+} from '../../shared/models/index';
 import { AppConfig } from '../../app.config';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { LoadingService, UtilsService, BadgeRelationService, GroupService, AlertService, PointRelationService, PointService, BadgeService, SchoolService } from '../../shared/services/index';
+import {
+  LoadingService, UtilsService, BadgeRelationService,
+  GroupService, AlertService, PointRelationService,
+  PointService, BadgeService, SchoolService
+} from '../../shared/services/index';
 import { CreatePointComponent } from '../../pages/createPoint/createPoint';
 import { DeletePointComponent } from '../../pages/deletePoint/deletePoint';
 import { CreateBadgeComponent } from '../../pages/createBadge/createBadge';
@@ -80,8 +89,7 @@ export class PointsBadgesComponent implements OnInit {
     public badgeService: BadgeService,
     public dialog: MatDialog,
     public snackbar: MatSnackBar
-    )
-   {
+  ) {
 
     this.utilsService.currentUser = Login.toObject(localStorage.getItem(AppConfig.LS_USER));
     this.utilsService.role = Number(localStorage.getItem(AppConfig.LS_ROLE));
@@ -89,23 +97,21 @@ export class PointsBadgesComponent implements OnInit {
 
   ngOnInit(): void {
     this.totalPoints = 0;
-   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/pointsbadges';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/pointsbadges';
 
-    if(this.utilsService.role == Role.STUDENT)
-    {
+    if (this.utilsService.role == Role.STUDENT) {
       this.listPoints = new Array<ResultPoints>();
       this.listBadges = new Array<ResultBadges>();
 
       //Obtenemos los puntos del estudiante
       this.pointRelationService.getStudentPoints(String(this.utilsService.currentUser.userId)).subscribe(
-        ((studentPoints: Array<PointRelation>) =>{
+        ((studentPoints: Array<PointRelation>) => {
           this.studentPoints = studentPoints;
           this.loadingService.hide();
 
-          for(let relpoint of this.studentPoints)
-          {
+          for (let relpoint of this.studentPoints) {
             this.pointService.getPoint(+relpoint.pointId).subscribe(
-              ((value: Point) =>{
+              ((value: Point) => {
                 //this.loadingService.hide();
 
                 this.totalPoints += Number(value.value) * Number(relpoint.value);
@@ -117,57 +123,50 @@ export class PointsBadgesComponent implements OnInit {
                 this.loadingService.hide();
                 this.alertService.show(error.toString());
               }));
-            }
+          }
         }
-      ),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
+        ),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
 
 
-      //Obtenemos las insígnias del estudiante
+      // Obtenemos las insígnias del estudiante
       this.badgeRelationService.getStudentBadges(String(this.utilsService.currentUser.userId)).subscribe(
-        ((studentBadges: Array<BadgeRelation>) =>{
+        ((studentBadges: Array<BadgeRelation>) => {
           this.studentBadges = studentBadges;
           this.loadingService.hide();
 
-          for(let relbadge of this.studentBadges)
-          {
+          for (const relbadge of this.studentBadges) {
             this.badgeService.getBadge(+relbadge.badgeId).subscribe(
-              ((badge: Badge) =>{
-                //this.loadingService.hide();
-
-
-
-                this.listBadges.push(new ResultBadges(relbadge, badge))
-
+              ((badge: Badge) => {
+                // this.loadingService.hide();
+                this.listBadges.push(new ResultBadges(relbadge, badge));
               }),
               ((error: Response) => {
                 this.loadingService.hide();
                 this.alertService.show(error.toString());
               }));
-            }
+          }
         }
-      ),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
+        ),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
 
 
     }
 
 
     if (this.utilsService.role === Role.TEACHER) {
-        this.isTeacher= true;
+      this.isTeacher = true;
 
       this.groupService.getMyGroups().subscribe(
         ((mygroups: Array<Group>) => {
           this.mygroups = mygroups;
           this.loadingService.hide();
-
-
         }),
         ((error: Response) => {
           this.loadingService.hide();
@@ -180,6 +179,76 @@ export class PointsBadgesComponent implements OnInit {
         ((badges: Array<Badge>) => {
           this.badges = badges;
           this.loadingService.hide();
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+
+      this.schoolService.getMySchoolPoints().subscribe(
+        ((points: Array<Point>) => {
+          this.points = points;
+          this.loadingService.hide();
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+
+
+    }
+
+  }
+  public showStudents() {
+
+    this.listStudentsPoints = [];
+
+    if (this.groupSelectedList) {
+      this.groupService.getMyGroupStudents(this.groupSelectedList).subscribe(
+        ((students: Array<Student>) => {
+          this.listStudents = students;
+          this.loadingService.hide();
+
+          for (const st of this.listStudents) {
+            this.pointRelationService.getStudentPoints(st.id).subscribe(
+              ((valuePoints: Array<PointRelation>) => {
+                this.valuePoints = valuePoints;
+                this.totalPointsStudent = 0;
+                st.totalPoints = 0;
+                this.loadingService.hide();
+                for (const rel of this.valuePoints) {
+                  this.pointService.getPoint(rel.pointId).subscribe(
+                    ((valuep: Point) => {
+                      this.loadingService.hide();
+
+                      // this.totalPointsStudent += Number(valuep.value) * Number(rel.value);
+                      st.totalPoints += Number(valuep.value) * Number(rel.value);
+
+                    }),
+                    ((error: Response) => {
+                      this.loadingService.hide();
+                      this.alertService.show(error.toString());
+                    }));
+
+
+                }
+
+                // st.totalPoints = this.totalPointsStudent;
+
+                // st.totalPoints = this.totalPointsStudent;
+
+                this.listStudentsPoints.push(st);
+                this.totalPointsStudent = 0;
+
+              }
+              ),
+              ((error: Response) => {
+                this.loadingService.hide();
+                this.alertService.show(error.toString());
+              }));
+
+
+          }
 
 
         }),
@@ -187,172 +256,92 @@ export class PointsBadgesComponent implements OnInit {
           this.loadingService.hide();
           this.alertService.show(error.toString());
         }));
-
-        this.schoolService.getMySchoolPoints().subscribe(
-          ((points: Array<Point>) => {
-            this.points = points;
-            this.loadingService.hide();
-          }),
-          ((error: Response) => {
-            this.loadingService.hide();
-            this.alertService.show(error.toString());
-          }));
-
-
-    }
-
-  }
-  public showStudents(){
-
-    this.listStudentsPoints = [];
-
-    if(this.groupSelectedList)
-    {
-    this.groupService.getMyGroupStudents(this.groupSelectedList).subscribe(
-      ((students: Array<Student>)=>{
-        this.listStudents = students;
-        this.loadingService.hide();
-
-        for(let st of this.listStudents)
-        {
-          this.pointRelationService.getStudentPoints(st.id).subscribe(
-            ((valuePoints: Array<PointRelation>) =>{
-                this.valuePoints= valuePoints;
-              this.totalPointsStudent = 0;
-              st.totalPoints = 0;
-              this.loadingService.hide();
-              for(let rel of this.valuePoints)
-              {
-                this.pointService.getPoint(rel.pointId).subscribe(
-                  ((valuep: Point) =>{
-                    this.loadingService.hide();
-
-                  // this.totalPointsStudent += Number(valuep.value) * Number(rel.value);
-                    st.totalPoints +=Number(valuep.value) * Number(rel.value);
-
-                  }),
-                  ((error: Response) => {
-                    this.loadingService.hide();
-                    this.alertService.show(error.toString());
-                  }));
-
-
-                }
-
-              // st.totalPoints = this.totalPointsStudent;
-
-                //st.totalPoints = this.totalPointsStudent;
-
-                this.listStudentsPoints.push(st);
-                this.totalPointsStudent = 0;
-
-            }
-          ),
-          ((error: Response) => {
-            this.loadingService.hide();
-            this.alertService.show(error.toString());
-          }));
-
-
-        }
-
-
-      }),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
     }
 
 
 
   }
-  public openStudents(){
+  public openStudents() {
 
 
-          if( this.groupSelected)
-          {
-            this.groupService.getMyGroupStudents(this.groupSelected).subscribe(
-            ((mystudents: Array<Student>) => {
-              this.mystudents = mystudents;
-              this.loadingService.hide();
+    if (this.groupSelected) {
+      this.groupService.getMyGroupStudents(this.groupSelected).subscribe(
+        ((mystudents: Array<Student>) => {
+          this.mystudents = mystudents;
+          this.loadingService.hide();
 
 
-            }),
-            ((error: Response) => {
-              this.loadingService.hide();
-              this.alertService.show(error.toString());
-            }));
-          }
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+    }
 
   }
-  public openStudents2(){
+  public openStudents2() {
 
 
-    if( this.groupSelected2)
-    {
+    if (this.groupSelected2) {
       this.groupService.getMyGroupStudents(this.groupSelected2).subscribe(
-      ((mystudents: Array<Student>) => {
-        this.mystudents = mystudents;
-        this.loadingService.hide();
+        ((mystudents: Array<Student>) => {
+          this.mystudents = mystudents;
+          this.loadingService.hide();
 
 
-      }),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
     }
 
-}
-sendBadgeRelation(){
-
-
-  if(!this.groupSelected2 || !this.studentSelected2 || !this.badgeSelected)
-  {
-
-    this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
-
   }
- else {
-  this.badgeRelationService.postBadgeRelation(this.badgeSelected,this.studentSelected2,this.utilsService.currentSchool.id,this.groupSelected2,1).subscribe(
-    ((responseBadgeRelation: BadgeRelation) => {
-      this.responseBadgeRelation = responseBadgeRelation;
-      this.loadingService.hide();
-
-      this.alertService.show(this.translateService.instant('BADGES.CORASSIGN'));
+  sendBadgeRelation() {
 
 
-    }),
-    ((error: Response) => {
-      this.loadingService.hide();
-      this.alertService.show(error.toString());
-    }));
-  }
-}
-  sendPointRelation()
-  {
-    if(!this.groupSelected || !this.studentSelected || !this.pointSelected || !this.valueSelected)
-    {
+    if (!this.groupSelected2 || !this.studentSelected2 || !this.badgeSelected) {
 
       this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
 
     }
-   else {
-    this.pointRelationService.postPointRelation(this.pointSelected,this.studentSelected,this.utilsService.currentSchool.id,this.groupSelected,this.valueSelected).subscribe(
-      ((responsePointRelation: PointRelation) => {
-        this.responsePointRelation = responsePointRelation;
-        this.loadingService.hide();
+    else {
+      this.badgeRelationService.postBadgeRelation(this.badgeSelected, this.studentSelected2, this.utilsService.currentSchool.id, this.groupSelected2, 1).subscribe(
+        ((responseBadgeRelation: BadgeRelation) => {
+          this.responseBadgeRelation = responseBadgeRelation;
+          this.loadingService.hide();
 
-        this.alertService.show(this.translateService.instant('POINTS.CORASSIGN'));
+          this.alertService.show(this.translateService.instant('BADGES.CORASSIGN'));
 
 
-      }),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
-     }
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+    }
+  }
+  sendPointRelation() {
+    if (!this.groupSelected || !this.studentSelected || !this.pointSelected || !this.valueSelected) {
+
+      this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
+
+    }
+    else {
+      this.pointRelationService.postPointRelation(this.pointSelected, this.studentSelected, this.utilsService.currentSchool.id, this.groupSelected, this.valueSelected).subscribe(
+        ((responsePointRelation: PointRelation) => {
+          this.responsePointRelation = responsePointRelation;
+          this.loadingService.hide();
+
+          this.alertService.show(this.translateService.instant('POINTS.CORASSIGN'));
+
+
+        }),
+        ((error: Response) => {
+          this.loadingService.hide();
+          this.alertService.show(error.toString());
+        }));
+    }
   }
   public createPoint() {
     const dialogRef = this.dialog.open(CreatePointComponent, {
@@ -370,19 +359,17 @@ sendBadgeRelation(){
   public deletePoint() {
 
 
-    if(!this.pointId)
-    {
+    if (!this.pointId) {
 
       this.alertService.show(this.translateService.instant('POINTS.NOTSELECTED'));
 
     }
-    else if (this.pointId == this.questionnairePoint)
-    {
+    else if (this.pointId == this.questionnairePoint) {
       this.alertService.show(this.translateService.instant('POINTS.QUESTIONNAIRE'));
 
 
     }
-    else{
+    else {
       let dialogRef = this.dialog.open(DeletePointComponent, {
         height: '400px',
         width: '600px',
@@ -411,15 +398,14 @@ sendBadgeRelation(){
   }
   public deleteBadge() {
 
-    if(!this.badgeId)
-    {
+    if (!this.badgeId) {
 
       this.alertService.show(this.translateService.instant('BADGES.NOTSELECTED'));
 
 
     }
 
-    else{
+    else {
       let dialogRef = this.dialog.open(DeleteBadgeComponent, {
         height: '400px',
         width: '600px',

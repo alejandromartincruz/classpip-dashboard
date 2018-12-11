@@ -5,6 +5,7 @@
 
 @import './variables';
 @import './mixins';
+@import './materialize';
 
 // Create the theme object (a Sass map containing all of the palettes).
 // classpip theme
@@ -27,6 +28,74 @@ body {
   font-family: "Roboto","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
   height: 100%;
   margin: 0;
+}
+.student-profile {
+	.student-name {
+		display: block;
+	    font-size: 1.17em;
+	    margin-block-start: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    font-weight: bold;
+	}
+	#progressbar {
+		width: 100%;
+	}
+	.rank-image {
+		max-width: 100%;
+		width: 100%;
+	}
+	.rank-title {
+		margin-top: -2em;
+    	margin-left: 0.8em;
+	}
+	.line-right {
+    	border-right: 1px solid #e0e0e0;
+	}
+	.display-level {
+		font-size: 9em;
+		color: #b90000;
+		text-align: center;
+	}
+	.badges-title,
+	.points-title,
+	.level-title {
+		display: block;
+		text-transform: uppercase;
+		padding-left: 0.8em;
+		padding-top: 1.2em
+	}
+	.points-title {
+		padding-top: 0.2em
+	}
+	.display-points {
+		font-size: 2.5em;
+		text-align: center;
+	}
+	.badge-container {
+		padding-top: 1.2em;
+	}
+	.student-badge {
+		position: relative;
+		display: inline-block;
+		width: 50%;
+		padding: 10px 10px 0;
+		img {
+			max-width: 100%;
+		}
+		.badge-points {
+		    position: absolute;
+		    top: 10px;
+		    right: 10px;
+		    background-color: #ca0000;
+		    color: #fff;
+		    border-radius: 50%;
+		    height: 25px;
+		    width: 25px;
+		    line-height: 25px;
+		    text-align: center;
+		}
+	}
 }
 
 @import './tablet';

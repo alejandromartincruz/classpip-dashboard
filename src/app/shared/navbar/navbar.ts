@@ -5,6 +5,10 @@ import { UtilsService } from '../services/utils.service';
 import { UserService } from '../services/user.service';
 
 import { Profile } from '../models/index';
+import { MatDialog } from '@angular/material';
+
+import { LanguageComponent } from '../../pages/language/language';
+
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +22,8 @@ export class NavBarComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     public utilsService: UtilsService,
-    public userService: UserService
+    public userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -31,5 +36,16 @@ export class NavBarComponent implements OnInit {
         this.isLoggedIn = res;
       })
     );
+  }
+
+  public choose() {
+    const dialogRef = this.dialog.open(LanguageComponent, {
+      height: '390px',
+      width: '250px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
   }
 }
