@@ -15,3 +15,4 @@ export * from './pointRelation.service';
 export * from './point.service';
 export * from './collection.service';
 export * from './level.service';
+export * from './reward.service';

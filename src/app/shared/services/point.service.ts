@@ -149,4 +149,15 @@ export class PointService {
       .catch((error: Response) => this.utilsService.handleAPIError(error));
   }
 
+  public getAllPoints(): Observable<Point[]> {
+
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
+    return this.http.get(AppConfig.POINT_URL, options)
+      .map((response: Response, index: number) => Point.toObjectArray(response.json()))
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+  }
+
 }

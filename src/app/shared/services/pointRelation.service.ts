@@ -18,6 +18,7 @@ import { PointRelation } from '../models/pointRelation';
 import { Grade } from '../models/grade';
 import { Matter } from '../models/matter';
 import { ResultPoints } from '../models';
+import { RewardService } from './reward.service';
 
 
 @Injectable()
@@ -30,8 +31,8 @@ export class PointRelationService {
     public utilsService: UtilsService,
     public schoolService: SchoolService,
     public userService: UserService,
-    public pointService: PointService
-
+    public pointService: PointService,
+    public rewardService: RewardService
   ) { }
 
   /**
@@ -688,6 +689,8 @@ export class PointRelationService {
       groupId: groupId
 
     };
+
+    this.rewardService.addPointsProcess(studentId, pointId, value);
 
     return this.http.post(url, postParams, options)
       .map(response => {

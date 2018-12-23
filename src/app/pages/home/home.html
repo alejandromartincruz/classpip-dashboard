@@ -1,81 +1,8 @@
 <div class="home-content">
 
-  <div *ngIf="isTeacherProfile">
-    <mat-card *ngIf="profile">
-      <mat-card-header>
-        <img mat-card-avatar [src]="profile.avatar.image">
-        <mat-card-title>{{ profile.name }} {{ profile.surname }}</mat-card-title>
-        <mat-card-subtitle>{{ profile.email }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <ngx-lorem-ipsum [count]="10"></ngx-lorem-ipsum>
-      </mat-card-content>
-    </mat-card>
-    <mat-card *ngIf="school">
-      <mat-card-header>
-        <img mat-card-avatar [src]="school.image">
-        <mat-card-title>{{ school.name }}</mat-card-title>
-        <mat-card-subtitle>{{ school.address }}, {{ school.zipCode }} {{ school.city }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ school.description }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-button href="{{ school.twitter }}" target="_blank">{{ 'HOME.TWITTER' | translate }}</a>
-        <a mat-button href="{{ school.facebook }}" target="_blank">{{ 'HOME.FACEBOOK' | translate }}</a>
-        <a mat-button href="{{ school.website }}" target="_blank">{{ 'HOME.WEBSITE' | translate }}</a>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+  <app-teacher-home *ngIf="isTeacherProfile" [profile]="profile" [school]="school"></app-teacher-home>
 
-  <div class="student-profile" *ngIf="isStudentProfile">
-    <div class="row">
-      <div class="col s12 m6">
-        <span *ngIf="profile" class="student-name">{{ profile.name }} {{ profile.surname }}</span>
-      </div>
-      <div class="col s12 m6">
-        <div class="next-points-row">Puntos para el siguiente nivel: <b class="next-level-points">{{nextLevelPoints -
-            myPoints}}</b></div>
-        <div class="progressbar"><progress id="progressbar" value="{{nextLevelPoints - myPoints}}" max="10"></progress></div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <div class="row">
-      <div class="col s6 m4 line-right no-padding">
-        <img *ngIf="rank" class="rank-image" src="{{rank.imageRangoLink}}" alt="imagen del rango">
-        <h4 *ngIf="rank" class="rank-title">{{rank.nombreRango}}</h4>
-      </div>
-      <div class="col s6 m4 line-right">
-        <span class="level-title">NIVEL</span>
-        <div class="display-level">{{level}}</div>
-        <span class="points-title">PUNTOS</span>
-        <div class="display-points">{{myPoints}}</div>
-      </div>
-      <div class="col s12 m4">
-        <div class="badges-title">Insignias</div>
-        <div *ngIf="listBadges" class="badge-container">
-          <div *ngFor="let badge of listBadges" class="student-badge">
-            <img src="{{badge.image}}" alt="{{badge.name}}">
-            <div class="badge-points">{{badge.value}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <mat-card *ngIf="school">
-      <mat-card-header>
-        <img mat-card-avatar [src]="school.image">
-        <mat-card-title>{{ school.name }}</mat-card-title>
-        <mat-card-subtitle>{{ school.address }}, {{ school.zipCode }} {{ school.city }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ school.description }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <a mat-button href="{{ school.twitter }}" target="_blank">{{ 'HOME.TWITTER' | translate }}</a>
-        <a mat-button href="{{ school.facebook }}" target="_blank">{{ 'HOME.FACEBOOK' | translate }}</a>
-        <a mat-button href="{{ school.website }}" target="_blank">{{ 'HOME.WEBSITE' | translate }}</a>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+  <app-student-home *ngIf="isStudentProfile" [profile]="profile" [reward]="reward" [rank]="rank" [studentPoints]="studentPoints"
+    [school]="school"></app-student-home>
 
 </div>

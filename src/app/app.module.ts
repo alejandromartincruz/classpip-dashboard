@@ -29,9 +29,15 @@ import { QuestionnaireComponent } from './pages/questionnaire/questionnaire';
 import { QuestionnaireResultsComponent } from './pages/questionnaireResults/questionnaireResults';
 import { DeleteQuestionnaireComponent } from './pages/deleteQuestionnaire/deleteQuestionnaire';
 import { CreateQuestionnaireComponent } from './pages/createQuestionnaire/createQuestionnaire';
-import { CreateQuestionnairePointsAssignmentComponent } from './pages/createQuestionnairePointsAssignment/createQuestionnairePointsAssignment';
-import { CreateQuestionnaireBadgesAssignmentComponent } from './pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
-import { CreateQuestionnairePackCardsAssignmentComponent } from './pages/createQuestionnairePackCardsAssignment/createQuestionnairePackCardsAssignment';
+import {
+  CreateQuestionnairePointsAssignmentComponent
+} from './pages/createQuestionnairePointsAssignment/createQuestionnairePointsAssignment';
+import {
+  CreateQuestionnaireBadgesAssignmentComponent
+} from './pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
+import {
+  CreateQuestionnairePackCardsAssignmentComponent
+} from './pages/createQuestionnairePackCardsAssignment/createQuestionnairePackCardsAssignment';
 
 import { CreateQuestionnaireTest1Component } from './pages/createQuestionnaireTest1/createQuestionnaireTest1';
 import { CreateQuestionnaireTest2Component } from './pages/createQuestionnaireTest2/createQuestionnaireTest2';
@@ -61,7 +67,8 @@ import {
   SchoolService, AvatarService, UserService, GroupService,
   GradeService, MatterService, QuestionnaireService,
   CollectionService, PointService, PointRelationService,
-  BadgeService, BadgeRelationService, LevelService
+  BadgeService, BadgeRelationService, LevelService,
+  RewardService
 } from './shared/services/index';
 
 // rxjs
@@ -75,11 +82,9 @@ import { CreateCollectionComponent } from './pages/createCollection/createCollec
 import { DeleteCollectionComponent } from './pages/deleteCollection/deleteCollection';
 import { QuestionnaireAwardsComponent } from './pages/questionnaireAwards/questionnaireAwards';
 import { GroupStudentsComponent } from './pages/groupStudents/groupStudents';
-
-
-
-
-
+import { StudentHomeComponent } from './pages/student-home/student-home.component';
+import { SchoolComponent } from './pages/school/school.component';
+import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -127,7 +132,10 @@ export function createTranslateLoader(http: Http) {
     LoadingComponent,
     OrderByIdPipe,
     OrderByNamePipe,
-    OrderBySurnamePipe
+    OrderBySurnamePipe,
+    StudentHomeComponent,
+    SchoolComponent,
+    TeacherHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -163,7 +171,8 @@ export function createTranslateLoader(http: Http) {
     BadgeService,
     BadgeRelationService,
     CollectionService,
-    LevelService
+    LevelService,
+    RewardService
   ],
   bootstrap: [AppComponent]
 })

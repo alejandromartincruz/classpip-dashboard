@@ -50,7 +50,7 @@ export class BadgeService {
    */
   public getBadge(id: number): Observable<Badge> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
@@ -62,7 +62,7 @@ export class BadgeService {
 
   public deleteBadge(id: string): Observable<Badge> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
     return this.http.delete(AppConfig.BADGE_URL + '/' + id, options)
@@ -74,12 +74,12 @@ export class BadgeService {
 
   public getBadgeName(id: number): Observable<Badge> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
     return this.http.get(AppConfig.BADGE_URL + '/' + id, options)
-      .map((response: Response, index: number) => Badge.toObject(response.json()))
+      .map((response: Response, index: number) => Badge.toObject(response.json()));
   }
 
 
@@ -110,12 +110,11 @@ export class BadgeService {
    */
   public postBadge(badge: Badge): Observable<Response> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string;
-    url = AppConfig.BADGE_URL;
+    const url = AppConfig.BADGE_URL;
 
     return this.http.post(url, badge)
       .map(response => {
@@ -125,19 +124,18 @@ export class BadgeService {
   }
   public saveBadge(name: string, value: number, image: string): Observable<Badge> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    let url: string;
-    url = AppConfig.BADGE_URL;
-    let postParams = {
+    const url = AppConfig.BADGE_URL;
+    const postParams = {
       name: name,
       value: value,
       image: image,
       teacherId: this.utilsService.currentUser.userId,
       schoolId: this.utilsService.currentSchool.id
-    }
+    };
 
     return this.http.post(url, postParams, options)
       .map(response => {
@@ -146,5 +144,17 @@ export class BadgeService {
       })
       .catch((error: Response) => this.utilsService.handleAPIError(error));
 
+  }
+
+  public getAllBadges(): Observable<Badge[]> {
+
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
+    const url = AppConfig.BADGE_URL;
+    return this.http.get(url, options)
+      .map((response: Response, index: number) => Badge.toObjectArray(response.json()))
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
   }
 }

@@ -3,13 +3,18 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AppConfig } from '../../app.config';
 import { Rango } from '../models/rango';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class LevelService {
 
   private rank: Rango;
+  private ranks: Array<Rango>;
 
-  constructor(public http: Http) { }
+  constructor(
+    public http: Http,
+    public utilsService: UtilsService
+  ) { }
 
   public getLevel(points: Number): Number {
     if (points <= 0) {
@@ -20,10 +25,16 @@ export class LevelService {
   }
 
   public getRank(points: Number): Rango {
+
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
     if (points <= 0 || points === undefined) {
       points = 1;
     }
-    this.http.get(AppConfig.RANGE_URL)
+
+    this.http.get(AppConfig.RANGE_URL, options)
       .map((res: Response) => res.json())
       .subscribe(
         (response) => {
@@ -34,7 +45,26 @@ export class LevelService {
           );
           this.rank = response.filter(rango => rango.puntosRango >= max).pop();
         });
+
     return this.rank;
+  }
+
+  public getAllRanks(): Observable<Rango[]> {
+
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
+    return this.http.get(AppConfig.RANGE_URL, options)
+      .map((response: Response) => Rango.toObjectArray(response.json()));
+  }
+
+  public sortFunction(a, b) {
+    if (a['puntosRango'] === b['puntosRango']) {
+      return 0;
+    } else {
+      return (a['puntosRango'] < b['puntosRango']) ? -1 : 1;
+    }
   }
 
   public getNextLevelPoints(points: Number): number {

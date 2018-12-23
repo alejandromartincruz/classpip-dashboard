@@ -28,6 +28,18 @@ export class Rango {
     return result;
   }
 
+  /* tslint:disable */
+  static toObjectArray(object: any): Array<Rango> {
+    /* tslint:enable */
+    const resultArray: Array<Rango> = new Array<Rango>();
+    if (object != null) {
+      for (let i = 0; i < object.length; i++) {
+        resultArray.push(Rango.toObject(object[i]));
+      }
+    }
+    return resultArray;
+  }
+
   public get id(): string {
     return this._id;
   }

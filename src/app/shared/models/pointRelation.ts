@@ -23,7 +23,7 @@ export class PointRelation {
   /* tslint:disable */
   static toObject(object: any): PointRelation {
     /* tslint:enable */
-    let result: PointRelation = new PointRelation();
+    const result: PointRelation = new PointRelation();
     if (object != null) {
       result.id = object.id;
       result.value = object.value;
@@ -38,7 +38,7 @@ export class PointRelation {
   /* tslint:disable */
   static toObjectArray(object: any): Array<PointRelation> {
     /* tslint:enable */
-    let resultArray: Array<PointRelation> = new Array<PointRelation>();
+    const resultArray: Array<PointRelation> = new Array<PointRelation>();
     if (object != null) {
       for (let i = 0; i < object.length; i++) {
         resultArray.push(PointRelation.toObject(object[i]));

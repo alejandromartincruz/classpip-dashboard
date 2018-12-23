@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { UtilsService } from './utils.service';
 import { AppConfig } from '../../app.config';
-import { School, Role, Avatar, Teacher, Student, Point, Badge  } from '../models/index';
+import { School, Role, Avatar, Teacher, Student, Point, Badge } from '../models/index';
 
 @Injectable()
 export class SchoolService {
@@ -128,11 +128,11 @@ export class SchoolService {
    */
   public getMySchoolPoints(): Observable<Array<Point>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL;
+    const url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL;
 
     return this.http.get(url, options)
       .map((response: Response, index: number) => Point.toObjectArray(response.json()))
@@ -142,13 +142,13 @@ export class SchoolService {
    * Returns the list of students by a group id.
    * @return {Array<Badge>} returns the list of points
    */
-   public getMySchoolBadges(): Observable<Array<Badge>> {
+  public getMySchoolBadges(): Observable<Array<Badge>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
+    const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
 
     return this.http.get(url, options)
       .map((response: Response, index: number) => Badge.toObjectArray(response.json()))
@@ -158,12 +158,12 @@ export class SchoolService {
 
   private getPoints(): Observable<Array<Point>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var count: number = 0;
-    var url: string = this.utilsService.getMyUrl() + AppConfig.POINTS_URL;
+    const count = 0;
+    const url: string = this.utilsService.getMyUrl() + AppConfig.POINTS_URL;
 
     return this.http.get(url, options)
       .map((response: Response, index: number) => Point.toObjectArray(response.json()))
@@ -177,11 +177,11 @@ export class SchoolService {
    */
   public getMySchoolPointsCount(): Observable<number> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL + AppConfig.COUNT_URL;
+    const url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL + AppConfig.COUNT_URL;
 
     return this.http.get(url, options)
       .map((response: Response, index: number) => response.json().count)
@@ -190,15 +190,15 @@ export class SchoolService {
 
   private getBadges(): Observable<Array<Badge>> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var count: number = 0;
-    var url: string = this.utilsService.getMyUrl() + AppConfig.BADGES_URL;
+    const count = 0;
+    const url: string = this.utilsService.getMyUrl() + AppConfig.BADGES_URL;
 
     return this.http.get(url, options)
-      .map((response: Response, index: number) => Badge.toObjectArray(response.json()))
+      .map((response: Response, index: number) => Badge.toObjectArray(response.json()));
   }
 
 
@@ -209,11 +209,11 @@ export class SchoolService {
    */
   public getMySchoolBadgesCount(): Observable<number> {
 
-    let options: RequestOptions = new RequestOptions({
+    const options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-    var url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL + AppConfig.COUNT_URL;
+    const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL + AppConfig.COUNT_URL;
 
     return this.http.get(url, options)
       .map((response: Response, index: number) => response.json().count)

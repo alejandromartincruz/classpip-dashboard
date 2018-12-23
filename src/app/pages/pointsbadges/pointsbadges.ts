@@ -34,7 +34,7 @@ import { TranslateService } from 'ng2-translate';
 export class PointsBadgesComponent implements OnInit {
   myControl = new FormControl();
   public returnUrl: string;
-  public questionnairePoint: string = "100001";
+  public questionnairePoint = '100001';
   public badges: Array<Badge>;
   public badgeId: string;
   public resultDeleteBadge: number;
@@ -99,24 +99,24 @@ export class PointsBadgesComponent implements OnInit {
     this.totalPoints = 0;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/pointsbadges';
 
-    if (this.utilsService.role == Role.STUDENT) {
+    if (this.utilsService.role === Role.STUDENT) {
       this.listPoints = new Array<ResultPoints>();
       this.listBadges = new Array<ResultBadges>();
 
-      //Obtenemos los puntos del estudiante
+      // Obtenemos los puntos del estudiante
       this.pointRelationService.getStudentPoints(String(this.utilsService.currentUser.userId)).subscribe(
         ((studentPoints: Array<PointRelation>) => {
           this.studentPoints = studentPoints;
           this.loadingService.hide();
 
-          for (let relpoint of this.studentPoints) {
+          for (const relpoint of this.studentPoints) {
             this.pointService.getPoint(+relpoint.pointId).subscribe(
               ((value: Point) => {
-                //this.loadingService.hide();
+                // this.loadingService.hide();
 
                 this.totalPoints += Number(value.value) * Number(relpoint.value);
 
-                this.listPoints.push(new ResultPoints(relpoint, value))
+                this.listPoints.push(new ResultPoints(relpoint, value));
 
               }),
               ((error: Response) => {
@@ -281,7 +281,6 @@ export class PointsBadgesComponent implements OnInit {
   }
   public openStudents2() {
 
-
     if (this.groupSelected2) {
       this.groupService.getMyGroupStudents(this.groupSelected2).subscribe(
         ((mystudents: Array<Student>) => {
@@ -297,65 +296,69 @@ export class PointsBadgesComponent implements OnInit {
     }
 
   }
-  sendBadgeRelation() {
 
+  sendBadgeRelation() {
 
     if (!this.groupSelected2 || !this.studentSelected2 || !this.badgeSelected) {
 
       this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
 
-    }
-    else {
-      this.badgeRelationService.postBadgeRelation(this.badgeSelected, this.studentSelected2, this.utilsService.currentSchool.id, this.groupSelected2, 1).subscribe(
-        ((responseBadgeRelation: BadgeRelation) => {
-          this.responseBadgeRelation = responseBadgeRelation;
-          this.loadingService.hide();
+    } else {
+      this.badgeRelationService.postBadgeRelation(
+        this.badgeSelected, this.studentSelected2, this.utilsService.currentSchool.id, this.groupSelected2, 1).subscribe(
+          ((responseBadgeRelation: BadgeRelation) => {
+            this.responseBadgeRelation = responseBadgeRelation;
+            this.loadingService.hide();
 
-          this.alertService.show(this.translateService.instant('BADGES.CORASSIGN'));
+            this.alertService.show(this.translateService.instant('BADGES.CORASSIGN'));
 
 
-        }),
-        ((error: Response) => {
-          this.loadingService.hide();
-          this.alertService.show(error.toString());
-        }));
+          }),
+          ((error: Response) => {
+            this.loadingService.hide();
+            this.alertService.show(error.toString());
+          }));
     }
   }
+
   sendPointRelation() {
+
     if (!this.groupSelected || !this.studentSelected || !this.pointSelected || !this.valueSelected) {
 
       this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
 
-    }
-    else {
-      this.pointRelationService.postPointRelation(this.pointSelected, this.studentSelected, this.utilsService.currentSchool.id, this.groupSelected, this.valueSelected).subscribe(
-        ((responsePointRelation: PointRelation) => {
-          this.responsePointRelation = responsePointRelation;
-          this.loadingService.hide();
+    } else {
 
-          this.alertService.show(this.translateService.instant('POINTS.CORASSIGN'));
+      this.pointRelationService.postPointRelation(
+        this.pointSelected, this.studentSelected, this.utilsService.currentSchool.id, this.groupSelected, this.valueSelected).subscribe(
+          ((responsePointRelation: PointRelation) => {
+            this.responsePointRelation = responsePointRelation;
+            this.loadingService.hide();
+
+            this.alertService.show(this.translateService.instant('POINTS.CORASSIGN'));
 
 
-        }),
-        ((error: Response) => {
-          this.loadingService.hide();
-          this.alertService.show(error.toString());
-        }));
+          }),
+          ((error: Response) => {
+            this.loadingService.hide();
+            this.alertService.show(error.toString());
+          }));
     }
   }
   public createPoint() {
+
     const dialogRef = this.dialog.open(CreatePointComponent, {
       height: '600px',
       width: '700px',
     });
 
-
-
     dialogRef.afterClosed().subscribe(result => {
       this.resultCreate = result;
       this.ngOnInit();
     });
+
   }
+
   public deletePoint() {
 
 
@@ -363,14 +366,12 @@ export class PointsBadgesComponent implements OnInit {
 
       this.alertService.show(this.translateService.instant('POINTS.NOTSELECTED'));
 
-    }
-    else if (this.pointId == this.questionnairePoint) {
+    } else if (this.pointId === this.questionnairePoint) {
       this.alertService.show(this.translateService.instant('POINTS.QUESTIONNAIRE'));
 
 
-    }
-    else {
-      let dialogRef = this.dialog.open(DeletePointComponent, {
+    } else {
+      const dialogRef = this.dialog.open(DeletePointComponent, {
         height: '400px',
         width: '600px',
         data: { name: this.pointId }
@@ -378,7 +379,7 @@ export class PointsBadgesComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         this.resultDeletePoint = result;
-        this.pointId = null
+        this.pointId = null;
         this.ngOnInit();
       });
     }
@@ -403,10 +404,8 @@ export class PointsBadgesComponent implements OnInit {
       this.alertService.show(this.translateService.instant('BADGES.NOTSELECTED'));
 
 
-    }
-
-    else {
-      let dialogRef = this.dialog.open(DeleteBadgeComponent, {
+    } else {
+      const dialogRef = this.dialog.open(DeleteBadgeComponent, {
         height: '400px',
         width: '600px',
         data: { name: this.badgeId }
@@ -414,7 +413,7 @@ export class PointsBadgesComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         this.resultDeleteBadge = result;
-        this.badgeId = null
+        this.badgeId = null;
 
         this.ngOnInit();
       });
