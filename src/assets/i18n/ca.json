@@ -12,7 +12,10 @@
     "TWITTER": "TWITTER",
     "FACEBOOK": "FACEBOOK",
     "WEBSITE": "WEBSITE",
-    "LANGUAGE": "Idioma"
+    "LANGUAGE": "Idioma",
+    "RANKING": "Ranking d'estudiants",
+    "NEXTLEVELPOINTS": "Punts per a el seguent nivell: ",
+    "LEVEL": "Nivell"
   },
   "LOGIN": {
     "USERNAME": "Nom d'usuari",
@@ -28,38 +31,36 @@
   "GROUPS": {
     "TITLE": "Grups",
     "LIST": "Llistat de grups",
-	  "ID": "Id. Grup",
+    "ID": "Id. Grup",
     "CHOOSE": "Tria el grup",
-	  "NOASSIGN": "No assignar grup"
-
+    "NOASSIGN": "No assignar grup"
   },
   "TEACHER": {
     "ID": "Id. Professor"
-
   },
   "STUDIENTS": {
     "ID": "Id. Estudiant",
     "NAME": "Nom",
-    "AVATAR":"Avatar",
-    "SURNAME":"Cognom",
+    "AVATAR": "Avatar",
+    "SURNAME": "Cognom",
     "EMAIL": "Email",
     "TITLE": "Estudiants",
-	"CHOOSE": "Tria l'estudiant",
-	"SHOW": "Mostrar estudiants"
+    "CHOOSE": "Tria l'estudiant",
+    "SHOW": "Mostrar estudiants"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Qüestionaris",
     "ID": "ID del Qüestionari:",
     "DELETE": "Eliminar Qüestionaris",
     "CREATE": "Crear nou Qüestionaris",
-	"LIST": "Llista de qüestionaris",
-	"MYQUESTIONNAIRES": "Els meus qüestionaris"
+    "LIST": "Llista de qüestionaris",
+    "MYQUESTIONNAIRES": "Els meus qüestionaris"
   },
   "QUESTIONNAIRE": {
     "RESULTS": "Resultats Qüestionaris",
     "STUDENT": "Estudiant",
-    "ACTIVE":" activat correctament",
-    "DEACTIVATE":" desactivat correctament",
+    "ACTIVE": " activat correctament",
+    "DEACTIVATE": " desactivat correctament",
     "CREATED": "Qüestionari creat correctament!",
     "DELETED": "Qüestionari eliminat correctament!",
     "NOTDELETED": "El qüestionari seleccionat no existeix.",
@@ -110,15 +111,14 @@
     "TEXTBADGES": "Insígnia guanyada  segons la nota del qüestionari",
     "TEXTCARDS1": "guanyades  segons la nota del qüestionari",
     "NOASSIGNEDCOLLECTION": "S'ha d'escollir una col·lecció"
-
   },
   "ERROR": {
-    "EMPTYFIELDS":"Cal omplir tots els camps correctament",
+    "EMPTYFIELDS": "Cal omplir tots els camps correctament",
     "LOGIN_FAILED": "El nom d'usuari i/o contrasenya són invàlides.",
     "LOGIN_FAILED_EMAIL_NOT_VERIFIED": "El teu correu no ha estat verificat encara, si us plau, revisa el teu correu.",
     "INTERNAL_ERROR": "Hi ha hagut un error intern al servidor. Si us plau contacta amb el teu administrador. "
   },
-  "POINTSBADGES":{
+  "POINTSBADGES": {
     "TITLE": "Punts i insígnies ",
     "POINTSTITLE": "Punts",
     "BADGESTITLE": "Insígnies",
@@ -126,8 +126,6 @@
     "CREATEBADGE": "Crear insígnia",
     "POINTID": "Id. Punt",
     "BADGEID": "Id. Insígnia"
-
-
   },
   "POINTS": {
     "TITLE": "Punts",
@@ -179,15 +177,15 @@
     "ASSIGN": "Assignar insígnies",
     "SEND": "Enviar insígnia",
     "SINGULAR": "Insígnia",
-    "MAXVALUE" : "Insígnia de màxim valor",
-    "MEDIUMVALUE" : "Insígnia de valor mig",
-    "LOWVALUE" : "Insígnia de valor baix",
+    "MAXVALUE": "Insígnia de màxim valor",
+    "MEDIUMVALUE": "Insígnia de valor mig",
+    "LOWVALUE": "Insígnia de valor baix",
     "DELETE": "Eliminar insígnia",
     "CORASSIGN": "Insígnia assignada correctament",
     "NOASSIGN": "No assignar cap insígnia",
     "CONFIRMDELETE": "Segur que vols eliminar la Insígnia"
   },
-  "COLLECTIONS":{
+  "COLLECTIONS": {
     "ID": "Id. Col·lecció",
     "FINISHCOLLECTION": "Premi per acabar la col·lecció",
     "CREATE": "Crear nova col·lecció",
@@ -213,11 +211,8 @@
     "CORASSIGN": "Col·lecció assignada correctament",
     "NOTOWNER": "No pots eliminar una col·lecció que no has creat tu",
     "NOTEDITABLE": "No pots modificar aquesta col·lecció perquè no l'has creat tu"
-
-
-
   },
-  "CARDS":{
+  "CARDS": {
     "ID": "Id. Cromo",
     "CREATED": "Cromo creat correctament!",
     "DELETED": "Cromo eliminat correctament!",
@@ -235,7 +230,6 @@
     "IMAGENEW": "Imatge del nou cromo",
     "CREATE": "Crear nou cromo",
     "SAVE": "Guardar nou cromo",
-
     "DELETE": "Eliminar cromo de la col·lecció",
     "OFCOLLECTION": "Cromos de la col·lecció",
     "CHOOSE": "Tria el cromo",
@@ -250,20 +244,42 @@
     "ASSIGNMENTTYPE2": "Assignar un cromo aleatori",
     "ASSIGNMENTTYPE3": "Assignar tres cromos aleatoris",
     "ASSIGNMENTTYPE4": "Assignar cinc cromos aleatoris",
-    "CHOOSEASSIGN":"Cal escollir un tipus d'assignació",
-    "RANK1":"Bronze",
-    "RANK2":"Plata",
-    "RANK3":"Or",
-    "RANK4":"Diamant",
-    "RATIO1":"Alt",
-    "RATIO2":"Mig",
-    "RATIO3":"Baix",
-    "RATIO4":"Rar",
-    "UNKNOWN":"Desconegut"
-
-
+    "CHOOSEASSIGN": "Cal escollir un tipus d'assignació",
+    "RANK1": "Bronze",
+    "RANK2": "Plata",
+    "RANK3": "Or",
+    "RANK4": "Diamant",
+    "RATIO1": "Alt",
+    "RATIO2": "Mig",
+    "RATIO3": "Baix",
+    "RATIO4": "Rar",
+    "UNKNOWN": "Desconegut"
   },
-  "COMMON":{
+  "SCHOOL": {
+    "NAME": "Nom de l'escola",
+    "ADDRESS": "Direcció de l'escola",
+    "IMAGE": "Imatge petita per a l'avatar de l'escola",
+    "IMAGEBIG": "Imatge gran de l'escola",
+    "ZIPCODE": "Codi Postal",
+    "CITY": "Ciutat",
+    "COUNTRY": "Pais",
+    "LATITUDE": "Latitud",
+    "LONGITUDE": "Longitud",
+    "CIF": "CIF",
+    "PHONE": "Telèfon",
+    "WEBSITE": "Pàgina Web",
+    "FACEBOOK": "Compte de Facebook",
+    "TWITTER": "Compte de Twitter",
+    "DESCRIPTION": "Descripció",
+    "NEWSCHOOL": "Crear nova escola",
+    "CREATED": "Nova escola creada amb èxit",
+    "EDITED": "Escola modificada amb èxit",
+    "DELETED": "Escola esborrada correctament",
+    "CONFIRMDELETE": "¿Seguro que quieres borrar la escuela con id {{schoolId}}?",
+    "SAVE": "Guardar",
+    "NEWSCHOOLFORM": "Formulari d'escola"
+  },
+  "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Tria el tipus d'assignació",
     "CHOOSEAMOUNT": "Tria la quantitat",
     "MAX40CARACT": "Max. 40 caràcters",
@@ -272,7 +288,9 @@
     "MAX3NUMBER": "Max. 3 xifres",
     "PASTEIMAGE": "Copiar enllaç .jpg",
     "CANCEL": "Cancelar",
-    "INNUMBER": "Introdueix una xifra"
-
+    "INNUMBER": "Introdueix una xifra",
+    "SCHOOL": "Escola",
+    "SCHOOLS": "Escoles",
+    "DELETE": "Eliminar"
   }
 }

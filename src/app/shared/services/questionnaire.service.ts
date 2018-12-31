@@ -120,6 +120,7 @@ export class QuestionnaireService {
  * of the groups we are querying
  * @return {Matter} matter object with all the information
  */
+  // tslint:disable-next-line:no-any
   public deleteQuestionnaire(idQuestionnaire: number): Observable<any> {
 
     const options: RequestOptions = new RequestOptions({
@@ -140,6 +141,7 @@ export class QuestionnaireService {
     return body || {};
   }
 
+  // tslint:disable-next-line:no-any
   private handleError(error: any) {
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

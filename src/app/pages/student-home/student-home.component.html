@@ -5,7 +5,7 @@
       <span *ngIf="profile" class="student-name">{{ profile.name }} {{ profile.surname }}</span>
     </div>
     <div class="col s12 m6">
-      <div class="next-points-row">Puntos para el siguiente nivel: <b class="next-level-points">{{reward.next_level_points
+      <div class="next-points-row">{{ 'HOME.NEXTLEVELPOINTS' | translate }}<b class="next-level-points">{{reward.next_level_points
           -
           reward.points}}</b></div>
       <div *ngIf="reward.next_level_points != 10" class="progressbar"><progress id="progressbar" value="{{10 - (reward.next_level_points - reward.points)}}"
@@ -20,13 +20,13 @@
       <h4 *ngIf="rank" class="rank-title">{{rank.nombreRango}}</h4>
     </div>
     <div class="col s6 m4 line-right">
-      <span class="level-title">NIVEL</span>
+      <span class="level-title">{{ 'HOME.LEVEL' | translate }}</span>
       <div class="display-level">{{reward.level}}</div>
-      <span class="points-title">PUNTOS</span>
+      <span class="points-title">{{ 'POINTS.TITLE' | translate }}</span>
       <div class="display-points">{{reward.points}}</div>
     </div>
     <div class="col s12 m4">
-      <div class="badges-title">Puntos</div>
+      <div class="badges-title">{{ 'POINTS.TITLE' | translate }}</div>
       <div *ngIf="studentPoints" class="badge-container">
         <div *ngFor="let point of studentPoints" class="student-badge">
           <img src="{{point.image}}" alt="{{point.name}}" title="{{point.name}}">

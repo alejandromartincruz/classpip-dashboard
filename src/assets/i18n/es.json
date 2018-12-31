@@ -12,7 +12,10 @@
     "TWITTER": "TWITTER",
     "FACEBOOK": "FACEBOOK",
     "WEBSITE": "WEBSITE",
-    "LANGUAGE": "Idioma"
+    "LANGUAGE": "Idioma",
+    "RANKING": "Ranking de estudiantes",
+    "NEXTLEVELPOINTS": "Puntos para el siguiente nivel: ",
+    "LEVEL": "Nivel"
   },
   "LOGIN": {
     "USERNAME": "Nombre de usuario",
@@ -27,39 +30,37 @@
   },
   "GROUPS": {
     "TITLE": "Grupos",
-	  "LIST": "Lista de grupos",
-	  "ID": "Id. Grupo",
+    "LIST": "Lista de grupos",
+    "ID": "Id. Grupo",
     "CHOOSE": "Escoge el grupo",
-	  "NOASSIGN": "No asignar grupo"
-  }
-  ,
+    "NOASSIGN": "No asignar grupo"
+  },
   "TEACHER": {
     "ID": "Id. Profesor"
-
   },
   "STUDIENTS": {
     "ID": "Id. Estudiante",
     "NAME": "Nombre",
-    "AVATAR":"Avatar",
-    "SURNAME":"Apellido",
+    "AVATAR": "Avatar",
+    "SURNAME": "Apellido",
     "EMAIL": "Email",
     "TITLE": "Estudiantes",
-	"CHOOSE": "Escoge el estudiante",
-	"SHOW": "Mostrar estudiantes"
+    "CHOOSE": "Escoge el estudiante",
+    "SHOW": "Mostrar estudiantes"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Cuestionarios",
     "ID": "ID del Cuestionario",
     "DELETE": "Eliminar Cuestionario",
     "CREATE": "Crear nuevo Cuestionario",
-	"LIST": "Lista de cuestionarios",
-	"MYQUESTIONNAIRES": "Mis cuestionarios"
+    "LIST": "Lista de cuestionarios",
+    "MYQUESTIONNAIRES": "Mis cuestionarios"
   },
   "QUESTIONNAIRE": {
     "RESULTS": "Resultados Cuestionario",
     "STUDENT": "Estudiante",
-	  "ACTIVE":" activado correctamente",
-    "DEACTIVATE":" desactivado correctamente",
+    "ACTIVE": " activado correctamente",
+    "DEACTIVATE": " desactivado correctamente",
     "CREATED": "Cuestionario creado correctamente!",
     "DELETED": "Cuestionario eliminado correctamente!",
     "NOTDELETED": "El cuestionario seleccionado no existe.",
@@ -96,7 +97,7 @@
     "TEXT10": "Respuesta abierta",
     "TEXT11": "Respuesta múltiple",
     "TEXT12": "Introducir la fecha",
-	"MARK1": "Nota del cuestionario: 10",
+    "MARK1": "Nota del cuestionario: 10",
     "MARK2": "Nota del cuestionario: 9 - 9.99",
     "MARK3": "Nota del cuestionario: 8 - 8.99",
     "MARK4": "Nota del cuestionario: 7 - 7.99",
@@ -112,12 +113,12 @@
     "NOASSIGNEDCOLLECTION": "Hay que escoger una colección"
   },
   "ERROR": {
-    "EMPTYFIELDS":"Hay que rellenar todos los campos correctamente",
+    "EMPTYFIELDS": "Hay que rellenar todos los campos correctamente",
     "LOGIN_FAILED": "El nombre de usuario y/o la contraseña son inválidas.",
     "LOGIN_FAILED_EMAIL_NOT_VERIFIED": "Tu correo no ha sido verificado aún, por favor, revisa tu correo.",
     "INTERNAL_ERROR": "Ha ocurrido un error interno en el servidor. Por favor contacta con tu administrador. "
   },
-  "POINTSBADGES":{
+  "POINTSBADGES": {
     "TITLE": "Puntos e insignias ",
     "POINTSTITLE": "Puntos",
     "BADGESTITLE": "Insignias",
@@ -125,7 +126,6 @@
     "CREATEBADGE": "Crear insignia",
     "POINTID": "Id. Punto",
     "BADGEID": "Id. Insignia"
-
   },
   "POINTS": {
     "TITLE": "Puntos",
@@ -177,15 +177,15 @@
     "ASSIGN": "Asignar insignias",
     "SEND": "Enviar insignia",
     "SINGULAR": "Insignia",
-    "MAXVALUE" : "Insignia de màximo valor",
-    "MEDIUMVALUE" : "Insignia de valor medio",
-    "LOWVALUE" : "Insignia de valor bajo",
+    "MAXVALUE": "Insignia de màximo valor",
+    "MEDIUMVALUE": "Insignia de valor medio",
+    "LOWVALUE": "Insignia de valor bajo",
     "DELETE": "Eliminar insignia",
     "CORASSIGN": "Insignia asignada correctamente",
     "NOASSIGN": "No asignar ninguna insignia",
     "CONFIRMDELETE": "¿Seguro que quieres eliminar la Insignia"
   },
-  "COLLECTIONS":{
+  "COLLECTIONS": {
     "ID": "Id. Colección",
     "FINISHCOLLECTION": "Premio por acabar la colección",
     "CREATE": "Crear nueva colección",
@@ -211,13 +211,8 @@
     "CORASSIGN": "Colección asignada correctamente",
     "NOTOWNER": "No puedes eliminar una colección que no has creado tu",
     "NOTEDITABLE": "No puedes modificar esta colección porque no la has creado tu"
-
-
-
-
-
   },
-  "CARDS":{
+  "CARDS": {
     "ID": "Id. Cromo",
     "CREATED": "Cromo creado correctamente!",
     "DELETED": "Cromo eliminado correctamente!",
@@ -235,7 +230,6 @@
     "IMAGENEW": "Imagen del nuevo cromo",
     "CREATE": "Crear nuevo cromo",
     "SAVE": "Guardar nuevo cromo",
-
     "DELETE": "Eliminar cromo de la colección",
     "OFCOLLECTION": "Cromos de la colección",
     "CHOOSE": "Escoge el cromo",
@@ -250,20 +244,18 @@
     "ASSIGNMENTTYPE2": "Asignar un cromo aleatorio",
     "ASSIGNMENTTYPE3": "Asignar tres cromos aleatorios",
     "ASSIGNMENTTYPE4": "Asignar cinc cromos aleatorios",
-    "CHOOSEASSIGN":"Hay que escoger un tipo de asignación",
-    "RANK1":"Bronce",
-    "RANK2":"Plata",
-    "RANK3":"Oro",
-    "RANK4":"Diamante",
-    "RATIO1":"Alto",
-    "RATIO2":"Medio",
-    "RATIO3":"Bajo",
-    "RATIO4":"Raro",
-    "UNKNOWN":"Unknown"
-
-
+    "CHOOSEASSIGN": "Hay que escoger un tipo de asignación",
+    "RANK1": "Bronce",
+    "RANK2": "Plata",
+    "RANK3": "Oro",
+    "RANK4": "Diamante",
+    "RATIO1": "Alto",
+    "RATIO2": "Medio",
+    "RATIO3": "Bajo",
+    "RATIO4": "Raro",
+    "UNKNOWN": "Unknown"
   },
-  "COMMON":{
+  "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Escoge el tipo de asignación",
     "CHOOSEAMOUNT": "Escoge la cantidad",
     "MAX40CARACT": "Max. 40 carácteres",
@@ -272,7 +264,8 @@
     "MAX3NUMBER": "Max. 3 cifras",
     "PASTEIMAGE": "Copiar enlace .jpg",
     "CANCEL": "Cancelar",
-    "INNUMBER": "Introduce una cifra"
-
+    "INNUMBER": "Introduce una cifra",
+    "SCHOOL": "Escuela",
+    "SCHOOLS": "Escuelas"
   }
 }

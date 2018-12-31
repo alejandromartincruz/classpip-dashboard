@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Confirm</h2>
+<div mat-dialog-content>
+  <p>{{confirmMessage}}</p>
+</div>
+<div mat-dialog-actions class="button-actions">
+  <button mat-raised-button color="primary" (click)="dialogRef.close(false)">{{ 'COMMON.CANCEL' | translate }}</button>
+  <button mat-raised-button color="warn" (click)="dialogRef.close(true)">{{ 'COMMON.DELETE' | translate }}</button>
+</div>

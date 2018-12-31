@@ -24,9 +24,11 @@ export class HomeComponent implements OnInit {
 
   public profile: Profile;
   public school: School;
+  public schools: School[];
   public myPoints: Number;
   public isStudentProfile = false;
   public isTeacherProfile = false;
+  public isAdminProfile = false;
   public level: Number;
   public rank: Rango;
   public allRanks: Array<Rango>;
@@ -97,7 +99,8 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.utilsService.role === Role.SCHOOLADMIN) {
-      // do something
+      // this.adminScreen();
+      this.isAdminProfile = true;
     }
   }
 
@@ -173,5 +176,7 @@ export class HomeComponent implements OnInit {
       // this.listBadges.slice(0, 5);
     });
   }
+
+
 
 }

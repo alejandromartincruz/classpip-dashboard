@@ -1,0 +1,46 @@
+.student-table-card {
+  overflow: hidden;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    td,
+    th {
+      border: 1px solid #ddd;
+      min-width: 120px;
+      padding: 8px;
+    }
+
+    tr {
+      &:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+
+    th {
+      background-color: #3f51b5;
+      color: #fff;
+      padding-bottom: 12px;
+      padding-top: 12px;
+      text-align: left;
+    }
+
+    .profile-column {
+      min-width: 40px;
+    }
+  }
+
+  mat-card-content {
+    overflow: auto;
+  }
+
+  .table-profile-img {
+    border-radius: 50%;
+    width: 25px;
+  }
+}

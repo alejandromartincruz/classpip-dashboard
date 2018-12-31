@@ -1,4 +1,5 @@
 import { Avatar } from './avatar';
+import { Reward } from './reward';
 
 export class Student {
 
@@ -10,6 +11,7 @@ export class Student {
   private _schoolId: number;
   private _avatarId: number;
   private _avatar: Avatar;
+  private _rewards: Reward;
   private _totalPoints: number;
 
   constructor(name?: string, surname?: string, username?: string,
@@ -35,6 +37,8 @@ export class Student {
       result.schoolId = object.schoolId;
       result.avatarId = object.avatarId;
       result.totalPoints = object.totalPoints;
+      result.avatar = object.avatar;
+      result.rewards = object.rewards;
     }
     return result;
   }
@@ -114,6 +118,15 @@ export class Student {
   public set avatar(value: Avatar) {
     this._avatar = value;
   }
+
+  public get rewards(): Reward {
+    return this._rewards;
+  }
+
+  public set rewards(value: Reward) {
+    this._rewards = value;
+  }
+
   public get totalPoints(): number {
     return this._totalPoints;
   }

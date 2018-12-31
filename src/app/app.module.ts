@@ -6,6 +6,7 @@ import { Http, HttpModule } from '@angular/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 import { NgxLoremIpsumModule } from 'ngx-lorem-ipsum';
+import { MatSortModule } from '@angular/material/sort';
 
 // aplication
 import { AppComponent } from './app.component';
@@ -85,6 +86,11 @@ import { GroupStudentsComponent } from './pages/groupStudents/groupStudents';
 import { StudentHomeComponent } from './pages/student-home/student-home.component';
 import { SchoolComponent } from './pages/school/school.component';
 import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
+import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { SchoolFormComponent } from './pages/school-form/school-form.component';
+import { MatPaginatorModule, MatDialogModule } from '@angular/material';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { SchoolDetailsComponent } from './pages/school-details/school-details.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -135,7 +141,11 @@ export function createTranslateLoader(http: Http) {
     OrderBySurnamePipe,
     StudentHomeComponent,
     SchoolComponent,
-    TeacherHomeComponent
+    TeacherHomeComponent,
+    AdminHomeComponent,
+    SchoolFormComponent,
+    ConfirmationDialogComponent,
+    SchoolDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -146,6 +156,9 @@ export function createTranslateLoader(http: Http) {
     FormsModule,
     HttpModule,
     routing,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: createTranslateLoader,
@@ -174,6 +187,7 @@ export function createTranslateLoader(http: Http) {
     LevelService,
     RewardService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class AppModule { }

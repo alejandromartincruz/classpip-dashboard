@@ -12,7 +12,10 @@
     "TWITTER": "TWITTER",
     "FACEBOOK": "FACEBOOK",
     "WEBSITE": "WEBSITE",
-    "LANGUAGE": "Language"
+    "LANGUAGE": "Language",
+    "RANKING": "Student's Ranking",
+    "NEXTLEVELPOINTS": "Points to next level: ",
+    "LEVEL": "Level"
   },
   "LOGIN": {
     "USERNAME": "Username",
@@ -27,45 +30,37 @@
   },
   "GROUPS": {
     "TITLE": "Groups",
-	"LIST": "List of groups",
-	"ID": "Group Id",
+    "LIST": "List of groups",
+    "ID": "Group Id",
     "CHOOSE": "Choose the group",
-	"NOASSIGN": "Do not assign group"
-
-  },
-  "QUESTIONNAIRES": {
-    "TITLE": "Questionnaires",
-    "ID": "Questionnaire ID:",
-    "DELETE": "Delete Questionnaire",
-    "CREATE": "Create New Questionnaire"
+    "NOASSIGN": "Do not assign group"
   },
   "TEACHER": {
     "ID": "Teacher Id"
-
   },
   "STUDIENTS": {
     "ID": "Student Id",
     "NAME": "Name",
-    "AVATAR":"Avatar",
-    "SURNAME":"Surname",
+    "AVATAR": "Avatar",
+    "SURNAME": "Surname",
     "EMAIL": "Email",
     "TITLE": "Students",
-	"CHOOSE": "Choose the student",
-	"SHOW": "Show students"
+    "CHOOSE": "Choose the student",
+    "SHOW": "Show students"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Questionnaires",
     "ID": "Questionnaire Id",
     "DELETE": "Delete questionnaire",
     "CREATE": "Create new questionnaire",
-	"LIST": "List of questionnaires",
-	"MYQUESTIONNAIRES": "My questionnaires"
+    "LIST": "List of questionnaires",
+    "MYQUESTIONNAIRES": "My questionnaires"
   },
   "QUESTIONNAIRE": {
     "RESULTS": "Results Questionnaire",
     "STUDENT": "Student",
-	"ACTIVE":" successfully activated",
-    "DEACTIVATE":" deactivated correctly",
+    "ACTIVE": " successfully activated",
+    "DEACTIVATE": " deactivated correctly",
     "CREATED": "Questionnaire created correctly!",
     "DELETED": "Questionnaire deleted correctly!",
     "NOTDELETED": "The selected questionnaire does not exist.",
@@ -102,8 +97,8 @@
     "TEXT10": "Open answer",
     "TEXT11": "Multiple answer",
     "TEXT12": "Enter date",
-	"MARK1": "Questionnaire mark: 10",
-	"MARK2": "Questionnaire mark: 9 - 9.99",
+    "MARK1": "Questionnaire mark: 10",
+    "MARK2": "Questionnaire mark: 9 - 9.99",
     "MARK3": "Questionnaire mark: 8 - 8.99",
     "MARK4": "Questionnaire mark: 7 - 7.99",
     "MARK5": "Questionnaire mark: 6 - 6.99",
@@ -118,12 +113,12 @@
     "NOASSIGNEDCOLLECTION": "You have to choose a collection"
   },
   "ERROR": {
-	"EMPTYFIELDS": "All fields must be filled in correctly",
+    "EMPTYFIELDS": "All fields must be filled in correctly",
     "LOGIN_FAILED": "The username and/or password are invalid.",
     "LOGIN_FAILED_EMAIL_NOT_VERIFIED": "Your email has not been verified yet, please check your email.",
     "INTERNAL_ERROR": "An internal error has occurred on the server. Please contact your administrator."
   },
-  "POINTSBADGES":{
+  "POINTSBADGES": {
     "TITLE": "Points and badges",
     "POINTSTITLE": "Points",
     "BADGESTITLE": "Badges",
@@ -182,15 +177,15 @@
     "ASSIGN": "Assign badges",
     "SEND": "Send badge",
     "SINGULAR": "Badge",
-    "MAXVALUE" : "Maximum value badge",
-    "MEDIUMVALUE" : "Medium value badge",
-    "LOWVALUE" : "Low value badge",
+    "MAXVALUE": "Maximum value badge",
+    "MEDIUMVALUE": "Medium value badge",
+    "LOWVALUE": "Low value badge",
     "DELETE": "Delete badge",
     "CORASSIGN": "Badge correctly assigned",
     "NOASSIGN": "Do not assign any badges",
     "CONFIRMDELETE": "Are you sure you want to delete the Badge"
   },
-  "COLLECTIONS":{
+  "COLLECTIONS": {
     "ID": "Collection Id",
     "FINISHCOLLECTION": "Reward for completing the collection",
     "CREATE": "Create new collection",
@@ -216,13 +211,8 @@
     "CORASSIGN": "Collection correctly assigned",
     "NOTOWNER": "You cannot delete a collection that not was created by you",
     "NOTEDITABLE": "You cannot modify a collection that not was created by you"
-
-
-
-
   },
-
-  "CARDS":{
+  "CARDS": {
     "ID": "Card Id",
     "CREATED": "Card created correctly!",
     "DELETED": "Card deleted correctly!",
@@ -254,20 +244,18 @@
     "ASSIGNMENTTYPE2": "Assign a random card",
     "ASSIGNMENTTYPE3": "Assign three random cards",
     "ASSIGNMENTTYPE4": "AAssign five random cards",
-    "CHOOSEASSIGN":"You have to choose an assignment type",
-    "RANK1":"Bronze",
-    "RANK2":"Silver",
-    "RANK3":"Gold",
-    "RANK4":"Diamond",
-    "RATIO1":"High",
-    "RATIO2":"Medium",
-    "RATIO3":"Low",
-    "RATIO4":"Rare",
-    "UNKNOWN":"Desconocido"
-
-
+    "CHOOSEASSIGN": "You have to choose an assignment type",
+    "RANK1": "Bronze",
+    "RANK2": "Silver",
+    "RANK3": "Gold",
+    "RANK4": "Diamond",
+    "RATIO1": "High",
+    "RATIO2": "Medium",
+    "RATIO3": "Low",
+    "RATIO4": "Rare",
+    "UNKNOWN": "Desconocido"
   },
-  "COMMON":{
+  "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Choose an assignment type",
     "CHOOSEAMOUNT": "Choose the quantity",
     "MAX40CARACT": "Max. 40 characters",
@@ -276,8 +264,8 @@
     "MAX3NUMBER": "Max. 3 numbers",
     "PASTEIMAGE": "Copy link  .jpg",
     "CANCEL": "Cancel",
-    "INNUMBER": "Enter a number"
-
+    "INNUMBER": "Enter a number",
+    "SCHOOL": "School",
+    "SCHOOLS": "Schools"
   }
-
 }

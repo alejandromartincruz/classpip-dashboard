@@ -19,7 +19,7 @@ export class Badge {
   /* tslint:disable */
   static toObject(object: any): Badge {
     /* tslint:enable */
-    let result: Badge = new Badge();
+    const result: Badge = new Badge();
     if (object != null) {
       result.id = object.id;
       result.name = object.name;
@@ -33,7 +33,7 @@ export class Badge {
   /* tslint:disable */
   static toObjectArray(object: any): Array<Badge> {
     /* tslint:enable */
-    let resultArray: Array<Badge> = new Array<Badge>();
+    const resultArray: Array<Badge> = new Array<Badge>();
     if (object != null) {
       for (let i = 0; i < object.length; i++) {
         resultArray.push(Badge.toObject(object[i]));

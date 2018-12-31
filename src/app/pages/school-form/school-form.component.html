@@ -1,0 +1,100 @@
+<h2>{{ 'SCHOOL.NEWSCHOOLFORM' | translate }}</h2>
+<br>
+<form id="schoolForm" #schoolForm="ngForm" (ngSubmit)="saveSchool();">
+  <input type="text" [(ngModel)]="newSchool.id" name="id" hidden>
+  <mat-form-field class="full-width">
+    <input matInput required [(ngModel)]="newSchool.name" placeholder="{{'SCHOOL.NAME'| translate}}" name="name">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br><br>
+
+  <mat-form-field class="full-width">
+    <input matInput #input required [(ngModel)]="newSchool.address" placeholder="{{'SCHOOL.ADDRESS'| translate}}" name="address">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field class="half-width">
+    <input matInput #input maxlength="8" required [(ngModel)]="newSchool.zipCode" placeholder="{{'SCHOOL.ZIPCODE'| translate}}"
+      name="zipCode">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <input matInput #input maxlength="40" required [(ngModel)]="newSchool.city" placeholder="{{'SCHOOL.CITY'| translate}}"
+      name="city">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <input matInput #input maxlength="40" required [(ngModel)]="newSchool.country" placeholder="{{'SCHOOL.COUNTRY'| translate}}"
+      name="country">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <input matInput #input maxlength="12" required [(ngModel)]="newSchool.cif" placeholder="{{'SCHOOL.CIF'| translate}}"
+      name="cif">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="half-width">
+    <input matInput #input maxlength="12" required [(ngModel)]="newSchool.phone" placeholder="{{'SCHOOL.PHONE'| translate}}"
+      name="phone">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br><br>
+
+  <mat-form-field hintLabel="{{'COMMON.PASTEIMAGE'| translate}}" class="full-width">
+    <input matInput required [(ngModel)]="newSchool.image" placeholder="{{'SCHOOL.IMAGE'| translate}}" name="image">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field hintLabel="{{'COMMON.PASTEIMAGE'| translate}}" class="full-width">
+    <input matInput required [(ngModel)]="newSchool.imageBig" placeholder="{{'SCHOOL.IMAGEBIG'| translate}}" name="imageBig">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field hintLabel="{{'COMMON.MAX40CARACT'| translate}}" class="half-width">
+    <input matInput #input maxlength="40" required [(ngModel)]="newSchool.website" placeholder="{{'SCHOOL.WEBSITE'| translate}}"
+      name="website">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <mat-form-field hintLabel="{{'COMMON.MAX40CARACT'| translate}}">
+    <input matInput #input maxlength="40" required [(ngModel)]="newSchool.facebook" placeholder="{{'SCHOOL.FACEBOOK'| translate}}"
+      name="facebook">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <mat-form-field hintLabel="{{'COMMON.MAX40CARACT'| translate}}">
+    <input matInput #input maxlength="40" required [(ngModel)]="newSchool.twitter" placeholder="{{'SCHOOL.TWITTER'| translate}}"
+      name="twitter">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field>
+    <input matInput #input maxlength="10" required [(ngModel)]="newSchool.latitude" placeholder="{{'SCHOOL.LATITUDE'| translate}}"
+      name="latitude">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput #input maxlength="10" required [(ngModel)]="newSchool.longitude" placeholder="{{'SCHOOL.LONGITUDE'| translate}}"
+      name="longitude">
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field class="full-width">
+    <textarea matInput #input [(ngModel)]="newSchool.description" placeholder="{{'SCHOOL.DESCRIPTION'| translate}}"
+      name="description" matTextareaAutosize matAutosizeMinRows="2"></textarea>
+    <mat-hint align="end"></mat-hint>
+  </mat-form-field>
+  <br>
+
+  <button mat-raised-button color="primary" class="btn-form" [disabled]="!schoolForm.form.valid">{{
+    'SCHOOL.SAVE' | translate }}</button>
+
+  <div style="clear: both;"></div>
+</form>

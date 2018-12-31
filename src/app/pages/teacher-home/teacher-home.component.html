@@ -2,11 +2,43 @@
   <mat-card *ngIf="profile">
     <mat-card-header>
       <img mat-card-avatar [src]="profile.avatar.image">
-      <mat-card-title>{{ profile.name }} {{ profile.surname }}</mat-card-title>
+      <mat-card-title><b>{{ profile.name }} {{ profile.surname }}</b></mat-card-title>
       <mat-card-subtitle>{{ profile.email }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <ngx-lorem-ipsum [count]="10"></ngx-lorem-ipsum>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="sortedData" class="student-table-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h3>{{ 'HOME.RANKING' | translate }}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table matSort (matSortChange)="sortData($event)">
+        <tr>
+          <th class="profile-column" sticky></th>
+          <th mat-sort-header="name">Nombre</th>
+          <th mat-sort-header="surname">Apellidos</th>
+          <th mat-sort-header="points">Puntos</th>
+          <th mat-sort-header="level">Nivel</th>
+          <th mat-sort-header="rank">Rango</th>
+          <th mat-sort-header="{{point.id}}" *ngFor="let point of allPoints">{{point.name}}</th>
+        </tr>
+
+        <tr *ngFor="let student of sortedData">
+          <td class="profile-column"><img class="table-profile-img" src="{{student.avatar.image}}" alt="profile image of {{student.name}}"></td>
+          <td>{{student.name}}</td>
+          <td>{{student.surname}}</td>
+          <td class="center">{{student.rewards.points}}</td>
+          <td class="center">{{student.rewards.level}}</td>
+          <td>{{student.rewards.rank}}</td>
+          <td *ngFor="let point of allPoints" class="center">
+            {{student.points[point.id]}}
+          </td>
+        </tr>
+      </table>
     </mat-card-content>
   </mat-card>
   <app-school *ngIf="school" [school]="school"></app-school>

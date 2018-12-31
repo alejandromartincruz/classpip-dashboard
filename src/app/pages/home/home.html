@@ -1,6 +1,8 @@
 <div class="home-content">
 
-  <app-teacher-home *ngIf="isTeacherProfile" [profile]="profile" [school]="school"></app-teacher-home>
+  <app-admin-home *ngIf="isAdminProfile" [profile]="profile"></app-admin-home>
+
+  <app-teacher-home *ngIf="isTeacherProfile" [profile]="profile" [school]="school" [allPoints]="allPoints"></app-teacher-home>
 
   <app-student-home *ngIf="isStudentProfile" [profile]="profile" [reward]="reward" [rank]="rank" [studentPoints]="studentPoints"
     [school]="school"></app-student-home>

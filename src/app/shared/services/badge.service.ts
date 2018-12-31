@@ -55,7 +55,7 @@ export class BadgeService {
     });
 
     return this.http.get(AppConfig.BADGE_URL + '/' + id, options)
-      .map((response: Response, index: number) => Badge.toObject(response.json()))
+      .map((response: Response, index: number) => Badge.toObject(response.json()));
   }
 
 

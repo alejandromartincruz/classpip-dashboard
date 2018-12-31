@@ -254,4 +254,21 @@ export class RewardService {
       .map((response: Response) => Reward.toObjectArray(response.json()));
   }
 
+  public getAllStudentsWithRewards(): Observable<Student[]> {
+    const options: RequestOptions = new RequestOptions({
+      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
+    });
+
+    // tslint:disable-next-line:quotemark
+    const request_option = '?filter=%7B%22include%22%3A%5B%22rewards%22%2C%22avatar%22%5D%7D';
+
+    // tslint:disable-next-line:max-line-length
+    // const request_option = '?filter=%7B%22include%22%3A%5B%22rewards%22%2C%22avatar%22%5D%2C%20%22where%22%3A%20%7B%22schoolId%22%3A' + schoolId + '%7D%7D';
+
+    const url = AppConfig.STUDENT_URL + request_option;
+
+    return this.http.get(url, options)
+      .map((response: Response) => Student.toObjectArray(response.json()));
+  }
+
 }

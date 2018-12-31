@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Login, Group, Role, Questionnaire } from '../../shared/models/index';
 import { AppConfig } from '../../app.config';
@@ -45,20 +45,19 @@ export class DeleteBadgeComponent implements OnInit {
     if (this.utilsService.role === Role.TEACHER) {
       this.loadingService.show();
       this.badgeService.deleteBadge(this.data.name).subscribe(
-        ((value: any)  =>{
-          switch(value.count)
-          {
+        ((value: any) => {
+          switch (value.count) {
             case 1:
-              this.alertService.show(this.translateService.instant('BADGES.DELETED'))
+              this.alertService.show(this.translateService.instant('BADGES.DELETED'));
               break;
             case 0:
-              this.alertService.show(this.translateService.instant('BADGES.NOTDELETED'))
+              this.alertService.show(this.translateService.instant('BADGES.NOTDELETED'));
               break;
             default:
-            break;
+              break;
           }
         }));
-        this.cancel();
+      this.cancel();
 
     }
   }

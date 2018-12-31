@@ -65,6 +65,18 @@ export class School {
     return result;
   }
 
+  /* tslint:disable */
+  static toObjectArray(object: any): Array<School> {
+    /* tslint:enable */
+    const resultArray: Array<School> = new Array<School>();
+    if (object != null) {
+      for (let i = 0; i < object.length; i++) {
+        resultArray.push(School.toObject(object[i]));
+      }
+    }
+    return resultArray;
+  }
+
   public get id(): string {
     return this._id;
   }

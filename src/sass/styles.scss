@@ -26,8 +26,17 @@ $theme: mat-light-theme($classpip-app-primary, $classpip-app-accent, $classpip-a
 html,
 body {
   font-family: "Roboto", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  height: 100%;
   margin: 0;
+  background-color: #fafafa;
+  height: 100%;
+}
+
+app-root>.container {
+  min-height: 100%;
+
+  >div {
+    max-height: 100% !important; // sass-lint:disable-line no-important
+  }
 }
 
 .student-profile {
@@ -113,6 +122,19 @@ body {
       line-height: 25px;
       text-align: center;
     }
+  }
+}
+
+.list-of-schools {
+  mat-list-item {
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  button {
+    margin-left: 5px;
+    min-width: 120px;
   }
 }
 
