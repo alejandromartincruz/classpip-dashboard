@@ -5,7 +5,7 @@ import { LoadingService, UtilsService, GroupService, AlertService } from '../../
 import { Route, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  //selector: 'app-groups',
+  // selector: 'app-groups',
   templateUrl: './groupStudents.html',
   styleUrls: ['./groupStudents.scss']
 })
@@ -37,7 +37,7 @@ export class GroupStudentsComponent implements OnInit {
       this.loadingService.show();
       this.groupService.getMyGroupStudents(this.groupId).subscribe(
         ((st: Array<Student>) => {
-          this.students = st.sort((n1,n2)=> +n1.id - +n2.id );
+          this.students = st.sort((n1, n2) => +n1.id - +n2.id);
           this.loadingService.hide();
         }),
         ((error: Response) => {

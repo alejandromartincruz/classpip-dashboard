@@ -1,7 +1,9 @@
-<mat-card>
+<mat-card [style.background-image]="backgroundImg" class="school-details-card">
   <mat-card-header>
     <img mat-card-avatar [src]="school.image">
-    <mat-card-title>{{ school.name }}</mat-card-title>
+    <mat-card-title>
+      <h2>{{ school.name }}</h2>
+    </mat-card-title>
     <mat-card-subtitle>{{ school.address }}, {{ school.zipCode }} {{ school.city }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>

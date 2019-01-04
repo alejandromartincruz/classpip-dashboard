@@ -22,6 +22,18 @@ export class Avatar {
     return result;
   }
 
+  /* tslint:disable */
+  static toObjectArray(object: any): Array<Avatar> {
+    /* tslint:enable */
+    const resultArray: Array<Avatar> = new Array<Avatar>();
+    if (object != null) {
+      for (let i = 0; i < object.length; i++) {
+        resultArray.push(Avatar.toObject(object[i]));
+      }
+    }
+    return resultArray;
+  }
+
   public get id(): string {
     return this._id;
   }

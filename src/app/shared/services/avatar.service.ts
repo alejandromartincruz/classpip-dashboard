@@ -20,12 +20,24 @@ export class AvatarService {
    */
   public getAvatar(id: number): Observable<Avatar> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.AVATARS_URL + '/' + id, options)
       .map((response: Response, index: number) => Avatar.toObject(response.json()));
+  }
+
+  public getAllAvatars(): Observable<Avatar[]> {
+
+    const options = this.utilsService.getOptions();
+    const url = AppConfig.AVATARS_URL;
+
+    return this.http.get(url, options)
+      .map((response: Response, index: number) => {
+        const avatars: Avatar[] = Avatar.toObjectArray(response.json());
+        return avatars;
+      })
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+
   }
 
 }

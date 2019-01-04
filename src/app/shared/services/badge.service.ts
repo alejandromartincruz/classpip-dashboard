@@ -22,27 +22,6 @@ export class BadgeService {
     public utilsService: UtilsService) { }
 
   /**
-   * This method returns the profile information of the current logged
-   * in user on the platform
-   * @return {Observable<Profile>} returns an observable with the profile
-   */
-
-
-  /**public getBadges(): Observable<Array<Badge>> {
-
-    var count = 0;
-
-    let options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
-    let url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
-
-
-
-  }
- */
-  /**
    * Returns a grade object with all the information from a grade
    * identifier. This method is used to fill all the information
    * of the groups we are querying
@@ -50,9 +29,7 @@ export class BadgeService {
    */
   public getBadge(id: number): Observable<Badge> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.BADGE_URL + '/' + id, options)
       .map((response: Response, index: number) => Badge.toObject(response.json()));
@@ -62,9 +39,8 @@ export class BadgeService {
 
   public deleteBadge(id: string): Observable<Badge> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
+
     return this.http.delete(AppConfig.BADGE_URL + '/' + id, options)
       .map(response => {
         return response;
@@ -74,9 +50,7 @@ export class BadgeService {
 
   public getBadgeName(id: number): Observable<Badge> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.BADGE_URL + '/' + id, options)
       .map((response: Response, index: number) => Badge.toObject(response.json()));
@@ -91,10 +65,7 @@ export class BadgeService {
      */
   private getMySchoolBadges(): Observable<Array<Badge>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
 
     return this.http.get(url, options)
@@ -110,10 +81,7 @@ export class BadgeService {
    */
   public postBadge(badge: Badge): Observable<Response> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url = AppConfig.BADGE_URL;
 
     return this.http.post(url, badge)
@@ -124,9 +92,7 @@ export class BadgeService {
   }
   public saveBadge(name: string, value: number, image: string): Observable<Badge> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const url = AppConfig.BADGE_URL;
     const postParams = {
@@ -148,9 +114,7 @@ export class BadgeService {
 
   public getAllBadges(): Observable<Badge[]> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const url = AppConfig.BADGE_URL;
     return this.http.get(url, options)

@@ -80,10 +80,7 @@ export class GroupService {
    */
   private getGroupStudents(id: string): Observable<Array<Student>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = AppConfig.GROUP_URL + '/' + id + AppConfig.STUDENTS_URL;
 
     return this.http.get(url, options)
@@ -97,10 +94,7 @@ export class GroupService {
    */
   private getGroups(): Observable<Array<Group>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMyUrl() + AppConfig.GROUPS_URL;
 
     return this.http.get(url, options)

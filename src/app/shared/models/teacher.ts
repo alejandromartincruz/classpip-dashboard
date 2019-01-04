@@ -1,24 +1,29 @@
 import { Avatar } from './avatar';
+import { Credentials } from './credentials';
 
 export class Teacher {
 
   private _id: string;
   private _name: string;
   private _surname: string;
+  private _profileImage: string;
   private _username: string;
   private _email: string;
   private _schoolId: number;
   private _avatarId: number;
   private _avatar: Avatar;
+  private _credentials: Credentials;
 
-  constructor(name?: string, surname?: string, username?: string,
-    email?: string, schoolId?: number, avatarId?: number) {
+  constructor(name?: string, surname?: string, profileImage?: string, username?: string,
+    email?: string, schoolId?: number, avatarId?: number, credentials?: Credentials) {
     this._name = name;
     this._surname = surname;
+    this._profileImage = profileImage;
     this._username = username;
     this._email = email;
     this._schoolId = schoolId;
     this._avatarId = avatarId;
+    this._credentials = credentials;
   }
 
   /* tslint:disable */
@@ -29,10 +34,12 @@ export class Teacher {
       result.id = object.id;
       result.name = object.name;
       result.surname = object.surname;
+      result.profileImage = object.profileImage;
       result.username = object.username;
       result.email = object.email;
       result.schoolId = object.schoolId;
       result.avatarId = object.avatarId;
+      result.credentials = object.credentials;
     }
     return result;
   }
@@ -73,6 +80,14 @@ export class Teacher {
     this._surname = value;
   }
 
+  public get profileImage(): string {
+    return this._profileImage;
+  }
+
+  public set profileImage(value: string) {
+    this._profileImage = value;
+  }
+
   public get username(): string {
     return this._username;
   }
@@ -111,6 +126,14 @@ export class Teacher {
 
   public set avatar(value: Avatar) {
     this._avatar = value;
+  }
+
+  public get credentials(): Credentials {
+    return this._credentials;
+  }
+
+  public set credentials(value: Credentials) {
+    this._credentials = value;
   }
 
 }

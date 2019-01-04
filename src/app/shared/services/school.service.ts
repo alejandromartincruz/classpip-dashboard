@@ -11,8 +11,22 @@ export class SchoolService {
 
   constructor(
     public http: Http,
-    public utilsService: UtilsService) { }
+    public utilsService: UtilsService
+  ) { }
 
+  public getschool(schoolId: number, filterParams: string = ''): Observable<School> {
+
+    const options = this.utilsService.getOptions();
+    const url = AppConfig.SCHOOL_URL + '/' + schoolId;
+
+    return this.http.get(url + filterParams, options)
+      .map((response: Response, index: number) => {
+        const school: School = School.toObject(response.json());
+        return school;
+      })
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+
+  }
 
   /**
   * This method returns all the available schools.
@@ -20,25 +34,9 @@ export class SchoolService {
   * of the operation
   */
   public getSchools(): Observable<School[]> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
 
-    const serialize = function (obj) {
-      const str = [];
-      for (const p in obj) {
-        if (obj.hasOwnProperty(p)) {
-          str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-        }
-      }
-      return str.join('&');
-    };
-
+    const options = this.utilsService.getOptions();
     const url = AppConfig.SCHOOL_URL;
-
-    // const limit = 4;
-    // const offset = 4;
-    // const requestParams = '?' + serialize({ "limit": limit, "offset": offset });
     const requestParams = ''; // '?filter[limit]=' + limit + '&filter[offset]=' + offset;
 
     return this.http.get(url + requestParams, options)
@@ -56,9 +54,7 @@ export class SchoolService {
   */
   public postSchool(postParams: School): Observable<School> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const postData = [{
       // tslint:disable-next-line:quotemark
@@ -109,9 +105,7 @@ export class SchoolService {
   */
   public patchSchool(patchParams: School): Observable<School> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const patchData = {
       // tslint:disable-next-line:quotemark
@@ -156,10 +150,10 @@ export class SchoolService {
   }
 
   public deleteSchool(schoolId: number): Observable<Response> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+
+    const options = this.utilsService.getOptions();
     const deleteUrl = AppConfig.SCHOOL_URL + '/' + schoolId;
+
     return this.http.delete(deleteUrl, options)
       .map(response => {
         return response;
@@ -175,10 +169,7 @@ export class SchoolService {
    */
   public getMySchool(): Observable<School> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMyUrl() + AppConfig.MYSCHOOL_URL;
 
     return this.http.get(url, options)
@@ -197,10 +188,7 @@ export class SchoolService {
    */
   public getMySchoolTeachers(): Observable<Array<Teacher>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.TEACHERS_URL;
 
     return this.http.get(url, options)
@@ -222,10 +210,7 @@ export class SchoolService {
    */
   public getMySchoolStudents(): Observable<Array<Student>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.STUDENTS_URL;
 
     return this.http.get(url, options)
@@ -247,10 +232,7 @@ export class SchoolService {
    */
   public getMySchoolTeachersCount(): Observable<number> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.TEACHERS_URL + AppConfig.COUNT_URL;
 
     return this.http.get(url, options)
@@ -265,10 +247,7 @@ export class SchoolService {
    */
   public getMySchoolStudentsCount(): Observable<number> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.STUDENTS_URL + AppConfig.COUNT_URL;
 
     return this.http.get(url, options)
@@ -282,10 +261,7 @@ export class SchoolService {
    */
   public getMySchoolPoints(): Observable<Array<Point>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL;
 
     return this.http.get(url, options)
@@ -298,10 +274,7 @@ export class SchoolService {
    */
   public getMySchoolBadges(): Observable<Array<Badge>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL;
 
     return this.http.get(url, options)
@@ -312,11 +285,7 @@ export class SchoolService {
 
   private getPoints(): Observable<Array<Point>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
-    const count = 0;
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMyUrl() + AppConfig.POINTS_URL;
 
     return this.http.get(url, options)
@@ -331,10 +300,7 @@ export class SchoolService {
    */
   public getMySchoolPointsCount(): Observable<number> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL + AppConfig.COUNT_URL;
 
     return this.http.get(url, options)
@@ -344,11 +310,7 @@ export class SchoolService {
 
   private getBadges(): Observable<Array<Badge>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
-    const count = 0;
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMyUrl() + AppConfig.BADGES_URL;
 
     return this.http.get(url, options)
@@ -363,10 +325,7 @@ export class SchoolService {
    */
   public getMySchoolBadgesCount(): Observable<number> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.BADGES_URL + AppConfig.COUNT_URL;
 
     return this.http.get(url, options)

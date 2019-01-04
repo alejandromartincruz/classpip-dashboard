@@ -1,10 +1,11 @@
 <div class="home-content">
 
-  <app-admin-home *ngIf="isAdminProfile" [profile]="profile"></app-admin-home>
+  <app-admin-home *ngIf="isAdminProfile && profile" [profile]="profile"></app-admin-home>
 
-  <app-teacher-home *ngIf="isTeacherProfile" [profile]="profile" [school]="school" [allPoints]="allPoints"></app-teacher-home>
+  <app-teacher-home *ngIf="isTeacherProfile && (profile && school && allPoints)" [profile]="profile" [school]="school"
+    [allPoints]="allPoints"></app-teacher-home>
 
-  <app-student-home *ngIf="isStudentProfile" [profile]="profile" [reward]="reward" [rank]="rank" [studentPoints]="studentPoints"
-    [school]="school"></app-student-home>
+  <app-student-home *ngIf="isStudentProfile && (profile && reward && rank && studentPoints)" [profile]="profile"
+    [reward]="reward" [rank]="rank" [studentPoints]="studentPoints" [school]="school"></app-student-home>
 
 </div>

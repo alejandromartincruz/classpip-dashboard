@@ -1,4 +1,5 @@
 <div class="admin-container">
+
   <mat-card *ngIf="profile">
     <mat-card-header>
       <img mat-card-avatar [src]="profile.avatar.image">
@@ -9,34 +10,45 @@
 
     </mat-card-content>
   </mat-card>
+
   <mat-card *ngIf="schools">
+
     <mat-card-header>
       <h3>{{ "COMMON.SCHOOLS" | translate }}</h3>
       <button mat-raised-button color="primary" (click)="scrollToForm()" class="right">{{ 'SCHOOL.NEWSCHOOL' |
         translate }}</button>
     </mat-card-header>
+
     <mat-card-content class="list-of-schools">
       <mat-list>
-        <mat-list-item *ngFor="let school of schools | slice: paginationFrom(pageEvent) : paginationTo(pageEvent)">
-          <img matListAvatar src="{{ school.image }}" alt="image of {{ school.name }}">
-          <h4 mat-line>{{ school.name }}</h4>
-          <p mat-line>{{ school.address }} ({{ school.city }}) - {{ school.country }}</p>
-          <p mat-line>Tlf: {{ school.phone }} CIF: {{ school.cif }} </p>
-          <button mat-raised-button color="primary" (click)="editSchoolAction(school.id)">
-            <mat-icon>edit</mat-icon>
-            <span>Editar</span>
-          </button>
-          <button mat-raised-button color="warn" (click)="openDeleteSchoolDialog(school.id)">
-            <mat-icon>delete</mat-icon>
-            <span>Eliminar</span>
-          </button>
-        </mat-list-item>
+        <a routerLink="/schooldetails/{{school.id}}" *ngFor="let school of schools | slice: paginationFrom(pageEvent) : paginationTo(pageEvent)">
+          <mat-list-item>
 
+            <img matListAvatar src="{{ school.image }}" alt="image of {{ school.name }}">
+            <h4 mat-line><b>{{ school.name }}</b></h4>
+            <p mat-line>{{ school.address }} ({{ school.city }}) - {{ school.country }}</p>
+            <p mat-line>Tlf: {{ school.phone }} CIF: {{ school.cif }} </p>
+
+            <button mat-raised-button color="primary" (click)="editSchoolAction(school.id, $event);">
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'COMMON.EDIT' | translate }}</span>
+            </button>
+            <button mat-raised-button color="warn" (click)="openDeleteSchoolDialog(school.id, $event);">
+              <mat-icon>delete</mat-icon>
+              <span>{{ 'COMMON.DELETE' | translate }}</span>
+            </button>
+
+          </mat-list-item>
+        </a>
       </mat-list>
+
       <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
     </mat-card-content>
+
   </mat-card>
+
   <mat-card>
     <app-school-form [editSchool]="editSchool" (newSchoolChange)="newSchoolHandler($event)"></app-school-form>
   </mat-card>
+
 </div>

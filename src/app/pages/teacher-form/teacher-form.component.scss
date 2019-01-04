@@ -1,0 +1,24 @@
+mat-form-field {
+  width: 100%;
+}
+
+.mat-option-text {
+  position: relative;
+  vertical-align: middle;
+}
+
+.option-profile-img {
+  display: block;
+  left: 15px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.option-text {
+  padding-left: 45px;
+}
+
+.btn-form {
+  float: right;
+}

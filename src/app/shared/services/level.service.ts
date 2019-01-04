@@ -26,9 +26,7 @@ export class LevelService {
 
   public getRank(points: Number): Rango {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     if (points <= 0 || points === undefined) {
       points = 1;
@@ -51,9 +49,7 @@ export class LevelService {
 
   public getAllRanks(): Observable<Rango[]> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.RANGE_URL, options)
       .map((response: Response) => Rango.toObjectArray(response.json()));

@@ -21,30 +21,9 @@ export class PointService {
   constructor(
     public http: Http,
     public translateService: TranslateService,
+    public utilsService: UtilsService
+  ) { }
 
-    public utilsService: UtilsService) { }
-
-  /**
-   * This method returns the profile information of the current logged
-   * in user on the platform
-   * @return {Observable<Profile>} returns an observable with the profile
-   */
-
-
-  /**public getPoints(): Observable<Array<Point>> {
-
-    var count = 0;
-
-    let options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
-    let url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL;
-
-
-
-  }
- */
   /**
    * Returns a grade object with all the information from a grade
    * identifier. This method is used to fill all the information
@@ -53,9 +32,7 @@ export class PointService {
    */
   public getPoint(id: number): Observable<Point> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.POINT_URL + '/' + id, options)
       .map((response: Response, index: number) => Point.toObject(response.json()));
@@ -63,9 +40,7 @@ export class PointService {
 
   public getPointName(id: number): Observable<Point> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.POINT_URL + '/' + id, options)
       .map((response: Response, index: number) => Point.toObject(response.json()));
@@ -80,10 +55,7 @@ export class PointService {
      */
   private getMySchoolPoints(): Observable<Array<Point>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTS_URL;
 
     return this.http.get(url, options)
@@ -99,10 +71,7 @@ export class PointService {
    */
   public postPoint(point: Point): Observable<Response> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     let url: string;
     url = AppConfig.POINT_URL;
 
@@ -114,9 +83,7 @@ export class PointService {
   }
   public savePoint(name: string, value: number, image: string): Observable<Point> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.POINT_URL;
@@ -139,9 +106,9 @@ export class PointService {
 
 
   public deletePoint(id: string): Observable<Point> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+
+    const options = this.utilsService.getOptions();
+
     return this.http.delete(AppConfig.POINT_URL + '/' + id, options)
       .map(response => {
         return response;
@@ -151,9 +118,7 @@ export class PointService {
 
   public getAllPoints(): Observable<Point[]> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.POINT_URL, options)
       .map((response: Response, index: number) => Point.toObjectArray(response.json()))

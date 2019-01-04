@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response, Headers } from '@angular/http';
+import { Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router } from '@angular/router';
@@ -101,6 +101,13 @@ export class UtilsService {
         break;
     }
     return Observable.throw(message);
+  }
+
+  public getOptions(): RequestOptions {
+    const options: RequestOptions = new RequestOptions({
+      headers: this.setAuthorizationHeader(new Headers(), this.currentUser.id)
+    });
+    return options;
   }
 
   /**

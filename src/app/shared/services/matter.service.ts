@@ -21,9 +21,7 @@ export class MatterService {
    */
   public getMatter(id: number): Observable<Matter> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.MATTERS_URL + '/' + id, options)
       .map((response: Response, index: number) => Matter.toObject(response.json()));

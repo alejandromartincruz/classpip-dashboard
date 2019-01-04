@@ -14,13 +14,13 @@ import { TranslateService } from 'ng2-translate';
 export class AdminHomeComponent implements OnInit {
 
   @Input() profile: Profile;
-  schools: School[];
-  editSchool: School;
-  pageSize = 10;
-  length: number;
-  pageSizeOptions = [5, 10, 25, 100];
-  pageEvent: PageEvent;
-  dialogRef: MatDialogRef<ConfirmationDialogComponent>;
+  public schools: School[];
+  public editSchool: School;
+  public pageSizeInit = 10;
+  public length: number;
+  public pageSizeOptions = [5, 10, 25, 100];
+  public pageEvent: PageEvent;
+  public dialogRef: MatDialogRef<ConfirmationDialogComponent>;
 
   constructor(
     public schoolService: SchoolService,
@@ -40,7 +40,7 @@ export class AdminHomeComponent implements OnInit {
         this.length = schools.length;
         this.pageEvent = new PageEvent;
         this.pageEvent.pageIndex = 0;
-        this.pageEvent.pageSize = this.pageSize;
+        this.pageEvent.pageSize = this.pageSizeInit;
         this.pageEvent.length = this.length;
       }
     );
@@ -51,14 +51,17 @@ export class AdminHomeComponent implements OnInit {
   }
 
   paginationTo(pageEvent) {
-    return this.paginationFrom(pageEvent) + this.pageSize;
+    return this.paginationFrom(pageEvent) + pageEvent.pageSize;
   }
 
   newSchoolHandler(newSchoolGenerated) {
     this.schools.push(newSchoolGenerated);
+    this.pageEvent.length += 1;
   }
 
-  editSchoolAction(schoolId: number) {
+  editSchoolAction(schoolId: number, $event) {
+    $event.stopPropagation();
+    $event.preventDefault();
     this.editSchool = this.schools.filter(school => parseInt(school.id, 10) === schoolId)[0];
     document.getElementById('schoolForm').scrollIntoView();
   }
@@ -68,7 +71,11 @@ export class AdminHomeComponent implements OnInit {
     document.getElementById('schoolForm').scrollIntoView();
   }
 
-  openDeleteSchoolDialog(schoolId: number) {
+  openDeleteSchoolDialog(schoolId: number, $event) {
+
+    $event.stopPropagation();
+    $event.preventDefault();
+
     this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       disableClose: false
     });

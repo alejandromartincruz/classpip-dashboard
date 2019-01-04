@@ -33,10 +33,7 @@ export class QuestionnaireService {
    */
   public getMyQuestionnaire(id: string): Observable<Questionnaire> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = AppConfig.QUESTIONNAIRE_URL + '/' + id;
 
     return this.http.get(url, options)
@@ -49,46 +46,13 @@ export class QuestionnaireService {
   }
 
   /**
-   * This method returns all the information of the questionnaires
-   * of the current teacher logged into the application
+   * Returns the questionnaires with the one level information of the current
+   * logged in user into the application
    * @return {Array<Questionnaire>} returns the list of questionnaires
    */
-  /* public getMyQuestionnaires(): Observable<Array<Questionnaire>> {
-
-     const ret: Array<Questionnaire> = new Array<Questionnaire>();
-
-     return Observable.create(observer => {
-       this.getQuestionnaires().subscribe(questionnaires => {
-         questionnaires.forEach(group => {
-           this.gradeService.getGrade(group.gradeId).subscribe(
-             grade => {
-               group.grade = grade;
-               this.matterService.getMatter(group.matterId).subscribe(
-                 matter => {
-                   group.matter = matter;
-                   ret.push(group);
-                   if (ret.length === groups.length) {
-                     observer.next(ret);
-                     observer.complete();
-                   }
-                 }, error => observer.error(error));
-             }, error => observer.error(error));
-         });
-       }, error => observer.error(error));
-     });
-   }
-
-     /**
-    * Returns the questionnaires with the one level information of the current
-    * logged in user into the application
-    * @return {Array<Questionnaire>} returns the list of questionnaires
-    */
   public getQuestionnaires(): Observable<Array<Questionnaire>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMyUrl() + AppConfig.QUESTIONNAIRES_URL;
 
 
@@ -97,16 +61,13 @@ export class QuestionnaireService {
   }
 
   /**
- * Returns the questionnaires with the one level information of the current
- * logged in user into the application
- * @return {Array<Questionnaire>} returns the list of questionnaires
- */
+   * Returns the questionnaires with the one level information of the current
+   * logged in user into the application
+   * @return {Array<Questionnaire>} returns the list of questionnaires
+   */
   public getAllQuestionnaires(): Observable<Array<Questionnaire>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = AppConfig.QUESTIONNAIRE_URL;
 
 
@@ -115,18 +76,15 @@ export class QuestionnaireService {
   }
 
   /**
- * Returns a matter object with all the information from a matter
- * identifier. This method is used to fill all the information
- * of the groups we are querying
- * @return {Matter} matter object with all the information
- */
+   * Returns a matter object with all the information from a matter
+   * identifier. This method is used to fill all the information
+   * of the groups we are querying
+   * @return {Matter} matter object with all the information
+   */
   // tslint:disable-next-line:no-any
   public deleteQuestionnaire(idQuestionnaire: number): Observable<any> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = AppConfig.QUESTIONNAIRE_URL + '/' + idQuestionnaire;
 
     return this.http.delete(url, options)
@@ -158,9 +116,7 @@ export class QuestionnaireService {
     badges: string[]
   ): Observable<Questionnaire> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.QUESTIONNAIRE_URL;
@@ -190,9 +146,7 @@ export class QuestionnaireService {
 
   public saveQuestionnaire(stringData: Array<string>): Observable<Questionnaire> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.QUESTIONNAIRE_URL;
@@ -258,9 +212,7 @@ export class QuestionnaireService {
 
   public postQuestionnaireQuestions(numberData: Array<number>, questionData: Array<string>): Observable<Question> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.QUESTIONNAIRE_URL + '/' + this.utilsService.currentQuestionnaire.id + AppConfig.QUESTIONS_URL;
@@ -286,9 +238,7 @@ export class QuestionnaireService {
 
   public postQuestionAnswers(answer: string): Observable<Array<Answer>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.QUESTION_URL + '/' + this.utilsService.currentQuestion.id + AppConfig.ANSWERS_URL;
@@ -308,9 +258,7 @@ export class QuestionnaireService {
 
   public postQuestionCorrectAnswers(questionData: Array<string>): Observable<Array<CorrectAnswer>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.QUESTION_URL + '/' + this.utilsService.currentQuestion.id + AppConfig.CORRECTANSWERS_URL;
@@ -367,10 +315,7 @@ export class QuestionnaireService {
    */
   private getQuestionnaireQuestions(idQuestionnaire: string): Observable<Array<Question>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const count = 0;
     const url: string = AppConfig.QUESTIONNAIRE_URL + '/' + idQuestionnaire + AppConfig.QUESTIONS_URL;
 
@@ -384,9 +329,7 @@ export class QuestionnaireService {
    */
   public getQuestionAnswers(id: string): Observable<Array<Answer>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const count = 0;
     const url: string = AppConfig.QUESTION_URL + '/' + id + AppConfig.ANSWERS_URL;
@@ -401,9 +344,7 @@ export class QuestionnaireService {
    */
   public getQuestionCorrectAnswers(id: string): Observable<Array<CorrectAnswer>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const count = 0;
     const url: string = AppConfig.QUESTION_URL + '/' + id + AppConfig.CORRECTANSWERS_URL;
@@ -414,9 +355,7 @@ export class QuestionnaireService {
 
   public getResultsQuestionnaire(idQuestionnaire: string): Observable<Array<ResultQuestionnaire>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     const count = 0;
     const url: string = AppConfig.RESULTQUESTIONNAIRE_URL + '?filter[where][questionnaireId]=' + idQuestionnaire;
@@ -424,139 +363,5 @@ export class QuestionnaireService {
     return this.http.get(url, options)
       .map((response: Response, index: number) => ResultQuestionnaire.toObjectArray(response.json()));
   }
-
-  /**
-  * Method that saves the results of the questionnaire
-  */
-  /* public saveResults(
-      questionnaireName: string,
-      questionnaireId: string,
-      numTotalQuestions: number,
-      numAnswerCorrect: number,
-      numAnswerNoCorrect: number,
-      finalNote: number,
-      dataAnswers: Array<string>
-    ): Observable<ResultQuestionnaire> {
-
-     let options: RequestOptions = new RequestOptions({
-       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-     });
-
-     var url: string;
-     switch (this.utilsService.role) {
-       case Role.STUDENT:
-         url = AppConfig.RESULTQUESTIONNAIRE_URL;
-         break;
-       case Role.TEACHER:
-         url = AppConfig.RESULTSQUESTIONNAIRE_URL;
-         break;
-       case Role.SCHOOLADMIN:
-         url = AppConfig.RESULTSQUESTIONNAIRE_URL;
-         break;
-       default:
-         break;
-     }
-
-     let postParams = {
-       questionnaireName: questionnaireName,
-       questionnaireId: questionnaireId,
-       numTotalQuestions: numTotalQuestions,
-       numAnswerCorrect: numAnswerCorrect,
-       numAnswerNoCorrect: numAnswerNoCorrect,
-       finalNote: finalNote,
-       studentId: this.utilsService.currentUser.userId,
-       dataAnswers: dataAnswers
-     }
-
-     return this.http.post(url, postParams, options)
-       .map((response: Response, index: number) => ResultQuestionnaire.toObject(response.json()))
-
-   }
-
-   /**
-    * Returns the student by a id.
-    * @return {Stuent} returns the student
-    */
-  /* public getMyResultsStudent(id: number): Observable<Student> {
-
-     let options: RequestOptions = new RequestOptions({
-       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-     });
-
-     //var count: number = 0;
-     var url: string = AppConfig.STUDENT_URL + '/' + id;
-
-     return this.http.get(url, options)
-       .map((response: Response, index: number) => Student.toObject(response.json()))
-
-   }
-
-   /**
-    * Returns the list of questions by a questionnaire id.
-    * @return Observable{Array<Question>} returns the list of questions
-    * that include the four possible answers and the correct answer
-    */
-  /* public getQuestionsAnswersCorrectAnswers(credentials: Credentials): Observable<Array<Question>> {
-
-     var ret: Array<Question> = new Array<Question>();
-
-     return Observable.create(observer => {
-       this.getQuestionnaireQuestions(credentials).subscribe(
-         questions => {
-           questions.forEach(question => {
-             this.getQuestionAnswers(question.id).subscribe(
-               answers => {
-                 question.answer = answers;
-                   this.getQuestionCorrectAnswers(question.id).subscribe(
-                     correctAnswer => {
-                       question.correctAnswer = correctAnswer;
-                       ret.push(question);
-                       if (ret.length === questions.length) {
-                         observer.next(ret);
-                         observer.complete();
-                       }
-                     }, error => observer.error(error))
-               }, error => observer.error(error))
-           });
-         }, error => observer.error(error)
-       )
-     });
-   }
-
-
-   /**
-    * This method executes a logout into the application, removes
-    * the current logged user
-    * @return {Observable<Boolean>} returns an observable with the result
-    * of the operation
-    */
-  /** public logout(): Observable<Response> {
-
-     let options: RequestOptions = new RequestOptions({
-       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-     });
-
-     var url: string;
-     switch (this.utilsService.role) {
-       case Role.STUDENT:
-         url = AppConfig.STUDENT_URL + AppConfig.LOGOUT_URL;
-         break;
-       case Role.TEACHER:
-         url = AppConfig.TEACHER_URL + AppConfig.LOGOUT_URL;
-         break;
-       case Role.SCHOOLADMIN:
-         url = AppConfig.SCHOOLADMIN_URL + AppConfig.LOGOUT_URL;
-         break;
-       default:
-         break;
-     }
-
-     return this.http.post(url, {}, options)
-       .map(response => {
-         this.utilsService.currentUser = null;
-         return true;
-       })
-       .catch((error: Response) => this.utilsService.handleAPIError(error));
-   }*/
 
 }

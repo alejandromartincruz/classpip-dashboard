@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Sort } from '@angular/material';
+import { Sort, PageEvent } from '@angular/material';
 import { Profile, School, Point, Student } from '../../shared/models';
 import { RewardService } from '../../shared/services';
 import { TranslateService } from 'ng2-translate/ng2-translate';
-import { AppConfig } from '../../app.config';
 
 @Component({
   selector: 'app-teacher-home',
@@ -20,6 +19,11 @@ export class TeacherHomeComponent implements OnInit {
   public sortedData: Student[];
   public objectKeys = Object.keys;
 
+  public pageSizeInit = 10;
+  public length: number;
+  public pageSizeOptions = [5, 10, 25, 100];
+  public pageEvent: PageEvent;
+
   constructor(
     public translateService: TranslateService,
     public rewardService: RewardService
@@ -32,10 +36,15 @@ export class TeacherHomeComponent implements OnInit {
   // filter:  ?filter=%7B%22include%22%3A%5B%22rewards%22%2C%22avatar%22%5D%7D
 
   getStudentWithRewards() {
-    this.rewardService.getAllStudentsWithRewards().subscribe(
+    this.rewardService.getAllStudentsWithRewards(this.school.id).subscribe(
       response => {
         this.studentsWithRewards = this.parseObjects(response);
         this.sortedData = this.studentsWithRewards;
+        this.length = this.sortedData.length;
+        this.pageEvent = new PageEvent;
+        this.pageEvent.pageIndex = 0;
+        this.pageEvent.pageSize = this.pageSizeInit;
+        this.pageEvent.length = this.length;
       }
     );
   }
@@ -100,6 +109,15 @@ export class TeacherHomeComponent implements OnInit {
       }
     });
   }
+
+  paginationFrom(pageEvent) {
+    return ((pageEvent.pageIndex === 0) ? pageEvent.pageIndex : (pageEvent.pageIndex) * pageEvent.pageSize);
+  }
+
+  paginationTo(pageEvent) {
+    return this.paginationFrom(pageEvent) + pageEvent.pageSize;
+  }
+
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {

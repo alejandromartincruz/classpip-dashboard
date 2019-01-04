@@ -1,13 +1,14 @@
-import { Component, OnInit, Inject} from '@angular/core';
-import {FormControl, FormsModule} from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, FormsModule } from '@angular/forms';
 
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Login, Group, Role, Questionnaire, Question } from '../../shared/models/index';
 import { AppConfig } from '../../app.config';
 import { LoadingService, UtilsService, GroupService, AlertService, QuestionnaireService } from '../../shared/services/index';
 import { CreateQuestionnaireTest1Component } from '../../pages/createQuestionnaireTest1/createQuestionnaireTest1';
 import { CreateQuestionnaireTextArea1Component } from '../../pages/createQuestionnaireTextArea1/createQuestionnaireTextArea1';
+// tslint:disable-next-line:max-line-length
 import { CreateQuestionnaireBadgesAssignmentComponent } from '../../pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
 
 @Component({
@@ -17,7 +18,7 @@ import { CreateQuestionnaireBadgesAssignmentComponent } from '../../pages/create
 })
 export class CreateQuestionnairePointsAssignmentComponent implements OnInit {
   myControl: FormControl = new FormControl();
-  assigned: number = 0;
+  assigned = 0;
 
   public options = [];
   public questionnaires: Array<Questionnaire>;
@@ -39,6 +40,7 @@ export class CreateQuestionnairePointsAssignmentComponent implements OnInit {
   public f: number;
   public g: number;
 
+  // tslint:disable-next-line:no-any
   device: any = [];
   public ind: number;
   public selectedType: string;
@@ -50,6 +52,7 @@ export class CreateQuestionnairePointsAssignmentComponent implements OnInit {
     public questionnaireService: QuestionnaireService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<CreateQuestionnairePointsAssignmentComponent>,
+    // tslint:disable-next-line:no-any
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.utilsService.currentUser = Login.toObject(localStorage.getItem(AppConfig.LS_USER));
@@ -57,20 +60,17 @@ export class CreateQuestionnairePointsAssignmentComponent implements OnInit {
 
     this.selectedType = data.stringSelected;
 
-    for (var i =0; i < data.stringData.length; i++)
-    {
+    for (let i = 0; i < data.stringData.length; i++) {
       this.stringData.push(data.stringData[i]);
 
     }
-    for (var i =0; i < data.numberData.length; i++)
-    {
+    for (let i = 0; i < data.numberData.length; i++) {
       this.numberData.push(data.numberData[i]);
 
     }
 
-    this.num = data.num
-    for(this.ind=0;this.ind<=100;this.ind++)
-    {
+    this.num = data.num;
+    for (this.ind = 0; this.ind <= 100; this.ind++) {
       this.options.push(this.ind);
 
     }
@@ -79,44 +79,42 @@ export class CreateQuestionnairePointsAssignmentComponent implements OnInit {
   }
 
   onChange(value) {
-  if (value.checked === true) {
-    this.assigned = 1;
-  } else {
-    this.assigned = 0;
+    if (value.checked === true) {
+      this.assigned = 1;
+    } else {
+      this.assigned = 0;
+    }
   }
-};
+
   ngOnInit(): void {
 
-     this.loadingService.show();
-      this.questionnaireService.getQuestionnaires().subscribe(
-        ((questionnaires: Array<Questionnaire>) => {
-          this.questionnaires = questionnaires;
-          this.loadingService.hide();
-        }),
-        ((error: Response) => {
-          this.loadingService.hide();
-          this.alertService.show(error.toString());
-        }));
+    this.loadingService.show();
+    this.questionnaireService.getQuestionnaires().subscribe(
+      ((questionnaires: Array<Questionnaire>) => {
+        this.questionnaires = questionnaires;
+        this.loadingService.hide();
+      }),
+      ((error: Response) => {
+        this.loadingService.hide();
+        this.alertService.show(error.toString());
+      }));
 
   }
-  createQuestionnaire(): void{
+  createQuestionnaire(): void {
 
-    if(this.assigned == 1)
-    {
+    if (this.assigned === 1) {
 
-      this.a == null?this.points.push(0):this.points.push(this.a);
-      this.b == null?this.points.push(0):this.points.push(this.b);
-      this.c == null?this.points.push(0):this.points.push(this.c);
-      this.d == null?this.points.push(0):this.points.push(this.d);
-      this.e == null?this.points.push(0):this.points.push(this.e);
-      this.f == null?this.points.push(0):this.points.push(this.f);
-      this.g == null?this.points.push(0):this.points.push(this.g);
+      this.a == null ? this.points.push(0) : this.points.push(this.a);
+      this.b == null ? this.points.push(0) : this.points.push(this.b);
+      this.c == null ? this.points.push(0) : this.points.push(this.c);
+      this.d == null ? this.points.push(0) : this.points.push(this.d);
+      this.e == null ? this.points.push(0) : this.points.push(this.e);
+      this.f == null ? this.points.push(0) : this.points.push(this.f);
+      this.g == null ? this.points.push(0) : this.points.push(this.g);
 
 
-    this.stringData.push(this.points);
-    }
-    else if(this.assigned == 0)
-    {
+      this.stringData.push(this.points);
+    } else if (this.assigned === 0) {
       this.points.push(0);
       this.points.push(0);
       this.points.push(0);
@@ -124,22 +122,22 @@ export class CreateQuestionnairePointsAssignmentComponent implements OnInit {
       this.points.push(0);
       this.points.push(0);
       this.points.push(0);
-       this.stringData.push(this.points);
+      this.stringData.push(this.points);
     }
 
-    let dialogRef1 = this.dialog.open(CreateQuestionnaireBadgesAssignmentComponent, {
+    const dialogRef1 = this.dialog.open(CreateQuestionnaireBadgesAssignmentComponent, {
       height: '600px',
       width: '700px',
-      data: {stringSelected: this.selectedType, stringData: this.stringData, numberData: this.numberData, num: this.num}
-      });
+      data: { stringSelected: this.selectedType, stringData: this.stringData, numberData: this.numberData, num: this.num }
+    });
 
-      dialogRef1.afterClosed().subscribe(result => {
-        this.result = result;
-        this.ngOnInit();
-      });
-      this.cancel();
+    dialogRef1.afterClosed().subscribe(result => {
+      this.result = result;
+      this.ngOnInit();
+    });
+    this.cancel();
 
-    }
+  }
 
   cancel(): void {
     this.dialogRef.close();

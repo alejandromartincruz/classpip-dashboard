@@ -1,4 +1,7 @@
 <h2>{{ 'SCHOOL.NEWSCHOOLFORM' | translate }}</h2>
+<h3><span *ngIf="!newSchool.id">{{ 'SCHOOL.CREATINGSCHOOL' | translate }}</span>
+  <span *ngIf="newSchool.id">{{ 'SCHOOL.EDITINGSCHOOL' | translate }} {{ newSchool.id }}</span>
+</h3>
 <br>
 <form id="schoolForm" #schoolForm="ngForm" (ngSubmit)="saveSchool();">
   <input type="text" [(ngModel)]="newSchool.id" name="id" hidden>
@@ -94,7 +97,7 @@
   <br>
 
   <button mat-raised-button color="primary" class="btn-form" [disabled]="!schoolForm.form.valid">{{
-    'SCHOOL.SAVE' | translate }}</button>
+    'COMMON.SAVE' | translate }}</button>
 
   <div style="clear: both;"></div>
 </form>

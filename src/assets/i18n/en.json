@@ -36,7 +36,27 @@
     "NOASSIGN": "Do not assign group"
   },
   "TEACHER": {
-    "ID": "Teacher Id"
+    "ID": "Teacher Id",
+    "TEACHER": "Teacher",
+    "TEACHERS": "Teachers",
+    "TEACHERSLIST": "Teachers' list",
+    "NAME": "Name",
+    "SURNAME": "Surname",
+    "EMAIL": "Email",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "NEWPASSWORD": "Fill with a new password",
+    "CONFIRMPASSWORD": "Password confirm",
+    "PROFILEIMAGE": "Profile image",
+    "SELECTAVATAR": "select avatar",
+    "NEWTEACHERFORM": "Teacher's form",
+    "CREATINGTEACHER": "Creating new teacher",
+    "EDITINGTEACHER": "Editing teacher with id ",
+    "CREATED": "New teacher created successfully",
+    "EDITED": "Teacher edited successfully",
+    "DELETED": "Teacher deleted successfully",
+    "CONFIRMDELETE": "Are you sure that you want to delete teacher with id {{teacherId}}?",
+    "NEWTEACHER": "Create new teacher"
   },
   "STUDIENTS": {
     "ID": "Student Id",
@@ -255,6 +275,32 @@
     "RATIO4": "Rare",
     "UNKNOWN": "Desconocido"
   },
+  "SCHOOL": {
+    "NAME": "School's name",
+    "ADDRESS": "School's address",
+    "IMAGE": "Small image for the school's avatar",
+    "IMAGEBIG": "Big image of the school",
+    "ZIPCODE": "Zip code",
+    "CITY": "City",
+    "COUNTRY": "Country",
+    "LATITUDE": "Latitude",
+    "LONGITUDE": "Longitude",
+    "CIF": "CIF",
+    "PHONE": "Phone",
+    "WEBSITE": "Website",
+    "FACEBOOK": "Facebook account",
+    "TWITTER": "Twitter account",
+    "DESCRIPTION": "Description",
+    "NEWSCHOOL": "Create new School",
+    "CREATED": "School created successfully!",
+    "EDITED": "School edited successfully!",
+    "DELETED": "School deleted successfully!",
+    "CONFIRMDELETE": "Are you sure that you want to delete school with id {{schoolId}}?",
+    "SAVE": "Save",
+    "NEWSCHOOLFORM": "School's form",
+    "CREATINGSCHOOL": "Creanting new school",
+    "EDITINGSCHOOL": "Editing school with id "
+  },
   "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Choose an assignment type",
     "CHOOSEAMOUNT": "Choose the quantity",
@@ -266,6 +312,10 @@
     "CANCEL": "Cancel",
     "INNUMBER": "Enter a number",
     "SCHOOL": "School",
-    "SCHOOLS": "Schools"
+    "SCHOOLS": "Schools",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "SELECTAVATAR": "Select avatar",
+    "GOBACK": "Go back"
   }
 }

@@ -21,9 +21,7 @@ export class GradeService {
    */
   public getGrade(id: number): Observable<Grade> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.GRADES_URL + '/' + id, options)
       .map((response: Response, index: number) => Grade.toObject(response.json()));

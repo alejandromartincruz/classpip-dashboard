@@ -27,7 +27,7 @@
           <th mat-sort-header="{{point.id}}" *ngFor="let point of allPoints">{{point.name}}</th>
         </tr>
 
-        <tr *ngFor="let student of sortedData">
+        <tr *ngFor="let student of sortedData | slice: paginationFrom(pageEvent) : paginationTo(pageEvent)">
           <td class="profile-column"><img class="table-profile-img" src="{{student.avatar.image}}" alt="profile image of {{student.name}}"></td>
           <td>{{student.name}}</td>
           <td>{{student.surname}}</td>
@@ -40,6 +40,9 @@
         </tr>
       </table>
     </mat-card-content>
+    <mat-card-footer>
+      <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
+    </mat-card-footer>
   </mat-card>
   <app-school *ngIf="school" [school]="school"></app-school>
 </div>

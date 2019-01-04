@@ -41,10 +41,7 @@ export class PointRelationService {
    */
   public getPointRelation(): Observable<Array<PointRelation>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMySchoolUrl() + AppConfig.POINTSRELATION_URL;
 
     return this.http.get(url, options)
@@ -58,10 +55,7 @@ export class PointRelationService {
    */
   public getMyStudentPoints(): Observable<Array<PointRelation>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url: string = this.utilsService.getMyUrl() + AppConfig.POINTSRELATION_URL;
 
     return this.http.get(url, options)
@@ -198,9 +192,8 @@ export class PointRelationService {
    */
   public getStudentPoints(studentId: string): Observable<Array<PointRelation>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
+
     return this.http.get(AppConfig.STUDENT_URL + '/' + studentId + AppConfig.POINTSRELATION_URL, options)
       .map((response: Response, index: number) => PointRelation.toObjectArray(response.json()));
 
@@ -459,9 +452,7 @@ export class PointRelationService {
    */
   public getPointPoints(pointId: string): Observable<Array<PointRelation>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     return this.http.get(AppConfig.POINT_URL + '/' + pointId + AppConfig.POINTSRELATION_URL, options)
       .map((response: Response, index: number) => PointRelation.toObjectArray(response.json()));
@@ -587,10 +578,7 @@ export class PointRelationService {
    */
   public getMyGroupPoints(id: string): Observable<Array<PointRelation>> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const count = 0;
     const url: string = AppConfig.GROUP_URL + '/' + id + AppConfig.POINTSRELATION_URL;
 
@@ -672,10 +660,7 @@ export class PointRelationService {
     value: number
   ): Observable<PointRelation> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
 
     let url: string;
     url = AppConfig.POINTRELATION_URL;
@@ -701,9 +686,8 @@ export class PointRelationService {
   }
 
   public deletePointRelations(id: string): Observable<Point> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+
+    const options = this.utilsService.getOptions();
 
     return this.http.delete(AppConfig.POINT_URL + '/' + id + AppConfig.POINTSRELATION_URL, options)
       .map(response => {
@@ -713,9 +697,8 @@ export class PointRelationService {
   }
 
   public deletePointRelationsSchool(id: string): Observable<Point> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+
+    const options = this.utilsService.getOptions();
 
     return this.http.delete(AppConfig.SCHOOL_URL + '/' + id + AppConfig.POINTSRELATION_URL, options)
       .map(response => {

@@ -36,7 +36,26 @@
     "NOASSIGN": "No asignar grupo"
   },
   "TEACHER": {
-    "ID": "Id. Profesor"
+    "ID": "Id. Profesor",
+    "TEACHER": "Profesor",
+    "TEACHERS": "Profesores",
+    "TEACHERSLIST": "Lista de profesores",
+    "NAME": "Nombre",
+    "SURNAME": "Apellidos",
+    "EMAIL": "Email",
+    "USERNAME": "Nombre de usuario",
+    "PASSWORD": "Contraseña",
+    "NEWPASSWORD": "Introduce una nueva contraseña",
+    "CONFIRMPASSWORD": "Confirmar contraseña",
+    "PROFILEIMAGE": "Imagen de perfil",
+    "NEWTEACHERFORM": "Formulario de profesor",
+    "CREATINGTEACHER": "Creando un nuevo profesor",
+    "EDITINGTEACHER": "Editando profesor con id ",
+    "CREATED": "Nuevo profesor creado correctamente",
+    "EDITED": "Profesor editado correctamente",
+    "DELETED": "Profesor borrado correctamente",
+    "CONFIRMDELETE": "¿Seguro que quieres borrar el profesor con id {{teacherId}}?",
+    "NEWTEACHER": "Crear nuevo profesor"
   },
   "STUDIENTS": {
     "ID": "Id. Estudiante",
@@ -255,6 +274,32 @@
     "RATIO4": "Raro",
     "UNKNOWN": "Unknown"
   },
+  "SCHOOL": {
+    "NAME": "Nombre de la escuela",
+    "ADDRESS": "Dirección de la escuela",
+    "IMAGE": "Imagen pequeña para el avatar de la escuela",
+    "IMAGEBIG": "Imagen grande de la escuela",
+    "ZIPCODE": "Codigo Postal",
+    "CITY": "Ciudad",
+    "COUNTRY": "Pais",
+    "LATITUDE": "Latitud",
+    "LONGITUDE": "Longitud",
+    "CIF": "CIF",
+    "PHONE": "Teléfono",
+    "WEBSITE": "Página Web",
+    "FACEBOOK": "Cuenta de Facebook",
+    "TWITTER": "Cuenta de Twitter",
+    "DESCRIPTION": "Descripción",
+    "NEWSCHOOL": "Crear nueva escuela",
+    "CREATED": "Nueva escuela creada con éxito",
+    "EDITED": "Escuela modificada con éxito",
+    "DELETED": "Escuela borrada correctamente",
+    "CONFIRMDELETE": "¿Seguro que quieres borrar la escuela con id {{schoolId}}?",
+    "SAVE": "Guardar",
+    "NEWSCHOOLFORM": "Formulario de escuela",
+    "CREATINGSCHOOL": "Creando escuela nueva",
+    "EDITINGSCHOOL": "Editando escuela con id "
+  },
   "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Escoge el tipo de asignación",
     "CHOOSEAMOUNT": "Escoge la cantidad",
@@ -266,6 +311,10 @@
     "CANCEL": "Cancelar",
     "INNUMBER": "Introduce una cifra",
     "SCHOOL": "Escuela",
-    "SCHOOLS": "Escuelas"
+    "SCHOOLS": "Escuelas",
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
+    "SELECTAVATAR": "Selecciona un avatar",
+    "GOBACK": "Volver"
   }
 }

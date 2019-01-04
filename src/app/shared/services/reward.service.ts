@@ -30,10 +30,8 @@ export class RewardService {
   }
 
   public checkIfRewardExists(studentId: string, pointId: string, value: number) {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
 
+    const options = this.utilsService.getOptions();
     const url = AppConfig.ONLY_REWARDS_URL + '/' + studentId + AppConfig.EXISTS_URL;
 
     this.http.get(url, options)
@@ -58,10 +56,7 @@ export class RewardService {
 
   public addPoint(studentId: string, pointId: string, value: number) {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url = AppConfig.STUDENT_URL + '/' + studentId + AppConfig.REWARDS_URL;
 
     this.http.get(url, options)
@@ -88,10 +83,7 @@ export class RewardService {
 
   private postPoint(value: number, pointId: string) {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const pointsEarned = this.reward.points + value;
     this.reward.points = pointsEarned;
     this.reward.level = this.getLevel(this.reward.points);
@@ -124,10 +116,8 @@ export class RewardService {
   }
 
   public postPointToNewReward(value: number, pointId: string) {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
 
+    const options = this.utilsService.getOptions();
     const postUrl = AppConfig.ONLY_REWARDS_URL;
 
     const postParams = {
@@ -208,9 +198,7 @@ export class RewardService {
 
   private getRanks(studentId: string, pointId: string, value: number) {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+    const options = this.utilsService.getOptions();
 
     this.http.get(AppConfig.RANGE_URL, options)
       .map((res: Response) => res.json())
@@ -232,10 +220,7 @@ export class RewardService {
 
   public getStudentReward(studentId: number): Observable<Reward> {
 
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
-
+    const options = this.utilsService.getOptions();
     const url = AppConfig.STUDENT_URL + '/' + studentId + AppConfig.REWARDS_URL;
 
     return this.http.get(url, options)
@@ -244,26 +229,26 @@ export class RewardService {
   }
 
   public getAllRewards(): Observable<Reward[]> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
 
+    const options = this.utilsService.getOptions();
     const url = AppConfig.STUDENT_URL + AppConfig.REWARDS_URL;
 
     return this.http.get(url, options)
       .map((response: Response) => Reward.toObjectArray(response.json()));
   }
 
-  public getAllStudentsWithRewards(): Observable<Student[]> {
-    const options: RequestOptions = new RequestOptions({
-      headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
-    });
+  public getAllStudentsWithRewards(schoolId: string = ''): Observable<Student[]> {
+
+    const options = this.utilsService.getOptions();
 
     // tslint:disable-next-line:quotemark
-    const request_option = '?filter=%7B%22include%22%3A%5B%22rewards%22%2C%22avatar%22%5D%7D';
+    let request_option = '?filter=%7B%22include%22%3A%5B%22rewards%22%2C%22avatar%22%5D%7D';
 
-    // tslint:disable-next-line:max-line-length
-    // const request_option = '?filter=%7B%22include%22%3A%5B%22rewards%22%2C%22avatar%22%5D%2C%20%22where%22%3A%20%7B%22schoolId%22%3A' + schoolId + '%7D%7D';
+    if (schoolId !== '') {
+      // tslint:disable-next-line:max-line-length
+      request_option = '?filter=%7B%22include%22%3A%20%5B%22rewards%22%2C%22avatar%22%5D%2C%20%22where%22%3A%7B%22schoolId%22%3A' + schoolId + '%7D%7D';
+    }
+
 
     const url = AppConfig.STUDENT_URL + request_option;
 

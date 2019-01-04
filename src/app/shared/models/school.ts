@@ -1,3 +1,6 @@
+import { Teacher } from './teacher';
+import { Student } from './student';
+
 export class School {
 
   private _id: string;
@@ -16,6 +19,8 @@ export class School {
   private _twitter: string;
   private _description: string;
   private _website: string;
+  private _teachers: Teacher[];
+  private _students: Student[];
 
   constructor(id?: string, name?: string, address?: string, image?: string,
     zipCode?: string, city?: string, country?: string, cif?: string,
@@ -61,6 +66,8 @@ export class School {
       result.twitter = object.twitter;
       result.description = object.description;
       result.website = object.website;
+      result.teachers = object.teachers;
+      result.students = object.students;
     }
     return result;
   }
@@ -203,6 +210,22 @@ export class School {
 
   public set website(value: string) {
     this._website = value;
+  }
+
+  public get teachers(): Teacher[] {
+    return this._teachers;
+  }
+
+  public set teachers(value: Teacher[]) {
+    this._teachers = value;
+  }
+
+  public get students(): Student[] {
+    return this._students;
+  }
+
+  public set students(value: Student[]) {
+    this._students = value;
   }
 
 }

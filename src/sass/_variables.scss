@@ -3,7 +3,10 @@
 // hue. Available color palettes: https://material.io/design/color/
 // classpip palettes
 $classpip-app-primary: mat-palette($mat-indigo);
-$classpip-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$classpip-app-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$classpip-app-warn:    mat-palette($mat-red);
+$classpip-app-warn: mat-palette($mat-red);
+
+$classpip-white: #fff;
+$classpip-background: #fafafa;

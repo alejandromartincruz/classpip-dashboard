@@ -36,7 +36,26 @@
     "NOASSIGN": "No assignar grup"
   },
   "TEACHER": {
-    "ID": "Id. Professor"
+    "ID": "Id. Professor",
+    "TEACHER": "Professor",
+    "TEACHERS": "Professors",
+    "TEACHERSLIST": "Llistat de professors",
+    "NAME": "Nom",
+    "SURNAME": "Cognom",
+    "EMAIL": "Email",
+    "USERNAME": "Nom d'usuari",
+    "PASSWORD": "Contrasenya",
+    "NEWPASSWORD": "Introdueix una nova contrasenya",
+    "CONFIRMPASSWORD": "Confirmar contrasenya",
+    "PROFILEIMAGE": "Imatge de perfil",
+    "NEWTEACHERFORM": "Formulari de professor",
+    "CREATINGTEACHER": "Creant nou professor",
+    "EDITINGTEACHER": "Editant professor amb id ",
+    "CREATED": "Nou professor creat correctament",
+    "EDITED": "Professor modificat amb èxit",
+    "DELETED": "Professor esborrat correctament",
+    "CONFIRMDELETE": "Segur que vols esborrar el professor amb id {{teacherId}}?",
+    "NEWTEACHER": "Crear un nou professor"
   },
   "STUDIENTS": {
     "ID": "Id. Estudiant",
@@ -275,9 +294,11 @@
     "CREATED": "Nova escola creada amb èxit",
     "EDITED": "Escola modificada amb èxit",
     "DELETED": "Escola esborrada correctament",
-    "CONFIRMDELETE": "¿Seguro que quieres borrar la escuela con id {{schoolId}}?",
+    "CONFIRMDELETE": "Segur que vols esborrar l'escola amb id {{schoolId}}?",
     "SAVE": "Guardar",
-    "NEWSCHOOLFORM": "Formulari d'escola"
+    "NEWSCHOOLFORM": "Formulari d'escola",
+    "CREATINGSCHOOL": "Creant nova escola",
+    "EDITINGSCHOOL": "Editant escola amb id "
   },
   "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Tria el tipus d'assignació",
@@ -291,6 +312,10 @@
     "INNUMBER": "Introdueix una xifra",
     "SCHOOL": "Escola",
     "SCHOOLS": "Escoles",
-    "DELETE": "Eliminar"
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
+    "SAVE": "Guardar",
+    "SELECTAVATAR": "Sel·lecciona un avatar",
+    "GOBACK": "Tornar"
   }
 }

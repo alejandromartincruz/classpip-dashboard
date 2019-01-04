@@ -1,3 +1,69 @@
-<p>
-  school-details works!
-</p>
+<div class="home-content">
+  <div>
+    <button mat-icon-button (click)="goBack();" color="primary" class="go-back-btn">
+      <mat-icon aria-label="Example icon-button with a heart icon">arrow_back_ios</mat-icon>
+      <span>{{ 'COMMON.GOBACK' | translate }}</span>
+    </button>
+  </div>
+  <mat-card *ngIf="school" [style.background-image]="backgroundImg" class="school-details-card">
+    <mat-card-header>
+      <img mat-card-avatar [src]="school.image">
+      <mat-card-title>
+        <h2>{{ school.name }}</h2>
+      </mat-card-title>
+      <mat-card-subtitle>{{ school.address }}, {{ school.city }} ({{ school.zipCode }}) - {{ school.country }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>CIF: {{ school.cif }} <br>
+        Tlf: {{ school.phone }}</p>
+      <p>{{ school.description }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <a mat-button href="{{ school.twitter }}" target="_blank">{{ 'HOME.TWITTER' | translate }}</a>
+      <a mat-button href="{{ school.facebook }}" target="_blank">{{ 'HOME.FACEBOOK' | translate }}</a>
+      <a mat-button href="{{ school.website }}" target="_blank">{{ 'HOME.WEBSITE' | translate }}</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card *ngIf="school" class="teachers-card">
+
+    <mat-card-header>
+      <h3>{{ 'TEACHER.TEACHERSLIST' | translate }}</h3>
+      <button mat-raised-button color="primary" (click)="scrollToForm()" class="right">{{ 'TEACHER.NEWTEACHER' |
+        translate }}</button>
+    </mat-card-header>
+
+    <mat-card-content class="list-of-teachers">
+      <mat-list>
+        <mat-list-item *ngFor="let teacher of school.teachers | slice: paginationFrom(pageEvent) : paginationTo(pageEvent)">
+
+          <img matListAvatar src="{{ teacher.profileImage }}" alt="profile image of {{ teacher.name }}">
+          <h4 mat-line><b>{{ teacher.name }} {{teacher.surname}}</b></h4>
+          <p mat-line>{{ teacher.email }}</p>
+
+          <button mat-raised-button color="primary" (click)="editTeacherAction(teacher.id)">
+            <mat-icon>edit</mat-icon>
+            <span>{{ 'COMMON.EDIT' | translate }}</span>
+          </button>
+          <button mat-raised-button color="warn" (click)="openDeleteTeacherDialog(teacher.id)">
+            <mat-icon>delete</mat-icon>
+            <span>{{ 'COMMON.DELETE' | translate }}</span>
+          </button>
+
+        </mat-list-item>
+      </mat-list>
+      <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="school">
+    <mat-card-header></mat-card-header>
+    <mat-card-content>
+      <app-teacher-form [editTeacher]="editTeacher" [schoolId]="school.id" (newTeacherChange)="newTeacherHandler($event)"></app-teacher-form>
+    </mat-card-content>
+  </mat-card>
+
+</div>

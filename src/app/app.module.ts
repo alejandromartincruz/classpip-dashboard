@@ -69,7 +69,7 @@ import {
   GradeService, MatterService, QuestionnaireService,
   CollectionService, PointService, PointRelationService,
   BadgeService, BadgeRelationService, LevelService,
-  RewardService
+  RewardService, TeacherService
 } from './shared/services/index';
 
 // rxjs
@@ -88,9 +88,10 @@ import { SchoolComponent } from './pages/school/school.component';
 import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { SchoolFormComponent } from './pages/school-form/school-form.component';
-import { MatPaginatorModule, MatDialogModule } from '@angular/material';
+import { MatPaginatorModule, MatDialogModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { SchoolDetailsComponent } from './pages/school-details/school-details.component';
+import { TeacherFormComponent } from './pages/teacher-form/teacher-form.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -145,7 +146,8 @@ export function createTranslateLoader(http: Http) {
     AdminHomeComponent,
     SchoolFormComponent,
     ConfirmationDialogComponent,
-    SchoolDetailsComponent
+    SchoolDetailsComponent,
+    TeacherFormComponent
   ],
   imports: [
     BrowserModule,
@@ -156,9 +158,6 @@ export function createTranslateLoader(http: Http) {
     FormsModule,
     HttpModule,
     routing,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDialogModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: createTranslateLoader,
@@ -185,7 +184,8 @@ export function createTranslateLoader(http: Http) {
     BadgeRelationService,
     CollectionService,
     LevelService,
-    RewardService
+    RewardService,
+    TeacherService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent]

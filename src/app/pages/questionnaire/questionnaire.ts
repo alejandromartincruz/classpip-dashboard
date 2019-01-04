@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject} from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
-import {MatListModule} from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 import { Login, Group, Role, Questionnaire, Question, Answer } from '../../shared/models/index';
 import { AppConfig } from '../../app.config';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -26,6 +26,7 @@ export class QuestionnaireComponent implements OnInit {
   public snackbar: MatSnackBar;
   private returnUrl: string;
   public questionnaireId: string;
+  // tslint:disable-next-line:no-any
   private sub: any;
   public items: string[] = [];
 
@@ -44,11 +45,11 @@ export class QuestionnaireComponent implements OnInit {
 
   }
 
- public ngOnInit(): void {
+  public ngOnInit(): void {
 
-  this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/questionnaireResults';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/questionnaireResults';
 
-  this.sub = this.route.params.subscribe(params => {
+    this.sub = this.route.params.subscribe(params => {
       this.questionnaireId = params['id'];
     });
 
