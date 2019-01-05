@@ -35,7 +35,7 @@
     </div>
   </mat-card>
 
-  <div>
+  <div *ngIf="utilsService.role === 1">
     <h4>{{ 'COMMON.AWARDS' | translate }}:</h4>
     <mat-card>
       <br>
