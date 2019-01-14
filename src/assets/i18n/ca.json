@@ -355,6 +355,8 @@
     "AUTOMATION_TITLE": "Premis Automatitzables",
     "AUTOMATION1": "Assignar 1 punt de competició al primer i segon classificats (al finalitzar cada jornada)",
     "AUTOMATION2": "Assignar 1 cromo aleatori al primer i segon classificats (al finalitzar cada jornada)",
+    "AUTOMATION3": "Assignar 1 punt de competició als finalistes i un altre al guanyador",
+    "AUTOMATION4": "Assignar 1 cromo aleatori als finalistes i un altre al guanyador",
     "CHOOSE": "Tria els premis"
   },
   "TENNIS": {
@@ -438,6 +440,6 @@
     "TITLE": "Premis Automàtics",
     "INFORMATION": "S'han assignat els premis automàtics.",
     "INFORMATION2": "No s'han assignat els premis automàtics:",
-    "NOCOL": "No hi ha cap col·lecció de cromos assignada a aquest grup"
+    "NOCOL": "No hi ha cap col·lecció de cromos assignada a aquest grup. No s'han assignat els premis automatitzables."
   }
 }
