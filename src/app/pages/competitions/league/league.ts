@@ -220,7 +220,15 @@ export class LeagueComponent implements OnInit {
     this.show === true ? this.show = false : this.show = true;
   }
   showResults() {
-    this.option === 'Manualmente' ? this.option = 'Aleatoriamente' : this.option = 'Manualmente';
+    this.option = 'Manualmente';
+  }
+
+  showResults2() {
+    this.option = 'Aleatoriamente';
+  }
+
+  showResults3() {
+    this.option = 'ClasificacionPuntos';
   }
 
   gotoClassification() {
@@ -257,6 +265,7 @@ export class LeagueComponent implements OnInit {
   onSubmitResults(value) {
     this.loadingService.show();
     if (value === undefined) {
+      // Aleatorio y Por puntos
       this.results = [];
       for (let _m = 0; _m < this.showMatches.length; _m++) {
         this.results[_m] = {
@@ -267,6 +276,7 @@ export class LeagueComponent implements OnInit {
         this.results.splice(this.break, 0, { winner: 'Descanso' });
       }
     } else {
+      // Manualmente
       this.results = value.results;
       if (this.matchGhost.playerOne === 0 || this.matchGhost.playerTwo === 0) {
         this.results.splice(this.break, 0, { winner: 'Descanso' });

@@ -278,6 +278,8 @@ export class TennisComponent implements OnInit {
     this.postMatches = [];
 
     if (value === undefined) {
+
+      this.alertService.show(this.option.toString());
       for (let _m = 0; _m < this.showMatchesIdPrimary.length; _m++) {
         this.results[_m] = {
           winner: this.showMatchesIdPrimary[_m][Math.floor(Math.random() * 2) + 0]
@@ -455,7 +457,15 @@ export class TennisComponent implements OnInit {
   }
 
   showResults() {
-    this.option === 'Manualmente' ? this.option = 'Aleatoriamente' : this.option = 'Manualmente';
+    this.option = 'Manualmente';
+  }
+
+  showResults2() {
+    this.option = 'Aleatoriamente';
+  }
+
+  showResults3() {
+    this.option = 'ClasificacionPuntos';
   }
 
   gotoTournament() {

@@ -104,8 +104,11 @@
                 <button [disabled]="option === 'Manualmente'" class="btn-rnd" mat-raised-button (click)="showResults()">
                   <b>{{ 'COMPETITIONS.MANUALLY' | translate }}</b>
                 </button>
-                <button [disabled]="option === 'Aleatoriamente'" class="btn-rnd" mat-raised-button (click)="showResults()">
+                <button [disabled]="option === 'Aleatoriamente'" class="btn-rnd" mat-raised-button (click)="showResults2()">
                   <b>{{ 'COMPETITIONS.RANDOM' | translate }}</b>
+                </button>
+                <button [disabled]="option === 'ClasificacionPuntos'" class="btn-rnd" mat-raised-button (click)="showResults3()">
+                  <b>{{ 'COMPETITIONS.CLASIFICATION' | translate }}</b>
                 </button>
                 <p>{{ 'COMPETITIONS.SELECTED' | translate }}: <b>{{option}}</b> </p>
 
@@ -141,6 +144,13 @@
                 </mat-card>
                 <mat-card *ngIf="option === 'Aleatoriamente'">
                   <p><b>{{ 'COMPETITIONS.RANDOM2' | translate }} {{ journeyMatch.number }} {{ 'COMPETITIONS.RANDOM3' |
+                      translate }} {{ 'COMPETITIONS.INTR_RESULT1' | translate }}:</b></p>
+                  <button mat-raised-button class="edit-btn" (click)="onSubmitResults()">
+                    <b>{{ 'COMPETITIONS.INTR_RESULT1' | translate }}</b>
+                  </button>
+                </mat-card>
+                <mat-card *ngIf="option === 'ClasificacionPuntos'">
+                  <p><b>{{ 'COMPETITIONS.RANDOM2' | translate }} {{lastJourney + 1}} {{ 'COMPETITIONS.CLASIFICATION2' |
                       translate }} {{ 'COMPETITIONS.INTR_RESULT1' | translate }}:</b></p>
                   <button mat-raised-button class="edit-btn" (click)="onSubmitResults()">
                     <b>{{ 'COMPETITIONS.INTR_RESULT1' | translate }}</b>
