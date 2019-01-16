@@ -79,6 +79,7 @@ import { CreateCollectionComponent } from './pages/createCollection/createCollec
 import { DeleteCollectionComponent } from './pages/deleteCollection/deleteCollection';
 import { CollectionStudentComponent } from './pages/collectionStudent/collectionStudent';
 import { GroupStudentsComponent } from './pages/groupStudents/groupStudents';
+import { Automation2Component } from './pages/competitions/tennis/automation2/automation2';
 
 
 export function createTranslateLoader(http: Http) {
@@ -130,6 +131,7 @@ describe('AppComponent', () => {
         CreateQuestionnaireComponent,
         CreatePointComponent,
         DeletePointComponent,
+        Automation2Component,
         CreateBadgeComponent,
         DeleteBadgeComponent,
         CreateQuestionnaireTest1Component,

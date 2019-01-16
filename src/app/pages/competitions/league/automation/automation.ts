@@ -37,7 +37,6 @@ export class AutomationComponent implements OnInit {
   // BestParticipants
   public GroupIdAwards: string;
   public SchoolIdAwards: string;
-  public Point_name: string;
   public Primer_Id: string;
   public Automation_PartId: Array<string>;
   public Segon_Id: string;
@@ -46,7 +45,6 @@ export class AutomationComponent implements OnInit {
   public Team2: Array<Student>;
 
   // Point
-  public Point: Point;
   public Primer_PointRelation: PointRelation;
   public Segon_PointRelation: PointRelation;
 
@@ -233,16 +231,7 @@ export class AutomationComponent implements OnInit {
       }
     }
     this.GroupIdAwards = this.competition.groupId.toString();
-    this.Point_name = 'League: ' + this.competition.name.toString();
-    this.pointService.savePoint(this.Point_name, 1).subscribe(
-      ((newPoint: Point) => {
-        this.Point = newPoint;
-        this.getCollections();
-      }),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
+    this.getCollections();
   }
 
   getCollections(): void {
@@ -270,7 +259,6 @@ export class AutomationComponent implements OnInit {
 
   NoCollection(): void {
     if (this.competition.automation === '11' || this.competition.automation === '01') {
-      this.alertService.show(this.translateService.instant('AUTOMATION.NOCOL'));
     } else { this.Participants(); }
   }
 
@@ -335,7 +323,7 @@ export class AutomationComponent implements OnInit {
     if (this.competition.automation === '11') {
       // Assignar 1 punt de competició al primer i segon
       for (let _j = 0; _j < this.Automation_PartId.length; _j++) {
-        this.pointRelationService.postPointRelation(this.Point.id, this.Automation_PartId[_j], this.SchoolIdAwards,
+        this.pointRelationService.postPointRelation(this.competition.pointId, this.Automation_PartId[_j], this.SchoolIdAwards,
           this.GroupIdAwards, 1).subscribe(
             ((responsePointRelation: PointRelation) => {
               this.Primer_PointRelation = responsePointRelation;
@@ -364,7 +352,7 @@ export class AutomationComponent implements OnInit {
     } else if (this.competition.automation === '10') {
       // Assignar 1 punt de competició al primer i segon
       for (let _j = 0; _j < this.Automation_PartId.length; _j++) {
-        this.pointRelationService.postPointRelation(this.Point.id, this.Automation_PartId[_j], this.SchoolIdAwards,
+        this.pointRelationService.postPointRelation(this.competition.pointId, this.Automation_PartId[_j], this.SchoolIdAwards,
           this.GroupIdAwards, 1).subscribe(
             ((responsePointRelation: PointRelation) => {
               this.Primer_PointRelation = responsePointRelation;
@@ -402,7 +390,7 @@ export class AutomationComponent implements OnInit {
       for (let _j = 0; _j < this.Automation_Team.length; _j++) {
         let Tm = this.Automation_Team[_j];
         for (let _n = 0; _n < Tm.length; _n++) {
-          this.pointRelationService.postPointRelation(this.Point.id, Tm[_n].id, this.SchoolIdAwards,
+          this.pointRelationService.postPointRelation(this.competition.pointId, Tm[_n].id, this.SchoolIdAwards,
             this.GroupIdAwards, 1).subscribe(
               ((responsePointRelation: PointRelation) => {
                 this.Primer_PointRelation = responsePointRelation;
@@ -437,7 +425,7 @@ export class AutomationComponent implements OnInit {
       for (let _j = 0; _j < this.Automation_Team.length; _j++) {
         let Tm = this.Automation_Team[_j];
         for (let _n = 0; _n < Tm.length; _n++) {
-          this.pointRelationService.postPointRelation(this.Point.id, Tm[_n].id, this.SchoolIdAwards,
+          this.pointRelationService.postPointRelation(this.competition.pointId, Tm[_n].id, this.SchoolIdAwards,
             this.GroupIdAwards, 1).subscribe(
               ((responsePointRelation: PointRelation) => {
                 this.Primer_PointRelation = responsePointRelation;

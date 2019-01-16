@@ -70,6 +70,8 @@ export class PointsBadgesComponent implements OnInit {
   // Methods
   // deletePoint()
   public questionnairePoint: string = "100001";
+  public totalsum: boolean = true;
+  public average: boolean = false;
   public badgeId: string;
   public resultDeleteBadge: number;
   public pointId: string;
@@ -247,6 +249,17 @@ export class PointsBadgesComponent implements OnInit {
         this.alertService.show(error.toString());
       }));
   }
+  public SumorAverage() {
+    if (this.totalsum == false) {
+      this.totalsum = true;
+      this.average = false;
+      this.sortteams();
+    } else {
+      this.totalsum = false;
+      this.average = true;
+      this.sortteams();
+    }
+  }
 
   GetTeam(): void {
     this.teamService.getStudentsTeam(this.teamSelected.id).subscribe(
@@ -341,7 +354,11 @@ export class PointsBadgesComponent implements OnInit {
     this.scoresteam = [];
     for (let team1 of this.teamslist) {
       this.scoreteam = { position: 0, name: team1.name, points: 0 };
-      this.scoreteam.points = team1.totalpoints / team1.numPlayers;
+      if (this.average == true) {
+        this.scoreteam.points = team1.totalpoints / team1.numPlayers;
+      } else {
+        this.scoreteam.points = team1.totalpoints;
+      }
       this.scoreteam.position = 0;
       this.scoresteam.push(this.scoreteam);
     }

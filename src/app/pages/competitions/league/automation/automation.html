@@ -35,8 +35,15 @@
     </div>
   </mat-card>
   <br>
-  <div class="information">
+  <div *ngIf="existCollection === true">
     {{ 'AUTOMATION.INFORMATION' | translate }}
+  </div>
+  <div *ngIf="existCollection === false">
+    {{ 'AUTOMATION.INFORMATION2' | translate }}
+  </div>
+  <br>
+  <div *ngIf="existCollection === false">
+    {{ 'AUTOMATION.NOCOL' | translate }}
   </div>
   <br>
   <div class="final-buttons">

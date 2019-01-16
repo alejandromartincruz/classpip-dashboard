@@ -50,10 +50,8 @@ export class TournamentsComponent implements OnInit {
   public SchoolIdAwards: string;
   public studentSelected: Student;
   public teamSelected: Team;
-  public Primer_name: string;
   // Points
   public Primer_p_value: number; // Valor del punto que se le enviará al 1er clasificado
-  public Primer_point: Point;
   public Primer_PointRelation: PointRelation;
   public Team: Array<Student>;
   // Badges
@@ -71,6 +69,7 @@ export class TournamentsComponent implements OnInit {
   public cardSelected: string; // options[0]
   //
   public count: number;
+  //
 
   constructor(public alertService: AlertService,
     public utilsService: UtilsService,
@@ -294,32 +293,10 @@ export class TournamentsComponent implements OnInit {
     this.getCollections();
   }
 
-  SelectedName(): void {
-    if (this.modeIndividual === true) {
-      this.Primer_name = 'Tournament: ' + this.competition.name.toString() + ', Estudiante: ' + this.studentSelected.name.toString();
-      this.alertService.show(this.Primer_name);
-    } else {
-      this.Primer_name = 'Tournament: ' + this.competition.name.toString() + ', Equipo: ' + this.teamSelected.name.toString();
-      this.alertService.show(this.Primer_name);
-    }
-  }
-
   SendPoint(): void {
-    this.pointService.savePoint(this.Primer_name, this.Primer_p_value).subscribe(
-      ((newPoint: Point) => {
-        this.Primer_point = newPoint;
-        this.SetPoint();
-      }),
-      ((error: Response) => {
-        this.loadingService.hide();
-        this.alertService.show(error.toString());
-      }));
-  }
-
-  SetPoint(): void {
     if (this.modeIndividual === true) {
-      this.pointRelationService.postPointRelation(this.Primer_point.id, this.studentSelected.id, this.SchoolIdAwards,
-        this.GroupIdAwards, 1).subscribe(
+      this.pointRelationService.postPointRelation(this.competition.pointId, this.studentSelected.id, this.SchoolIdAwards,
+        this.GroupIdAwards, this.Primer_p_value).subscribe(
           ((responsePointRelation: PointRelation) => {
             this.Primer_PointRelation = responsePointRelation;
             this.loadingService.hide();
@@ -333,9 +310,10 @@ export class TournamentsComponent implements OnInit {
       this.teamService.getStudentsTeam(this.teamSelected.id).subscribe(
         ((students: Array<Student>) => {
           this.Team = students;
+          this.SchoolIdAwards = students[0].schoolId.toString();
           for (let _n = 0; _n < this.Team.length; _n++) {
-            this.pointRelationService.postPointRelation(this.Primer_point.id, this.Team[_n].id, this.SchoolIdAwards,
-              this.GroupIdAwards, 1).subscribe(
+            this.pointRelationService.postPointRelation(this.competition.pointId, this.Team[_n].id, this.SchoolIdAwards,
+              this.GroupIdAwards, this.Primer_p_value).subscribe(
                 ((responsePointRelation: PointRelation) => {
                   this.Primer_PointRelation = responsePointRelation;
                   this.loadingService.hide();
@@ -356,7 +334,7 @@ export class TournamentsComponent implements OnInit {
   }
 
   SendBadge(): void {
-    this.badgeService.saveBadge(this.Primer_name, this.Primer_b_value, '../../../assets/img/tenis-icon.svg').subscribe(
+    this.badgeService.saveBadge(this.competition.name, this.Primer_b_value, '../../../assets/img/tenis-icon.svg').subscribe(
       ((newBadge: Badge) => {
         this.Primer_badge = newBadge;
         if (this.modeIndividual === true) {
@@ -375,6 +353,7 @@ export class TournamentsComponent implements OnInit {
           this.teamService.getStudentsTeam(this.teamSelected.id).subscribe(
             ((students: Array<Student>) => {
               this.Team = students;
+              this.SchoolIdAwards = students[0].schoolId.toString();
               for (let _n = 0; _n < this.Team.length; _n++) {
                 this.badgeRelationService.postBadgeRelation(this.Primer_badge.id, this.Team[_n].id, this.SchoolIdAwards,
                   this.GroupIdAwards, 1).subscribe(
@@ -410,7 +389,7 @@ export class TournamentsComponent implements OnInit {
       }),
       ((error: Response) => {
         this.loadingService.hide();
-        this.alertService.show(error.toString());
+        this.alertService.show(this.translateService.instant('AUTOMATION.NOCOL'));
       }));
     this.loadingService.hide();
   }

@@ -162,7 +162,15 @@
       <mat-card *ngIf="isTeacher">
         <div>
           <button *ngIf="!teammode" mat-raised-button (click)="showStudents()">{{ 'STUDIENTS.SHOW' | translate }}</button>
-          <button *ngIf="teammode" mat-raised-button (click)="showTeams()">{{ 'STUDIENTS.TEAMSHOW' | translate }}</button>
+          <div *ngIf="teammode">
+            <button *ngIf="teammode" mat-raised-button (click)="showTeams()">{{ 'STUDIENTS.TEAMSHOW' | translate }}</button>
+            <br>
+            <br>
+            Total
+            <mat-slide-toggle (change)="SumorAverage()" [checked]="average" [formControl]="myControl">
+              Mitjana
+            </mat-slide-toggle>
+          </div>
         </div>
       </mat-card>
       <mat-card>
