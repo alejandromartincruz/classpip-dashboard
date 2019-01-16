@@ -25,6 +25,8 @@ import { CreateTennisCompetitionComponent } from './pages/competitions/create-te
 import { DeleteCompetitionComponent } from './pages/competitions/delete-competition/delete-competition';
 import { TeamsComponent } from './pages/competitions/teams/teams';
 import { ClassificationComponent } from './pages/competitions/league/classification/classification';
+import { AutomationComponent } from './pages/competitions/league/automation/automation';
+import { Automation2Component } from './pages/competitions/tennis/automation2/automation2';
 import { JourneysLeagueComponent } from './pages/competitions/league/journeys-league/journeys-league';
 import { JourneysTennisComponent } from './pages/competitions/tennis/journeys-tennis/journeys-tennis';
 import { TournamentsComponent } from './pages/competitions/tennis/tournaments/tournaments';
@@ -137,6 +139,8 @@ describe('AppComponent', () => {
         CreateQuestionnaireTextArea1Component,
         CreateQuestionnaireTextArea2Component,
         LanguageComponent,
+        AutomationComponent,
+        Automation2Component,
         // shared
         NavBarComponent,
         FooterComponent,

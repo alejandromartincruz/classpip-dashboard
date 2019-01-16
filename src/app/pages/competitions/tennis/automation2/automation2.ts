@@ -61,7 +61,7 @@ export class Automation2Component implements OnInit {
   public options = [];
   public optionType: string; // selected option
   public cardSelected: string; // options[0]
-  public nocol: boolean;
+  public nocol = false;
   //
   public count: number;
   //
@@ -295,8 +295,7 @@ export class Automation2Component implements OnInit {
       this.finished = true;
       this.getCollections();
     } else {
-      let url = 'competition/tennis/' + this.competitionId.toString();
-      this.router.navigate([url]);
+      this.finished = true;
     }
   }
 
@@ -454,9 +453,7 @@ export class Automation2Component implements OnInit {
               this.loadingService.hide();
               this.alertService.show(error.toString());
             }));
-      }
-      // Assignar 1 cromo aleatori al primer i segon
-      for (let _j = 0; _j < this.finalistas.length; _j++) {
+
         var numcard = this.randomNumber(1, this.collectionCards.length - 1);
         this.snackbar.open(String(numcard) + '/' + String(this.count));
         this.collectionService.assignCardToStudent(this.finalistas[_j], numcard).subscribe(
@@ -469,6 +466,10 @@ export class Automation2Component implements OnInit {
             this.alertService.show(error.toString());
           }));
       }
+      // Assignar 1 cromo aleatori al primer i segon
+      // for (let _j = 0; _j < this.finalistas.length; _j++) {
+
+      // }
     } else if (this.competition.automation === '10') {
       // Assignar 1 punt de competició al primer i segon
       for (let _j = 0; _j < this.finalistas.length; _j++) {
@@ -559,7 +560,6 @@ export class Automation2Component implements OnInit {
           }));
       }
     } else if (this.competition.automation === '00') {
-
     }
   }
 
