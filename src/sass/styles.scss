@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+@include mat-core();
+
+@import './variables';
+@import './mixins';
+
+// Create the theme object (a Sass map containing all of the palettes).
+// classpip theme
+$theme: mat-light-theme($classpip-app-primary, $classpip-app-accent, $classpip-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($theme);
+
+@include material-classpip-app-theme($theme);
+
+
+/* css code begins here */
+/* Pensar en el códgo css como mobile first introducir el codigo css para version movil */
+/* Luego introducir los cambios a version tablet y version desktop en los archivos _tablet.scss y _desktop.scss */
+
+html,
+body {
+  font-family: "Roboto","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+@import './tablet';
+@import './desktop';

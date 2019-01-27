@@ -24,7 +24,11 @@ export class AppConfig {
   public static get BADGERELATION_URL(): string { return this.SERVER_URL + '/api/badgeRelations'; }
   public static get COLLECTION_URL(): string { return this.SERVER_URL + '/api/collectionCards'; }
   public static get CARD_URL(): string { return this.SERVER_URL + '/api/cards'; }
-
+  public static get COMPETITION_URL(): string { return this.SERVER_URL + '/api/competitions'; }
+  public static get JOURNEY_URL(): string { return this.SERVER_URL + '/api/journeys'; }
+  public static get MATCH_URL(): string { return this.SERVER_URL + '/api/matches'; }
+  public static get TEAM_URL(): string { return this.SERVER_URL + '/api/teams'; }
+  // Segunda parte de la url
   public static get LOGIN_URL(): string { return '/login'; }
   public static get LOGOUT_URL(): string { return '/logout'; }
   public static get MYSCHOOL_URL(): string { return '/school'; }
@@ -32,6 +36,7 @@ export class AppConfig {
   public static get STUDENTS_URL(): string { return '/students'; }
   public static get COUNT_URL(): string { return '/count'; }
   public static get GROUPS_URL(): string { return '/groups'; }
+  public static get ASSISTANCE_URL(): string { return '/assistance'; }
   public static get QUESTIONNAIRES_URL(): string { return '/questionnaires'; }
   public static get QUESTIONS_URL(): string { return '/questions'; }
   public static get ANSWERS_URL(): string { return '/answers'; }
@@ -42,6 +47,11 @@ export class AppConfig {
   public static get BADGESRELATION_URL(): string { return '/badgeRelations'; }
   public static get COLLECTIONS_URL(): string { return '/collectionCards'; }
   public static get CARDS_URL(): string { return '/cards'; }
+  public static get COMPETITIONS_URL(): string { return '/competitions'; }
+  public static get JOURNEYS_URL(): string { return '/journeys'; }
+  public static get MATCHES_URL(): string { return '/matches'; }
+  public static get TEAMS_URL(): string { return '/teams'; }
+  public static get REL_URL(): string { return '/rel'; }
 
   public static get AUTH_HEADER(): string { return 'Authorization'; }
 

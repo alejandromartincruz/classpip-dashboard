@@ -18,7 +18,6 @@ export class CreatePointComponent implements OnInit {
 
   public name: string;
   public value: number;
-  public image: string;
   public newPoint: Point;
   constructor(
     public translateService: TranslateService,
@@ -45,14 +44,14 @@ export class CreatePointComponent implements OnInit {
   }
   createPoint(): void {
 
-    if(this.name == "" || !this.value || this.image == "")
+    if(this.name == "" || !this.value)
     {
       this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
     }
     else
     {
 
-    this.pointService.savePoint(this.name, this.value, this.image).subscribe(
+    this.pointService.savePoint(this.name, this.value).subscribe(
       ((newPoint: Point) => {
         this.newPoint = newPoint;
         this.alertService.show(this.translateService.instant('POINTS.CREATED'));

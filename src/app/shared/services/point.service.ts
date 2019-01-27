@@ -74,11 +74,11 @@ export class PointService {
 
 
 
-/**
-   * Returns the list of students by a group id.
-   * @return {Array<Point>} returns the list of points
-   */
-   private getMySchoolPoints(): Observable<Array<Point>> {
+  /**
+     * Returns the list of students by a group id.
+     * @return {Array<Point>} returns the list of points
+     */
+  private getMySchoolPoints(): Observable<Array<Point>> {
 
     let options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
@@ -99,12 +99,12 @@ export class PointService {
    */
   public postPoint(point: Point): Observable<Response> {
 
-	let options: RequestOptions = new RequestOptions({
+    let options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
     });
 
-	var url: string;
-	url = AppConfig.POINT_URL;
+    var url: string;
+    url = AppConfig.POINT_URL;
 
     return this.http.post(url, point)
       .map(response => {
@@ -112,7 +112,7 @@ export class PointService {
       })
       .catch((error: Response) => this.utilsService.handleAPIError(error));
   }
-  public savePoint(name: string, value: number, image: string): Observable<Point> {
+  public savePoint(name: string, value: number): Observable<Point> {
 
     let options: RequestOptions = new RequestOptions({
       headers: this.utilsService.setAuthorizationHeader(new Headers(), this.utilsService.currentUser.id)
@@ -121,12 +121,12 @@ export class PointService {
     let url: string;
     url = AppConfig.POINT_URL;
     let postParams = {
-        name: name,
-        value: value,
-        image: image,
-        teacherId: this.utilsService.currentUser.userId,
-        schoolId: this.utilsService.currentSchool.id
-      }
+      name: name,
+      // value: value,
+      value: 1,
+      teacherId: this.utilsService.currentUser.userId,
+      schoolId: this.utilsService.currentSchool.id
+    }
 
     return this.http.post(url, postParams, options)
       .map(response => {

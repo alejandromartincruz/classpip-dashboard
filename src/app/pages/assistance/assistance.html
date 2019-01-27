@@ -1,0 +1,66 @@
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+  <div *ngIf="utilsService.role == 1" class="creation-teams-content">
+    <h3 mat-header>{{ 'ASSISTANCE.TITLE' | translate }}</h3>
+    <mat-card class="example-card">
+      <mat-form-field>
+        <mat-select [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
+          <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="showStudents()">
+            {{group.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <table *ngIf="groupSelected" class="w3-table-all w3-card-4">
+        <thead>
+          <tr class="w3-blue">
+            <th>{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tag of Assistancelist; let i = index;">
+            <td><label class="form-check-label" for="tag{{tag.value}}">
+                <input class="form-check-input" type="checkbox" id="tag{{tag.value}}" name="tagOptions" (change)="changeCheckbox(i)"
+                  [checked]="tag.checked">
+                {{tag.name}}{{ ' '}}{{tag.surname}}
+              </label></td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card>
+    <div>
+      <button mat-raised-button color="primary" (click)="darpremios()">{{ 'ASSISTANCE.AWARDS' | translate }}</button>
+    </div>
+    <br>
+    <div *ngIf="check_l">
+      <mat-card>
+        <table class="w3-table-all w3-hoverable">
+          <thead>
+            <tr class="tableHeader">
+              <th>{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+              <th>{{ 'ID' | translate }}</th>
+              <th>{{ 'ASSISTANCE.GROUP' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Assis of AssList; let i=index;">
+              <td>{{Assis.name}}</td>
+              <td>{{Assis.studentId}}</td>
+              <td>{{Assis.groupId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="utilsService.role === 0 || utilsService.role == 2" class="creation-teams-content">
+    {{ 'TEAMS.TEACHER' | translate }}.
+  </div>
+
+</body>
+
+</html>

@@ -1,48 +1,48 @@
 <div class="collection-content">
 
 
-  <mat-card  *ngIf ="badgeWon.name">
-      <h4 mat-header>{{'COLLECTIONS.FINISHCOLLECTION' | translate}}</h4>
-  <mat-nav-list >
+  <mat-card *ngIf="badgeWon.name">
+    <h4 mat-header>{{'COLLECTIONS.FINISHCOLLECTION' | translate}}</h4>
+    <mat-nav-list>
       <mat-list-item>
-          <img matListAvatar src={{badgeWon.image}}>
-          <h3 class="margin-badge">{{'BADGES.SINGULAR' | translate}} {{badgeWon.name}}</h3>
+        <img matListAvatar src={{badgeWon.image}}>
+        <h3 class="margin-badge">{{'BADGES.SINGULAR' | translate}} {{badgeWon.name}}</h3>
 
-        </mat-list-item>
-  </mat-nav-list>
-</mat-card>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-card>
 
 
-<br>
-<mat-card class="back-completed" *ngIf="myCards == finalCards.length && finalCards.length != 0">
-  <p mat line >Col·lecció completada
-    <mat-icon class= "line-with-icon">check_circle</mat-icon>
+  <br>
+  <mat-card class="back-completed" *ngIf="myCards == finalCards.length && finalCards.length != 0">
+    <p mat line>Col·lecció completada
+      <mat-icon class="line-with-icon">check_circle</mat-icon>
 
-  </p>
-</mat-card>
-<br>
+    </p>
+  </mat-card>
+  <br>
   <mat-nav-list class="cardList">
-        <h3 mat-subheader>{{'CARDS.OFCOLLECTION' | translate}} ( {{myCards}} / {{finalCards.length}} )</h3>
-        <mat-list-item *ngFor="let card  of finalCards" >
-            <img class="imagelist" src={{card.image}}>
-            <h3 matLine>{{card.name}}</h3>
-            <br>
-            <p matLine>
-                <span>{{'CARDS.ID' | translate}}: {{card.id}}</span>
+    <h3 mat-subheader>{{'CARDS.OFCOLLECTION' | translate}} ( {{myCards}} / {{finalCards.length}} )</h3>
+    <mat-list-item *ngFor="let card  of finalCards" (click)="showcard(card.id)">
+      <img class="imagelist" src={{card.image}} (click)="showcard(card.id)">
+      <h3 matLine>{{card.name}}</h3>
+      <br>
+      <p matLine>
+        <span>{{'CARDS.ID' | translate}}: {{card.id}}</span>
 
-              </p>
-            <p matLine>
-              <span>{{'CARDS.LEVEL' | translate}}: {{card.rank}}</span>
+      </p>
+      <p matLine>
+        <span>{{'CARDS.LEVEL' | translate}}: {{card.rank}}</span>
 
-            </p>
-            <p matLine>
-                <span>{{'CARDS.RATIO' | translate}}: {{card.ratio}}</span>
+      </p>
+      <p matLine>
+        <span>{{'CARDS.RATIO' | translate}}: {{card.ratio}}</span>
 
-              </p>
+      </p>
 
-        </mat-list-item>
-         <mat-progress-bar mode="buffer"></mat-progress-bar>
-      </mat-nav-list>
+    </mat-list-item>
+    <mat-progress-bar mode="buffer"></mat-progress-bar>
+  </mat-nav-list>
 
 
-  </div>
+</div>

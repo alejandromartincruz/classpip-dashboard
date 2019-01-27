@@ -1,0 +1,55 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="automation-content">
+
+  <h5 *ngIf="competition"> {{ 'COMPETITIONS.TITLE' | translate }} > {{ competition.name }} >
+    {{ 'AUTOMATION.TITLE' | translate }} </h5>
+
+  <mat-card>
+    <table>
+      <caption *ngIf="competition">{{ 'CLASSIFICATION.LEAGUE' | translate }} {{competition.name}}</caption>
+      <thead>
+        <tr class="tableHeader">
+          <th class="position">{{ 'CLASSIFICATION.N' | translate }}</th>
+          <th *ngIf="modeIndividual" class="name">{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+          <th *ngIf="!modeIndividual" class="name">{{ 'CLASSIFICATION.TEAM' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.PLAYED' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.WON' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.DRAW' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.LOST' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.POINTS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let score of scores ; let i=index;">
+          <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
+          <td class="name">{{score.name}}</td>
+          <td>{{score.played}}</td>
+          <td>{{score.won}}</td>
+          <td>{{score.draw}}</td>
+          <td>{{score.lost}}</td>
+          <td class="points">{{score.points}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="odd" class="information">
+      {{ 'CLASSIFICATION.INFORMATION' | translate }}
+    </div>
+  </mat-card>
+  <br>
+  <div *ngIf="existCollection === true">
+    {{ 'AUTOMATION.INFORMATION' | translate }}
+  </div>
+  <div *ngIf="existCollection === false">
+    {{ 'AUTOMATION.INFORMATION2' | translate }}
+  </div>
+  <br>
+  <div *ngIf="existCollection === false">
+    {{ 'AUTOMATION.NOCOL' | translate }}
+  </div>
+  <br>
+  <div class="final-buttons">
+    <a mat-button [routerLink]="['/competition/league', competitionId]">
+      <mat-icon mat-list-icon>navigate_before</mat-icon>
+      {{ 'TEAMS.RETURN' | translate }}
+    </a>
+  </div>
+</div>

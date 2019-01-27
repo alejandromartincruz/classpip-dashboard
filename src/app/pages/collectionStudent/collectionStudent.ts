@@ -1,18 +1,22 @@
-import { Component, OnInit, Inject} from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA , MatSnackBar} from '@angular/material';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatListModule} from '@angular/material/list';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatListModule } from '@angular/material/list';
 import { Login, Group, Role, Questionnaire, Point, Badge, CollectionCard, Card, Student } from '../../shared/models/index';
 import { AppConfig } from '../../app.config';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { LoadingService, UtilsService,BadgeService, GroupService, AlertService, CollectionService, SchoolService } from '../../shared/services/index';
+import {
+  LoadingService, UtilsService, BadgeService, GroupService,
+  AlertService, CollectionService, SchoolService
+} from '../../shared/services/index';
 import { CreateCardComponent } from '../createCard/createCard';
 import { DeleteCardComponent } from '../deleteCard/deleteCard';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
 
 
+import { ViewCardComponent } from '../viewcard/viewcard';
 
 
 @Component({
@@ -46,7 +50,7 @@ export class CollectionStudentComponent implements OnInit {
   public assignedCardsIds = [];
   public myCards: number;
 
-
+  public selectedCardId: string;
 
   constructor(
     public translateService: TranslateService,
@@ -61,8 +65,7 @@ export class CollectionStudentComponent implements OnInit {
     public groupService: GroupService,
     public dialog: MatDialog,
     public snackbar: MatSnackBar
-    )
-   {
+  ) {
 
 
 
@@ -71,19 +74,18 @@ export class CollectionStudentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.returnUrl = this.route.snapshot.queryParams['returnUrlStudent'] || '/collectionStudent';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrlStudent'] || '/collectionStudent';
 
-   this.sub = this.route.params.subscribe(params => {
-    this.collectionCardId = params['id'];
-  });
+    this.sub = this.route.params.subscribe(params => {
+      this.collectionCardId = params['id'];
+    });
 
-      this.collectionService.getCollection(+this.collectionCardId).subscribe(
-        ((collection: CollectionCard) => {
-          this.collection = collection;
-          this.loadingService.hide();
+    this.collectionService.getCollection(+this.collectionCardId).subscribe(
+      ((collection: CollectionCard) => {
+        this.collection = collection;
+        this.loadingService.hide();
 
-        if(this.collection.badgeId)
-        {
+        if (this.collection.badgeId) {
           this.badgeService.getBadge(+this.collection.badgeId).subscribe(
             ((badgeWon: Badge) => {
               this.badgeWon = badgeWon;
@@ -99,63 +101,70 @@ export class CollectionStudentComponent implements OnInit {
 
         }
 
-        }),
-        ((error: Response) => {
-          this.loadingService.hide();
-          this.alertService.show(error.toString());
-        }));
+      }),
+      ((error: Response) => {
+        this.loadingService.hide();
+        this.alertService.show(error.toString());
+      }));
 
 
-      this.collectionService.getCollectionDetails(this.collectionCardId).subscribe(
-        ((collectionCards: Array<Card>) => {
-          this.collectionCards = collectionCards;
-          this.loadingService.hide();
+    this.collectionService.getCollectionDetails(this.collectionCardId).subscribe(
+      ((collectionCards: Array<Card>) => {
+        this.collectionCards = collectionCards;
+        this.loadingService.hide();
 
 
-        }),
-        ((error: Response) => {
-          this.loadingService.hide();
-          this.alertService.show(error.toString());
-        }));
+      }),
+      ((error: Response) => {
+        this.loadingService.hide();
+        this.alertService.show(error.toString());
+      }));
 
-       this.collectionService.getCollectionDetails(this.collectionCardId).subscribe(
-          ((value: Array<Card>) => {
-            let allCards : Array<Card> = value;
-            this.cards = allCards.sort((n1,n2)=> +n1.id - +n2.id )
-            let unknownCard = new Card();
+    this.collectionService.getCollectionDetails(this.collectionCardId).subscribe(
+      ((value: Array<Card>) => {
+        let allCards: Array<Card> = value;
+        this.cards = allCards.sort((n1, n2) => +n1.id - +n2.id)
+        let unknownCard = new Card();
 
-            unknownCard.name=this.translateService.instant('CARDS.UNKNOWN');
-            unknownCard.rank= this.translateService.instant('CARDS.UNKNOWN');
-            unknownCard.image="https://image.flaticon.com/icons/png/512/37/37232.png";
-            this.collectionService.getAssignedCards().subscribe((assignedCards: Array<Card>)=> {
-              this.assignedCards = assignedCards;
-              this.assignedCards.forEach((assignedCard) => {
-                  this.assignedCardsIds.push(assignedCard.id);
-              });
-              this.myCards = 0;
-              this.cards.forEach((allCard) => {
-                if (this.assignedCardsIds.indexOf(allCard.id) == -1){
-                 this.finalCards.push(unknownCard);
-                }
-                else {
-                 this.finalCards.push(allCard);
-                  this.myCards++;
-                }
-              });
+        unknownCard.name = this.translateService.instant('CARDS.UNKNOWN');
+        unknownCard.rank = this.translateService.instant('CARDS.UNKNOWN');
+        unknownCard.image = "https://image.flaticon.com/icons/png/512/37/37232.png";
+        this.collectionService.getAssignedCards().subscribe((assignedCards: Array<Card>) => {
+          this.assignedCards = assignedCards;
+          this.assignedCards.forEach((assignedCard) => {
+            this.assignedCardsIds.push(assignedCard.id);
+          });
+          this.myCards = 0;
+          this.cards.forEach((allCard) => {
+            if (this.assignedCardsIds.indexOf(allCard.id) == -1) {
+              this.finalCards.push(unknownCard);
+            }
+            else {
+              this.finalCards.push(allCard);
+              this.myCards++;
+            }
+          });
 
-            });
-
-
-
-
-          }),
-          ((error: Response) => {
-            this.loadingService.hide();
-            this.alertService.show(error.toString());
-          }));
+        });
 
 
 
+
+      }),
+      ((error: Response) => {
+        this.loadingService.hide();
+        this.alertService.show(error.toString());
+      }));
+
+
+
+  }
+  public showcard(selectedCardId: string) {
+    const dialogRef = this.dialog.open(ViewCardComponent, {
+      height: '700px',
+      width: '800px',
+      data: { selectedCardId: selectedCardId, collectionCardId: this.collectionCardId }
+    });
   }
 
 }

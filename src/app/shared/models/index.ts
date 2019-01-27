@@ -23,6 +23,7 @@ export * from './card';
 export * from './collectionCard';
 export * from './resultPoints';
 export * from './resultBadges';
-
-
-
+export * from './competition';
+export * from './journey';
+export * from './match';
+export * from './team';

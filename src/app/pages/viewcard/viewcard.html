@@ -1,0 +1,29 @@
+<div>
+  <mat-card class="example-card" *ngIf="selectedCard">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{ selectedCard.name }}</mat-card-title>
+      <mat-card-subtitle>{{ selectedCard.rank }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src={{selectedCard.image}}>
+    <!-- <mat-card-content>{{ selectedCard.name }}</mat-card-content> -->
+    <mat-card-actions>
+      <mat-form-field>
+        <mat-select [(value)]="groupSelected" placeholder="{{ 'GROUPS.CHOOSE' | translate }}">
+          <mat-option *ngFor="let group of mygroups" [value]="group.id" (click)="GetStudents()">
+            {{group.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="groupSelected">
+        <mat-select [(value)]="studentSelected">
+          <mat-option *ngFor="let student of listStudents" [value]="student.id">
+            {{student.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="sendcard()">{{'COLLECTIONS.EXCHANGE'| translate}}</button>
+      <button mat-raised-button color="accent" (click)="cancel()">{{'COMMON.CANCEL'| translate}}</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

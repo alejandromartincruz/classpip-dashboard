@@ -3,17 +3,15 @@ export class Point {
   private _id: string;
   private _name: string;
   private _value: number;
-  private _image: string;
   private _schoolId: number;
   private _teacherId: number;
 
 
-  constructor(id?: string,name?: string, value?: number, image?: string, schoolId?: number,
+  constructor(id?: string,name?: string, value?: number, schoolId?: number,
     teacherId?: number) {
     this._id = id;
     this._name = name;
     this._value = value;
-    this._image = image;
 
 
   }
@@ -26,7 +24,6 @@ export class Point {
       result.id = object.id;
       result.name = object.name;
       result.value = object.value;
-      result.image = object.image;
 
     }
     return result;
@@ -58,14 +55,6 @@ export class Point {
 
   public set name(value: string) {
     this._name = value;
-  }
-
-  public get image(): string {
-    return this._image;
-  }
-
-  public set image(image: string) {
-    this._image = image;
   }
 
   public get value(): number {

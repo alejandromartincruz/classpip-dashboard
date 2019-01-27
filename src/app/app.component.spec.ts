@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { HttpModule, Http } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,23 @@ import { PointsBadgesComponent } from './pages/pointsbadges/pointsbadges';
 import { CollectionsComponent } from './pages/collections/collections';
 import { CollectionComponent } from './pages/collection/collection';
 import { CreateCardComponent } from './pages/createCard/createCard';
+import { CompetitionsComponent } from './pages/competitions/competitions';
+import { CreateTeamsComponent } from './pages/create-teams/create-teams';
+import { LeagueComponent } from './pages/competitions/league/league';
+import { TennisComponent } from './pages/competitions/tennis/tennis';
+import { CreateLeagueCompetitionComponent } from './pages/competitions/create-league-competition/create-league-competition';
+import { CreateTennisCompetitionComponent } from './pages/competitions/create-tennis-competition/create-tennis-competition';
+import { DeleteCompetitionComponent } from './pages/competitions/delete-competition/delete-competition';
+import { TeamsComponent } from './pages/competitions/teams/teams';
+import { ClassificationComponent } from './pages/competitions/league/classification/classification';
+import { AutomationComponent } from './pages/competitions/league/automation/automation';
+import { Automation2Component } from './pages/competitions/tennis/automation2/automation2';
+import { JourneysLeagueComponent } from './pages/competitions/league/journeys-league/journeys-league';
+import { JourneysTennisComponent } from './pages/competitions/tennis/journeys-tennis/journeys-tennis';
+import { TournamentsComponent } from './pages/competitions/tennis/tournaments/tournaments';
+import { ViewBadgesComponent } from './pages/viewbadges/viewbadges';
+import { ViewCardComponent } from './pages/viewcard/viewcard';
+import { ViewPointsComponent } from './pages/viewpoints/viewpoints';
 
 import { QuestionnairesComponent } from './pages/questionnaires/questionnaires';
 import { QuestionnaireAwardsComponent } from './pages/questionnaireAwards/questionnaireAwards';
@@ -24,8 +42,8 @@ import { QuestionnaireResultsComponent } from './pages/questionnaireResults/ques
 import { DeleteQuestionnaireComponent } from './pages/deleteQuestionnaire/deleteQuestionnaire';
 import { CreateQuestionnaireComponent } from './pages/createQuestionnaire/createQuestionnaire';
 import { CreateQuestionnairePointsAssignmentComponent } from './pages/createQuestionnairePointsAssignment/createQuestionnairePointsAssignment';
-import { CreateQuestionnaireBadgesAssignmentComponent} from './pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
-import { CreateQuestionnairePackCardsAssignmentComponent} from './pages/createQuestionnairePackCardsAssignment/createQuestionnairePackCardsAssignment';
+import { CreateQuestionnaireBadgesAssignmentComponent } from './pages/createQuestionnaireBadgesAssignment/createQuestionnaireBadgesAssignment';
+import { CreateQuestionnairePackCardsAssignmentComponent } from './pages/createQuestionnairePackCardsAssignment/createQuestionnairePackCardsAssignment';
 
 import { CreateQuestionnaireTest1Component } from './pages/createQuestionnaireTest1/createQuestionnaireTest1';
 import { CreateQuestionnaireTest2Component } from './pages/createQuestionnaireTest2/createQuestionnaireTest2';
@@ -55,7 +73,8 @@ import {
   AvatarService, AlertService, LoadingService, SchoolService, LoginService,
   UserService, GradeService, GroupService, UtilsService,
   MatterService, QuestionnaireService, PointService,
-   PointRelationService, BadgeService, BadgeRelationService, CollectionService
+  PointRelationService, BadgeService, BadgeRelationService, CollectionService,
+  CompetitionService, JourneyService, MatchesService, TeamService
 } from './shared/services/index';
 import { DeleteCardComponent } from './pages/deleteCard/deleteCard';
 import { CreateCollectionComponent } from './pages/createCollection/createCollection';
@@ -83,11 +102,27 @@ describe('AppComponent', () => {
         GroupsComponent,
         GroupStudentsComponent,
         CollectionsComponent,
+        ViewCardComponent,
         CollectionComponent,
+        ViewPointsComponent,
         CollectionStudentComponent,
         CreateCollectionComponent,
         DeleteCollectionComponent,
         CreateCardComponent,
+        CompetitionsComponent,
+        CreateTeamsComponent,
+        ViewBadgesComponent,
+        // pages (competitions)
+        LeagueComponent,
+        TennisComponent,
+        CreateLeagueCompetitionComponent,
+        CreateTennisCompetitionComponent,
+        DeleteCompetitionComponent,
+        TeamsComponent,
+        ClassificationComponent,
+        JourneysLeagueComponent,
+        JourneysTennisComponent,
+        TournamentsComponent,
         DeleteCardComponent,
         QuestionnairesComponent,
         QuestionnaireComponent,
@@ -104,6 +139,8 @@ describe('AppComponent', () => {
         CreateQuestionnaireTextArea1Component,
         CreateQuestionnaireTextArea2Component,
         LanguageComponent,
+        AutomationComponent,
+        Automation2Component,
         // shared
         NavBarComponent,
         FooterComponent,
@@ -118,6 +155,7 @@ describe('AppComponent', () => {
         FlexLayoutModule,
         AppMaterialModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         routing,
         TranslateModule.forRoot({
@@ -143,7 +181,12 @@ describe('AppComponent', () => {
         PointService,
         PointRelationService,
         BadgeService,
-        BadgeRelationService
+        BadgeRelationService,
+        CompetitionService,
+        JourneyService,
+        MatchesService,
+        TeamService,
+        DatePipe
       ]
     }).compileComponents();
   }));

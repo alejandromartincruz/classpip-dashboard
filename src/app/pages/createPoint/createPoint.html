@@ -12,22 +12,6 @@
     </mat-form-field>
     <br>
 
-    <mat-form-field hintLabel="{{'COMMON.PASTEIMAGE'| translate}}">
-      <input matInput [(ngModel)]="image" placeholder="{{'POINTS.IMAGE'| translate}}">
-      <mat-hint align="end"></mat-hint>
-    </mat-form-field>
-    <br>
-
-    <mat-card class="example-image" *ngIf = "image">
-      <mat-card-subtitle >{{'POINTS.IMAGENEW'| translate}}</mat-card-subtitle>
-        <div mat-card-avatar class="example-image"></div>
-
-        <img mat-card-lg-image src="{{image}}">
-    </mat-card>
-
-
-    <br>
-
     <button mat-raised-button (click)="createPoint()">{{'POINTS.SAVE'| translate}}</button>
     <button mat-raised-button (click)="cancel()">{{'COMMON.CANCEL'| translate}}</button>
 

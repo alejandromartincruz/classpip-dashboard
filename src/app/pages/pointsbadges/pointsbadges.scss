@@ -2,15 +2,79 @@
   margin: 40px auto;
   max-width: 800px;
 }
+
 .point-content .mat-form-field{
 
   margin-left: 20px;
 }
-.buttonsend{
+.buttonsend {
 
   width: 150px;
   margin-left: 100px;
 
+}
+
+table {
+  width: 80%;
+  text-align: center;
+  // margin: 0 0 1em 0;
+  caption-side: top;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+thead {
+  border: 0;
+}
+
+tbody {
+  border: 1px solid #999;
+  border-left: 0;
+  border-right: 0;
+}
+
+caption {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.name {
+  text-align: left;
+  width: 50%;
+}
+
+.position {
+  text-align: center;
+  width: 10%;
+}
+
+.points {
+  text-align: right;
+}
+
+.positiontit {
+  text-align: center;
+}
+
+.studenttit {
+  text-align: left;
+}
+
+.pointstit {
+  text-align: right;
+}
+
+#position_1 {
+  background: rgb(255, 215, 0);
+}
+
+#position_2 {
+  background: rgb(185, 184, 181);
+}
+
+#position_3 {
+  background: rgb(205, 127, 50);
 }
 .buttonsend2{
 

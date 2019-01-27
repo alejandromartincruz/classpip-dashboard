@@ -1,0 +1,20 @@
+<div>
+
+  <mat-nav-list class="studentlist" *ngIf="listPoints">
+    <h3 mat-subheader>{{ 'POINTS.MYPOINTS' | translate }} ({{listPoints.length}})</h3>
+
+
+    <mat-list-item *ngFor="let resultPoint of listPoints">
+      <h4 mat-line>{{resultPoint.point.name}}</h4>
+      <!-- <p>{{resultPoint.point.value}}</p> -->
+      <p>{{resultPoint.relationPoint.value}}</p>
+      <!-- <divider></divider> -->
+    </mat-list-item>
+
+
+    <!-- <mat-progress-bar mode="buffer"></mat-progress-bar> -->
+  </mat-nav-list>
+
+  <button mat-raised-button color="accent" (click)="cancel()">{{'COMMON.CANCEL'| translate}}</button>
+
+</div>

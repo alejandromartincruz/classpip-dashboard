@@ -1,0 +1,17 @@
+.createPoint-content {
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.createPoint-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.createPoint-content > * {
+  width: 100%;
+  
+}
+.example-image {
+  max-width: 150px;
+}

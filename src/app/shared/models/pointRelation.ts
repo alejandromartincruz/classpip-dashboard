@@ -3,33 +3,33 @@ import { Point } from './point'
 
 export class PointRelation {
 
-  private _id: string;  
-  private _value: number;  
+  private _id: string;
+  private _value: number;
   private _pointId: number;
   private _groupId: number;
   private _studentId: number;
   private _schoolId: number;
   private _student: Student;
   private _point: Point;
-  
 
-  constructor(value?: number,  pointId?: number, groupId?: number,  studentId?: number, schoolId?: number) {    
-    this._value = value;    
+
+  constructor(value?: number, pointId?: number, groupId?: number, studentId?: number, schoolId?: number) {
+    this._value = value;
     this._pointId = pointId;
-	  this._groupId = groupId;
+    this._groupId = groupId;
     this._studentId = studentId;
-    this._schoolId = schoolId;      
+    this._schoolId = schoolId;
   }
-    
+
   /* tslint:disable */
   static toObject(object: any): PointRelation {
     /* tslint:enable */
     let result: PointRelation = new PointRelation();
     if (object != null) {
-      result.id = object.id;      
-      result.value = object.value;      
+      result.id = object.id;
+      result.value = object.value;
       result.pointId = object.pointId;
-	    result.groupId = object.groupId;
+      result.groupId = object.groupId;
       result.studentId = object.studentId;
       result.schoolId = object.schoolId;
     }
@@ -53,7 +53,7 @@ export class PointRelation {
 
   public set id(value: string) {
     this._id = value;
-  }  
+  }
 
   public get value(): number {
     return this._value;
@@ -70,7 +70,7 @@ export class PointRelation {
   public set pointId(value: number) {
     this._pointId = value;
   }
-  
+
   public get groupId(): number {
     return this._groupId;
   }

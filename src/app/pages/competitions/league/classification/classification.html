@@ -1,0 +1,124 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="classification-content">
+
+  <h5 *ngIf="competition"> {{ 'COMPETITIONS.TITLE' | translate }} > {{ competition.name }} >
+    {{ 'CLASSIFICATION.TITLE' | translate }} </h5>
+
+  <mat-card>
+    <table>
+      <caption *ngIf="competition">{{ 'CLASSIFICATION.LEAGUE' | translate }} {{competition.name}}</caption>
+      <thead>
+        <tr class="tableHeader">
+          <th class="position">{{ 'CLASSIFICATION.N' | translate }}</th>
+          <th *ngIf="modeIndividual" class="name">{{ 'CLASSIFICATION.STUDENT' | translate }}</th>
+          <th *ngIf="!modeIndividual" class="name">{{ 'CLASSIFICATION.TEAM' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.PLAYED' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.WON' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.DRAW' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.LOST' | translate }}</th>
+          <th>{{ 'CLASSIFICATION.POINTS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let score of scores ; let i=index;">
+          <td id="position_{{i + 1}}" class="position">{{score.position}}</td>
+          <td class="name">{{score.name}}</td>
+          <td>{{score.played}}</td>
+          <td>{{score.won}}</td>
+          <td>{{score.draw}}</td>
+          <td>{{score.lost}}</td>
+          <td class="points">{{score.points}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="odd" class="information">
+      {{ 'CLASSIFICATION.INFORMATION' | translate }}
+    </div>
+  </mat-card>
+
+  <div *ngIf="utilsService.role === 1">
+    <h4>{{ 'COMMON.AWARDS' | translate }}:</h4>
+    <mat-card>
+      <br>
+      <mat-form-field *ngIf="modeIndividual === true">
+        <mat-select [(value)]="studentSelected" placeholder="{{'STUDIENTS.CHOOSE' | translate}}" [formControl]="myControl">
+          <mat-option *ngFor="let student of collectionStudents" [value]="student">
+            {{student.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="modeIndividual === false">
+        <mat-select [(value)]="teamSelected" placeholder="{{'TEAMS.TEAM' | translate}}" [formControl]="myControl">
+          <mat-option *ngFor="let student of collectionTeams" [value]="student">
+            {{student.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-tab-group *ngIf="teamSelected || studentSelected">
+        <mat-tab label="{{ 'POINTS.TITLE' | translate }}">
+          <br>
+          <mat-form-field hintLabel="{{'COMMON.MAX1NUMBER'| translate}}">
+            <input matInput #input maxlength="1" [(ngModel)]="Primer_p_value" placeholder="{{'COMPETITIONS.POINTS_FIRST'| translate}}">
+            <mat-hint align="end"></mat-hint>
+          </mat-form-field>
+          <button mat-button (click)="SendPoint()" *ngIf="Primer_p_value">
+            <mat-icon mat-list-icon>chevron_right</mat-icon>
+            {{ 'CLASSIFICATION.AWARDS1' | translate }}
+          </button>
+          <br>
+        </mat-tab>
+        <mat-tab label="{{ 'BADGES.TITLE' | translate }}">
+          <br>
+          <mat-form-field hintLabel="{{'COMMON.MAX2NUMBER'| translate}}">
+            <input matInput #input maxlength="2" [(ngModel)]="Primer_b_value" placeholder="{{'COMPETITIONS.BADGES_FIRST'| translate}}">
+            <mat-hint align="end"></mat-hint>
+          </mat-form-field>
+          <button mat-button (click)="SendBadge()" *ngIf="Primer_b_value">
+            <mat-icon mat-list-icon>chevron_right</mat-icon>
+            {{ 'CLASSIFICATION.AWARDS1' | translate }}
+          </button>
+          <br>
+        </mat-tab>
+        <mat-tab label="{{ 'CARDS.TITLE' | translate }}">
+          <br>
+          <mat-form-field>
+            <mat-select [(value)]="CollectionSelected" placeholder="{{'COLLECTIONS.CHOOSE' | translate}}" [formControl]="myControl">
+              <mat-option *ngFor="let coleccion of collections" [value]="coleccion" (click)="showCards()">
+                {{coleccion.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field *ngIf="CollectionSelected">
+            <mat-select [(value)]="optionType" placeholder="{{'COMMON.TYPEASSIGNMENTCHOOSE' | translate}}"
+              [formControl]="myControl">
+              <mat-option *ngFor="let option of options" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="optionType == options[0]">
+            <mat-select [(value)]="cardSelected" placeholder="{{'CARDS.CHOOSE' | translate}}" [formControl]="myControl">
+              <mat-option *ngFor="let card of collectionCards" [value]="card.id">
+                {{card.name}} ({{card.rank}})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-button (click)="assignCardsToStudent()" *ngIf="optionType">
+            <mat-icon mat-list-icon>chevron_right</mat-icon>
+            {{ 'CARDS.ASSIGN' | translate }}
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+
+    </mat-card>
+  </div>
+
+  <div class="final-buttons">
+    <a mat-button [routerLink]="['/competition/league', competitionId]">
+      <mat-icon mat-list-icon>navigate_before</mat-icon>
+      {{ 'TEAMS.RETURN' | translate }}
+    </a>
+  </div>
+</div>

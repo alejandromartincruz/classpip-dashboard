@@ -1,0 +1,155 @@
+<div *ngIf="utilsService.role === 1 || utilsService.role === 0" class="tournaments-content">
+  <h5 *ngIf="competition"> {{ 'COMPETITIONS.TITLE' | translate }} > {{ competition.name }} >
+    {{ 'TENNIS.TOURNAMENT_TRACKING' | translate }} </h5>
+
+  <div *ngIf="finished">
+    <h3 class="title">{{ 'TENNIS.TOURNAMENT_TRACKING' | translate }}: {{ competition.name }}</h3>
+    <mat-card *ngIf="winner" class="winner-card">
+      <b>{{ 'TOURNAMENTS.FINISHED' | translate }}.</b>
+      <p class="winner"><b>{{ 'COMPETITIONS.WINNER' | translate }}: {{winner}}</b></p>
+    </mat-card>
+    <h4 *ngIf="!winner">{{ 'TOURNAMENTS.PARTICIPANTS' | translate }} ({{ 'COMPETITIONS.JOURNEY_NUMBER' | translate }}
+      {{lastJourney + 1}}):</h4>
+    <div *ngIf="!final">
+      <mat-card class="tournaments-card">
+        <mat-card-content>
+          <mat-list>
+            <h3 class="subtitle">{{ 'TOURNAMENTS.PRINCIPAL' | translate }}</h3>
+            <mat-list-item *ngFor="let primary of participantsPrimary">
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+              <p>{{primary}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <h3 class="subtitle">{{ 'TOURNAMENTS.SECONDARY' | translate }}</h3>
+            <mat-list-item *ngFor="let secondary of participantsSecondary">
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+              <p>{{secondary}}</p>
+            </mat-list-item>
+            <mat-list-item *ngIf="participantsSecondary.length === 0">{{ 'TOURNAMENTS.NO_PLAYER_SECONDARY' | translate
+              }}.</mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="final">
+      <h4 class="final">{{ 'TOURNAMENTS.FINAL' | translate }}:</h4>
+      <mat-card class="eliminated-card">
+        <mat-card-content>
+          <mat-list>
+            <h3 class="subtitle">{{ 'TOURNAMENTS.FINALISTS' | translate }}</h3>
+            <mat-list-item *ngFor="let final of participantsPrimary">
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+              <p>{{final}}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div>
+      <h4>{{ 'TOURNAMENTS.PLAYERS_ELIMINATED' | translate }}:</h4>
+      <mat-card class="eliminated-card">
+        <mat-card-content>
+          <mat-list>
+            <h3 class="subtitle">{{ 'TOURNAMENTS.ELIMINATED' | translate }}</h3>
+            <mat-list-item *ngFor="let eliminated of participantsEliminated">
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Individual'">person</mat-icon>
+              <mat-icon mat-list-icon *ngIf="competition.mode === 'Equipos'">group</mat-icon>
+              <p>{{eliminated}}</p>
+            </mat-list-item>
+            <mat-list-item *ngIf="participantsEliminated.length === 0">{{ 'TOURNAMENTS.NO_PLAYER_ELIMINATED' |
+              translate }}.</mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="utilsService.role === 1" >
+      <h4>{{ 'COMMON.AWARDS' | translate }}:</h4>
+      <mat-card>
+        <br>
+        <mat-form-field *ngIf="modeIndividual === true">
+          <mat-select [(value)]="studentSelected" placeholder="{{'STUDIENTS.CHOOSE' | translate}}" [formControl]="myControl">
+            <mat-option *ngFor="let student of collectionStudents" [value]="student">
+              {{student.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="modeIndividual === false">
+          <mat-select [(value)]="teamSelected" placeholder="{{'TEAMS.TEAM' | translate}}" [formControl]="myControl">
+            <mat-option *ngFor="let student of collectionTeams" [value]="student">
+              {{student.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-tab-group *ngIf="teamSelected || studentSelected">
+          <mat-tab label="{{ 'POINTS.TITLE' | translate }}">
+            <br>
+            <mat-form-field hintLabel="{{'COMMON.MAX1NUMBER'| translate}}">
+              <input matInput #input maxlength="1" [(ngModel)]="Primer_p_value" placeholder="{{'COMPETITIONS.POINTS_FIRST'| translate}}">
+              <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+            <button mat-button (click)="SendPoint()" *ngIf="Primer_p_value">
+              <mat-icon mat-list-icon>chevron_right</mat-icon>
+              {{ 'CLASSIFICATION.AWARDS1' | translate }}
+            </button>
+            <br>
+          </mat-tab>
+          <mat-tab label="{{ 'BADGES.TITLE' | translate }}">
+            <br>
+            <mat-form-field hintLabel="{{'COMMON.MAX2NUMBER'| translate}}">
+              <input matInput #input maxlength="2" [(ngModel)]="Primer_b_value" placeholder="{{'COMPETITIONS.BADGES_FIRST'| translate}}">
+              <mat-hint align="end"></mat-hint>
+            </mat-form-field>
+            <button mat-button (click)="SendBadge()" *ngIf="Primer_b_value">
+              <mat-icon mat-list-icon>chevron_right</mat-icon>
+              {{ 'CLASSIFICATION.AWARDS1' | translate }}
+            </button>
+            <br>
+          </mat-tab>
+          <mat-tab label="{{ 'CARDS.TITLE' | translate }}">
+            <br>
+            <mat-form-field>
+              <mat-select [(value)]="CollectionSelected" placeholder="{{'COLLECTIONS.CHOOSE' | translate}}"
+                [formControl]="myControl">
+                <mat-option *ngFor="let coleccion of collections" [value]="coleccion" (click)="showCards()">
+                  {{coleccion.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="CollectionSelected">
+              <mat-select [(value)]="optionType" placeholder="{{'COMMON.TYPEASSIGNMENTCHOOSE' | translate}}"
+                [formControl]="myControl">
+                <mat-option *ngFor="let option of options" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="optionType == options[0]">
+              <mat-select [(value)]="cardSelected" placeholder="{{'CARDS.CHOOSE' | translate}}" [formControl]="myControl">
+                <mat-option *ngFor="let card of collectionCards" [value]="card.id">
+                  {{card.name}} ({{card.rank}})
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
+            <button mat-button (click)="assignCardsToStudent()" *ngIf="optionType">
+              <mat-icon mat-list-icon>chevron_right</mat-icon>
+              {{ 'CARDS.ASSIGN' | translate }}
+            </button>
+          </mat-tab>
+        </mat-tab-group>
+
+      </mat-card>
+    </div>
+  </div>
+  <div class="final-buttons">
+    <a mat-button [routerLink]="['/competition/tennis', competitionId]">
+      <mat-icon mat-list-icon>navigate_before</mat-icon>
+      {{ 'COMPETITIONS.RETURN' | translate }}
+    </a>
+  </div>
+</div>

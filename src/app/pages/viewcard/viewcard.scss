@@ -1,0 +1,23 @@
+.createPoint-content {
+  margin: 40px auto;
+  max-width: 800px;
+}
+
+.createPoint-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.createPoint-content>* {
+  width: 100%;
+
+}
+
+.example-image {
+  max-width: 150px;
+}
+
+.example-card {
+  border-width: 43px;
+  border-color: rgb(255, 0, 0);
+}
