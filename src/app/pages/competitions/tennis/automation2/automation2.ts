@@ -292,10 +292,10 @@ export class Automation2Component implements OnInit {
       } else { _q++; }
     }
     if (this.final === true) {
-      this.finished = true;
       this.getCollections();
     } else {
-      this.finished = true;
+      const url = '/competition/tennis/' + this.competitionId.toString();
+      this.router.navigate([url]);
     }
   }
 
@@ -306,6 +306,7 @@ export class Automation2Component implements OnInit {
         if (this.collections.length === 0) {
           this.NoCollection();
         } else {
+          this.finished = true;
           // coleccion aleatoria
           var numcollection = this.randomNumber(1, this.collections.length);
           this.snackbar.open(String(numcollection) + '/' + String(this.count));
@@ -321,6 +322,7 @@ export class Automation2Component implements OnInit {
   NoCollection(): void {
     if (this.competition.automation === '11' || this.competition.automation === '01') {
       this.nocol = true;
+      this.finished = true;
       this.loadingService.hide();
     } else { this.Participants(); }
   }
@@ -442,34 +444,44 @@ export class Automation2Component implements OnInit {
   assignAutomationsInd(): void {
     if (this.competition.automation === '11') {
       // Assignar 1 punt de competició al primer i segon
-      for (let _j = 0; _j < this.finalistas.length; _j++) {
-        this.pointRelationService.postPointRelation(this.competition.pointId, this.finalistas[_j], this.SchoolIdAwards,
-          this.GroupIdAwards, 1).subscribe(
-            ((responsePointRelation: PointRelation) => {
-              this.loadingService.hide();
-              this.alertService.show(this.translateService.instant('POINTS.CORASSIGN'));
-            }),
-            ((error: Response) => {
-              this.loadingService.hide();
-              this.alertService.show(error.toString());
-            }));
-
-        var numcard = this.randomNumber(1, this.collectionCards.length - 1);
-        this.snackbar.open(String(numcard) + '/' + String(this.count));
-        this.collectionService.assignCardToStudent(this.finalistas[_j], numcard).subscribe(
-          ((collectionCards: Array<Card>) => {
-            this.loadingService.hide();
-            this.alertService.show(this.translateService.instant('CARDS.CORASSIGN2'));
+      this.pointRelationService.postPointRelation(this.competition.pointId, this.finalistas[0], this.SchoolIdAwards,
+        this.GroupIdAwards, 1).subscribe(
+          ((responsePointRelation: PointRelation) => {
+            this.pointRelationService.postPointRelation(this.competition.pointId, this.finalistas[1], this.SchoolIdAwards,
+              this.GroupIdAwards, 1).subscribe(
+                ((responsePointRelation2: PointRelation) => {
+                  var numcard = this.randomNumber(1, this.collectionCards.length - 1);
+                  this.snackbar.open(String(numcard) + '/' + String(this.count));
+                  this.collectionService.assignCardToStudent(this.finalistas[0], numcard).subscribe(
+                    ((collectionCards: Array<Card>) => {
+                      var numcard = this.randomNumber(1, this.collectionCards.length - 1);
+                      this.snackbar.open(String(numcard) + '/' + String(this.count));
+                      this.collectionService.assignCardToStudent(this.finalistas[1], numcard).subscribe(
+                        ((collectionCards2: Array<Card>) => {
+                          this.loadingService.hide();
+                          this.alertService.show(this.translateService.instant('CARDS.CORASSIGN2'));
+                        }),
+                        ((error: Response) => {
+                          this.loadingService.hide();
+                          this.alertService.show(error.toString());
+                        }));
+                    }),
+                    ((error: Response) => {
+                      this.loadingService.hide();
+                      this.alertService.show(error.toString());
+                    }));
+                }),
+                ((error: Response) => {
+                  this.loadingService.hide();
+                  this.alertService.show(error.toString());
+                }));
           }),
           ((error: Response) => {
             this.loadingService.hide();
             this.alertService.show(error.toString());
           }));
-      }
-      // Assignar 1 cromo aleatori al primer i segon
-      // for (let _j = 0; _j < this.finalistas.length; _j++) {
 
-      // }
+
     } else if (this.competition.automation === '10') {
       // Assignar 1 punt de competició al primer i segon
       for (let _j = 0; _j < this.finalistas.length; _j++) {
