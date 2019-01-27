@@ -108,7 +108,7 @@
                 <button [disabled]="option === 'Aleatoriamente'" class="btn-rnd" mat-raised-button (click)="showResults2()">
                   <b>{{ 'COMPETITIONS.RANDOM' | translate }}</b>
                 </button>
-                <button [disabled]="option === 'ClasificacionPuntos'" class="btn-rnd" mat-raised-button (click)="showResults3()">
+                <button  *ngIf="competition.mode === 'Individual'" [disabled]="option === 'ClasificacionPuntos'" class="btn-rnd" mat-raised-button (click)="showResults3()">
                   <b>{{ 'COMPETITIONS.CLASIFICATION' | translate }}</b>
                 </button>
                 <p>{{ 'COMPETITIONS.SELECTED' | translate }}: <b>{{option}}</b> </p>

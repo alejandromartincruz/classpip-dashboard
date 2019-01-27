@@ -305,7 +305,8 @@
     "MOD_DATE2": "Modifiqui la data de la jornada",
     "INTR_RESULT": "Resultats",
     "INTR_JOURNEY": "Introduzca la fecha de cada jornada:",
-    "EXPL_INFO": "Afegeixi informació sobre las competicions (por ejemplo, explicar en base a qué se decidirán los ganadores de cada jornada)",
+    "EXPL_INFO": "Afegeixi informació sobre las competicions (per exemple, explicar en base a què es decidiran els guanyadors de cada jornada)",
+    "EXPL_COM": "Deixi els seus comentaris",
     "FINISHED": "Has terminat de crear la Competició.",
     "FINISHED2": "Finalitzat",
     "INITIALIZATION": "Inicialització",
@@ -377,8 +378,8 @@
     "LESS_JOURNEY": "Per amagar aqesta secció, presioni el botó de menys"
   },
   "CLASSIFICATION": {
-    "TITLE": "Clasificació",
-    "LEAGUE": "Clasificació de la liga:",
+    "TITLE": "Classificació",
+    "LEAGUE": "Classificació de la liga:",
     "AUTOMATIONS": "Veure premis automàtics",
     "STUDENT": "Nom de l'estudiante",
     "TEAM": "Nom de l'equip",
