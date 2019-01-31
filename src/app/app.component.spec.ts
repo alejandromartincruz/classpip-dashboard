@@ -132,6 +132,7 @@ describe('AppComponent', () => {
         CreateQuestionnaireComponent,
         CreatePointComponent,
         DeletePointComponent,
+        Automation2Component,
         CreateBadgeComponent,
         DeleteBadgeComponent,
         CreateQuestionnaireTest1Component,

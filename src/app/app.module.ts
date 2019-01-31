@@ -160,6 +160,7 @@ export function createTranslateLoader(http: Http) {
     Automation2Component,
     JourneysLeagueComponent,
     JourneysTennisComponent,
+    Automation2Component,
     TournamentsComponent,
 
     // shared

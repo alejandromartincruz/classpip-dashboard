@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AppConfig } from '../../../app.config';
-import { Login, Group, Role, Competition, Journey, Match } from '../../../shared/models/index';
+import { Point, Student, ResultPoints, PointRelation, Login, Group, Role, Competition, Journey, Match } from '../../../shared/models/index';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import {
   LoadingService, UtilsService, GroupService, AlertService, CompetitionService,
-  JourneyService, MatchesService
+  JourneyService, MatchesService, PointRelationService, PointService
 } from '../../../shared/services/index';
 import { Observable } from 'rxjs/Observable';
 import { DeleteCompetitionComponent } from '../delete-competition/delete-competition';
@@ -22,9 +22,14 @@ import { DeleteCompetitionComponent } from '../delete-competition/delete-competi
 export class LeagueComponent implements OnInit {
   // Html
   public show: boolean;
+  public descansan: boolean;
+  public listStudentsPoints: Array<Student> = new Array<Student>();
+  public scores = new Array<Score>();
+  public winnermatch: string;
   public option: string;
   public matchesUploaded: boolean;
   public finished: boolean;
+  public score: Score;
   // Forms
   public journeysFormGroup: FormGroup;
   public informationFormGroup: FormGroup;
@@ -41,7 +46,12 @@ export class LeagueComponent implements OnInit {
   public countCompleted: number;
   public notCompletedJourneys = new Array<Journey>();
   public journeyMatch = new Journey();
+  public points: Array<Point>; // School Points list ready to Send
 
+  public studentPoints: Array<PointRelation> = new Array<PointRelation>(); // List of PointRelation of Student
+  public listPoints: Array<ResultPoints>; // Student points list
+  public totalPointsplayertwo: number;
+  public totalPointsplayerone: number;
   public results: Array<any>;
   public winner: any;
   public newInformation: any;
@@ -54,13 +64,20 @@ export class LeagueComponent implements OnInit {
 
   public journeyIndex: number;
   public clicked: boolean;
+  public groupSelected: string; // points group select
+  public listStudents: Array<Student> = new Array<Student>();
   public break: number;
   public url: string;
+  public puntoss: number;
+  public valuePoints: Array<PointRelation> = new Array<PointRelation>();
+  public totalPointsStudent: number;
 
   constructor(public alertService: AlertService,
     public utilsService: UtilsService,
     public loadingService: LoadingService,
     public groupService: GroupService,
+    public pointService: PointService,
+    public pointRelationService: PointRelationService,
     public translateService: TranslateService,
     public journeyService: JourneyService,
     public competitionService: CompetitionService,
@@ -106,12 +123,55 @@ export class LeagueComponent implements OnInit {
     }
   }
 
+  getpoints(value): void {
+    this.groupService.getMyGroupStudents(value).subscribe(
+      ((students: Array<Student>) => {
+        this.listStudents = students;
+        this.loadingService.hide();
+        for (let st of this.listStudents) {
+          this.pointRelationService.getStudentPoints(st.id).subscribe(
+            ((valuePoints: Array<PointRelation>) => {
+              this.valuePoints = valuePoints;
+              this.totalPointsStudent = 0;
+              st.totalPoints = 0;
+              this.puntoss = 0;
+              this.loadingService.hide();
+              for (let rel of this.valuePoints) {
+                if (rel.groupId === +value) {
+                  this.pointService.getPoint(rel.pointId).subscribe(
+                    ((valuep: Point) => {
+                      this.loadingService.hide();
+                      st.totalPoints += Number(valuep.value) * Number(rel.value);
+                      this.puntoss += Number(valuep.value) * Number(rel.value);
+                    }),
+                    ((error: Response) => {
+                      this.loadingService.hide();
+                      this.alertService.show(error.toString());
+                    }));
+                }
+              }
+              this.listStudentsPoints.push(st);
+              this.totalPointsStudent = 0;
+            }),
+            ((error: Response) => {
+              this.loadingService.hide();
+              this.alertService.show(error.toString());
+            }));
+        }
+      }),
+      ((error: Response) => {
+        this.loadingService.hide();
+        this.alertService.show(error.toString());
+      }));
+  }
+
   getSelectedCompetition(): void {
     this.competition$ = this.competitionService.getCompetition(this.competitionId);
     this.competition$.subscribe(
       ((competition: Competition) => {
         this.competition = competition;
         this.information = competition.information;
+        //this.getpoints(competition.groupId)
         if (this.utilsService.role === Role.TEACHER) {
           this.getJourneys();
         } else {
@@ -220,7 +280,16 @@ export class LeagueComponent implements OnInit {
     this.show === true ? this.show = false : this.show = true;
   }
   showResults() {
-    this.option === 'Manualmente' ? this.option = 'Aleatoriamente' : this.option = 'Manualmente';
+    this.option = 'Manualmente';
+  }
+
+  showResults2() {
+    this.option = 'Aleatoriamente';
+  }
+
+  showResults3() {
+    this.option = 'ClasificacionPuntos';
+    this.getpoints(this.competition.groupId);
   }
 
   gotoClassification() {
@@ -255,18 +324,55 @@ export class LeagueComponent implements OnInit {
   }
 
   onSubmitResults(value) {
+    // this.getpoints(this.competition.groupId)
     this.loadingService.show();
     if (value === undefined) {
-      this.results = [];
-      for (let _m = 0; _m < this.showMatches.length; _m++) {
-        this.results[_m] = {
-          winner: this.showMatches[_m][Math.floor(Math.random() * 3) + 0]
-        };
+      if (this.option === 'Aleatoriamente') {
+        // Aleatorio y Por puntos
+        this.results = [];
+        for (let _m = 0; _m < this.showMatches.length; _m++) {
+          this.results[_m] = {
+            winner: this.showMatches[_m][Math.floor(Math.random() * 3) + 0]
+          };
+        }
+        if (this.matchGhost.playerOne === 0 || this.matchGhost.playerTwo === 0) {
+          this.results.splice(this.break, 0, { winner: 'Descanso' });
+        }
       }
-      if (this.matchGhost.playerOne === 0 || this.matchGhost.playerTwo === 0) {
-        this.results.splice(this.break, 0, { winner: 'Descanso' });
+      if (this.option === 'ClasificacionPuntos') {
+        this.results = [];
+        for (let _m = 0; _m < this.matches.length; _m++) {
+          //  this.generalpointsplayer(this.matches[_m].playerOne, this.matches[_m].playerTwo)
+          for (let kk = 0; kk < this.listStudentsPoints.length; kk++) {
+            if (this.listStudentsPoints[kk].id == (this.matches[_m].playerOne).toString()) {
+              this.totalPointsplayerone = this.listStudentsPoints[kk].totalPoints;
+            }
+            if (this.listStudentsPoints[kk].id == (this.matches[_m].playerTwo).toString()) {
+              this.totalPointsplayertwo = this.listStudentsPoints[kk].totalPoints;
+            }
+          }
+          //this.pointmatch(this.matches[_m].playerOne, this.matches[_m].playerTwo)
+          if (this.totalPointsplayertwo < this.totalPointsplayerone) {
+            this.winnermatch = this.matches[_m].namePlayerOne;
+          }
+          if (this.totalPointsplayertwo > this.totalPointsplayerone) {
+            this.winnermatch = this.matches[_m].namePlayerTwo;
+          }
+          if (this.totalPointsplayertwo == this.totalPointsplayerone) {
+            this.winnermatch = 'Empate';
+          }
+          if (this.matches[_m].playerTwo == 0 || this.matches[_m].playerOne == 0) {
+            this.winnermatch = 'Descanso';
+          }
+          //this.pointmatch(this.matches[_m].playerOne, this.matches[_m].playerTwo)
+          this.results[_m] = {
+            winner: this.winnermatch
+          };
+        }
+
       }
     } else {
+      // Manualmente
       this.results = value.results;
       if (this.matchGhost.playerOne === 0 || this.matchGhost.playerTwo === 0) {
         this.results.splice(this.break, 0, { winner: 'Descanso' });
@@ -309,4 +415,11 @@ export class LeagueComponent implements OnInit {
     });
   }
 
+}
+export interface Score {
+  nameees: string;
+  position: number;
+  points: number;
+  currentuser: Boolean;
+  studentId: string;
 }

@@ -294,8 +294,7 @@ export class Automation2Component implements OnInit {
     if (this.final === true) {
       this.getCollections();
     } else {
-      const url = '/competition/tennis/' + this.competitionId.toString();
-      this.router.navigate([url]);
+      this.finished = true;
     }
   }
 

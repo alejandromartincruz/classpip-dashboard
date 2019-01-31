@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AppConfig } from '../../../app.config';
-import { Login, Group, Role, Competition, Journey, Match } from '../../../shared/models/index';
+import { Point, Student, ResultPoints, PointRelation, Login, Group, Role, Competition, Journey, Match } from '../../../shared/models/index';
 import {
   LoadingService, UtilsService, GroupService, AlertService, CompetitionService,
-  JourneyService, MatchesService
+  JourneyService, MatchesService, PointRelationService, PointService
 } from '../../../shared/services/index';
 import { Observable } from 'rxjs/Observable';
 import { DeleteCompetitionComponent } from '../delete-competition/delete-competition';
@@ -59,10 +59,31 @@ export class TennisComponent implements OnInit {
   public submitMatches: Array<number>;
   public match1: any;
 
+  public points: Array<Point>; // School Points list ready to Send
+  public studentPoints: Array<PointRelation> = new Array<PointRelation>(); // List of PointRelation of Student
+  public listPoints: Array<ResultPoints>; // Student points list
+  public totalPointsplayertwo: number;
+  public totalPointsplayerone: number;
+  public winner: any;
+  public listStudentsPoints: Array<Student> = new Array<Student>();
+  public scores = new Array<Score>();
+  public winnermatch: string;
+  public score: Score;
+  public journeyIndex: number;
+  public groupSelected: string; // points group select
+  public listStudents: Array<Student> = new Array<Student>();
+  public break: number;
+  public url: string;
+  public puntoss: number;
+  public valuePoints: Array<PointRelation> = new Array<PointRelation>();
+  public totalPointsStudent: number;
+
   constructor(public alertService: AlertService,
     public utilsService: UtilsService,
     public loadingService: LoadingService,
     public translateService: TranslateService,
+    public pointService: PointService,
+    public pointRelationService: PointRelationService,
     public groupService: GroupService,
     public journeyService: JourneyService,
     public competitionService: CompetitionService,
@@ -120,6 +141,47 @@ export class TennisComponent implements OnInit {
         } else {
           this.finished = true;
           this.loadingService.hide();
+        }
+      }),
+      ((error: Response) => {
+        this.loadingService.hide();
+        this.alertService.show(error.toString());
+      }));
+  }
+  getpoints(value): void {
+    this.groupService.getMyGroupStudents(value).subscribe(
+      ((students: Array<Student>) => {
+        this.listStudents = students;
+        this.loadingService.hide();
+        for (let st of this.listStudents) {
+          this.pointRelationService.getStudentPoints(st.id).subscribe(
+            ((valuePoints: Array<PointRelation>) => {
+              this.valuePoints = valuePoints;
+              this.totalPointsStudent = 0;
+              st.totalPoints = 0;
+              this.puntoss = 0;
+              this.loadingService.hide();
+              for (let rel of this.valuePoints) {
+                if (rel.groupId === +value) {
+                  this.pointService.getPoint(rel.pointId).subscribe(
+                    ((valuep: Point) => {
+                      this.loadingService.hide();
+                      st.totalPoints += Number(valuep.value) * Number(rel.value);
+                      this.puntoss += Number(valuep.value) * Number(rel.value);
+                    }),
+                    ((error: Response) => {
+                      this.loadingService.hide();
+                      this.alertService.show(error.toString());
+                    }));
+                }
+              }
+              this.listStudentsPoints.push(st);
+              this.totalPointsStudent = 0;
+            }),
+            ((error: Response) => {
+              this.loadingService.hide();
+              this.alertService.show(error.toString());
+            }));
         }
       }),
       ((error: Response) => {
@@ -278,22 +340,95 @@ export class TennisComponent implements OnInit {
     this.postMatches = [];
 
     if (value === undefined) {
-      for (let _m = 0; _m < this.showMatchesIdPrimary.length; _m++) {
-        this.results[_m] = {
-          winner: this.showMatchesIdPrimary[_m][Math.floor(Math.random() * 2) + 0]
-        };
+      if (this.option === 'Aleatoriamente') {
+        this.alertService.show(this.option.toString());
+        for (let _m = 0; _m < this.showMatchesIdPrimary.length; _m++) {
+          this.results[_m] = {
+            winner: this.showMatchesIdPrimary[_m][Math.floor(Math.random() * 2) + 0]
+          };
+        }
+        // adding ghosts of principal tournament with the winner no ghost
+        for (let _g = 0; _g < this.ghostsPrimary.length; _g++) {
+          this.ghostsPrimary[_g][0] === 0 ?
+            this.results.push({ winner: this.ghostsPrimary[_g][1] }) : this.results.push({ winner: this.ghostsPrimary[_g][0] });
+          this.matchesIdPrimary.push(this.ghostsPrimary[_g][2]); // adding id ghost matches
+        }
+        // The same with the secondary tournament
+        for (let _v = 0; _v < this.showMatchesIdSecondary.length; _v++) {
+          this.results2[_v] = {
+            winner: this.showMatchesIdSecondary[_v][Math.floor(Math.random() * 2) + 0]
+          };
+        }
+        for (let _g = 0; _g < this.ghostsSecondary.length; _g++) {
+          this.ghostsSecondary[_g][0] === 0 ?
+            this.results2.push({ winner: this.ghostsSecondary[_g][1] }) : this.results2.push({ winner: this.ghostsSecondary[_g][0] });
+          this.matchesIdSecondary.push(this.ghostsSecondary[_g][2]); // id ghost mtches
+        }
       }
-      // adding ghosts of principal tournament with the winner no ghost
-      for (let _g = 0; _g < this.ghostsPrimary.length; _g++) {
-        this.ghostsPrimary[_g][0] === 0 ?
-          this.results.push({ winner: this.ghostsPrimary[_g][1] }) : this.results.push({ winner: this.ghostsPrimary[_g][0] });
-        this.matchesIdPrimary.push(this.ghostsPrimary[_g][2]); // adding id ghost matches
-      }
-      // The same with the secondary tournament
-      for (let _v = 0; _v < this.showMatchesIdSecondary.length; _v++) {
-        this.results2[_v] = {
-          winner: this.showMatchesIdSecondary[_v][Math.floor(Math.random() * 2) + 0]
-        };
+      if (this.option === 'ClasificacionPuntos') {
+        for (let _m = 0; _m < this.showMatchesIdPrimary.length; _m++) {
+          for (let kk = 0; kk < this.listStudentsPoints.length; kk++) {
+            let name1 = (this.showMatchesIdPrimary[_m][0]).toString();
+            let name2 = (this.showMatchesIdPrimary[_m][1]).toString();
+            if (this.listStudentsPoints[kk].id == name1) {
+              this.totalPointsplayerone = this.listStudentsPoints[kk].totalPoints;
+            }
+            if (this.listStudentsPoints[kk].id == name2) {
+              this.totalPointsplayertwo = this.listStudentsPoints[kk].totalPoints;
+            }
+          }
+          if (this.totalPointsplayertwo < this.totalPointsplayerone) {
+            this.winnermatch = (this.showMatchesIdPrimary[_m][0]).toString();
+          }
+          if (this.totalPointsplayertwo > this.totalPointsplayerone) {
+            this.winnermatch = (this.showMatchesIdPrimary[_m][1]).toString();
+          }
+          if (this.totalPointsplayertwo == this.totalPointsplayerone) {
+            let wins = this.randomNumber(1, 2);
+            if (wins == 1) {
+              this.winnermatch = (this.showMatchesIdPrimary[_m][0]).toString();
+            } else {
+              this.winnermatch = (this.showMatchesIdPrimary[_m][1]).toString();
+            }
+          }
+          this.results[_m] = {
+            winner: this.winnermatch
+          };
+        }
+        // adding ghosts of principal tournament with the winner no ghost
+        for (let _g = 0; _g < this.ghostsPrimary.length; _g++) {
+          this.ghostsPrimary[_g][0] === 0 ?
+            this.results.push({ winner: this.ghostsPrimary[_g][1] }) : this.results.push({ winner: this.ghostsPrimary[_g][0] });
+          this.matchesIdPrimary.push(this.ghostsPrimary[_g][2]); // adding id ghost matches
+        }
+        // The same with the secondary tournament
+        for (let _v = 0; _v < this.showMatchesIdSecondary.length; _v++) {
+          for (let kk = 0; kk < this.listStudentsPoints.length; kk++) {
+            if (this.listStudentsPoints[kk].id == (this.showMatchesIdSecondary[_v][0]).toString()) {
+              this.totalPointsplayerone = this.listStudentsPoints[kk].totalPoints;
+            }
+            if (this.listStudentsPoints[kk].id == (this.showMatchesIdSecondary[_v][1]).toString()) {
+              this.totalPointsplayertwo = this.listStudentsPoints[kk].totalPoints;
+            }
+          }
+          if (this.totalPointsplayertwo < this.totalPointsplayerone) {
+            this.winnermatch = (this.showMatchesIdSecondary[_v][0]).toString();
+          }
+          if (this.totalPointsplayertwo > this.totalPointsplayerone) {
+            this.winnermatch = (this.showMatchesIdSecondary[_v][1]).toString();
+          }
+          if (this.totalPointsplayertwo == this.totalPointsplayerone) {
+            let wins = this.randomNumber(1, 2);
+            if (wins == 1) {
+              this.winnermatch = (this.showMatchesIdSecondary[_v][0]).toString();
+            } else {
+              this.winnermatch = (this.showMatchesIdSecondary[_v][1]).toString();
+            }
+          }
+          this.results2[_v] = {
+            winner: this.winnermatch
+          };
+        }
       }
       for (let _g = 0; _g < this.ghostsSecondary.length; _g++) {
         this.ghostsSecondary[_g][0] === 0 ?
@@ -426,6 +561,10 @@ export class TennisComponent implements OnInit {
     }
   }
 
+  public randomNumber(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
   postSecondaryTournament() {
     let countMatches = 0;
     for (let _s = 0; _s < this.secondaryMatches.length; _s += 2) {
@@ -455,7 +594,16 @@ export class TennisComponent implements OnInit {
   }
 
   showResults() {
-    this.option === 'Manualmente' ? this.option = 'Aleatoriamente' : this.option = 'Manualmente';
+    this.option = 'Manualmente';
+  }
+
+  showResults2() {
+    this.option = 'Aleatoriamente';
+  }
+
+  showResults3() {
+    this.option = 'ClasificacionPuntos';
+    this.getpoints(this.competition.groupId)
   }
 
   gotoTournament() {
@@ -479,4 +627,11 @@ export class TennisComponent implements OnInit {
     });
   }
 
+}
+export interface Score {
+  nameees: string;
+  position: number;
+  points: number;
+  currentuser: Boolean;
+  studentId: string;
 }
