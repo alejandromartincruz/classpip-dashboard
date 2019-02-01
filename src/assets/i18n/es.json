@@ -15,7 +15,10 @@
     "LANGUAGE": "Idioma",
     "RANKING": "Ranking de estudiantes",
     "NEXTLEVELPOINTS": "Puntos para el siguiente nivel: ",
-    "LEVEL": "Nivel"
+    "LEVEL": "Nivel",
+    "MYPOS": "Mi posición",
+    "RANK": "Rango",
+    "POINTS": "Puntos"
   },
   "LOGIN": {
     "USERNAME": "Nombre de usuario",
@@ -34,6 +37,35 @@
     "ID": "Id. Grupo",
     "CHOOSE": "Escoge el grupo",
     "NOASSIGN": "No asignar grupo"
+  },
+  "GRADE": {
+    "GRADE": "Curso",
+    "GRADELIST": "Listado de cursos",
+    "NEWGRADE": "Nuevo curso",
+    "NEWGRADEFORM": "Formulario de Curso",
+    "CREATINGGRADE": "Creando un nuevo Curso",
+    "EDITINGGRADE": "Editando curso",
+    "NAME": "Nombre del curso",
+    "CREATED": "Curso creado correctamente",
+    "EDITED": "Curso editado correctamente",
+    "DELETED": "Curso borrado correctamente",
+    "CONFIRMDELETE": "Seguro que quieres borrar el curso con id {{elementId}}?",
+    "CONFIRMRELDELETE": "Si aceptas, borraras la relación de este curso con la materia con id {{elementId}}. Estas seguro?",
+    "SELECTMATTER": "Selecciona una materia"
+  },
+  "MATTER": {
+    "MATTER": "Materia",
+    "MATTERLIST": "Listado de materias",
+    "NEWMATTER": "Nueva asignatura",
+    "NEWMATTERFORM": "Formulario de asignatura",
+    "CREATINGMATTER": "Creando nueva asignatura",
+    "EDITINGMATTER": "Editando asignatura",
+    "NAME": "Nombre de la asignatura",
+    "CREATED": "Asignatura creada correctamente",
+    "EDITED": "Asignatura editada correctamente",
+    "DELETED": "Asignatura borrada correctamente",
+    "CONFIRMDELETE": "Seguro que quieres borrar la asignatura con id {{elementId}}?",
+    "SELECTGRADE": "Selecciona un curso"
   },
   "TEACHER": {
     "ID": "Id. Profesor",
@@ -54,7 +86,7 @@
     "CREATED": "Nuevo profesor creado correctamente",
     "EDITED": "Profesor editado correctamente",
     "DELETED": "Profesor borrado correctamente",
-    "CONFIRMDELETE": "¿Seguro que quieres borrar el profesor con id {{teacherId}}?",
+    "CONFIRMDELETE": "¿Seguro que quieres borrar el profesor con id {{elementId}}?",
     "NEWTEACHER": "Crear nuevo profesor"
   },
   "STUDIENTS": {
@@ -65,7 +97,21 @@
     "EMAIL": "Email",
     "TITLE": "Estudiantes",
     "CHOOSE": "Escoge el estudiante",
-    "SHOW": "Mostrar estudiantes"
+    "SHOW": "Mostrar estudiantes",
+    "STUDENTSLIST": "Listado de estudiantes",
+    "USERNAME": "Nombre de usuario",
+    "PASSWORD": "Contraseña",
+    "NEWPASSWORD": "Introduce una nueva contraseña",
+    "CONFIRMPASSWORD": "Confirmar contraseña",
+    "PROFILEIMAGE": "Imagen de perfil",
+    "NEWSTUDENTSFORM": "Formulario de estudiante",
+    "CREATINGSTUDENT": "Creando nuevo estudiante",
+    "EDITINGSTUDENT": "Editando estudiante con id ",
+    "CREATED": "Nuevo estudante creado correctamente",
+    "EDITED": "Estudiante modificado con exito",
+    "DELETED": "Estudiante borrado correctamente",
+    "CONFIRMDELETE": "¿Seguro que quieres borrar el estudiante con id {{elementId}}?",
+    "NEWSTUDENT": "Crear un nuevo Estudiante"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Cuestionarios",
@@ -300,6 +346,22 @@
     "CREATINGSCHOOL": "Creando escuela nueva",
     "EDITINGSCHOOL": "Editando escuela con id "
   },
+  "RANKS": {
+    "RANK": "Rango",
+    "RANKS": "Rangos",
+    "RANKSLIST": "Llistado de rangos",
+    "NEWRANK": "Nuevo Rango",
+    "NEWRANKFORM": "Formulario de Rango",
+    "CREATINGRANK": "Creando nuevo rango",
+    "EDITINGRANK": "Editando rango",
+    "NAME": "Nombre del rango",
+    "POINTS": "Número de puntos para conseguir el rango",
+    "IMAGE": "Url de la imagen del rango",
+    "CREATED": "Rango creado correctamente",
+    "EDITED": "Rango editado correctamente",
+    "DELETED": "Rango borrado correctamente",
+    "CONFIRMDELETE": "¿Seguro que quieres borrar el rango con id {{elementId}}?"
+  },
   "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Escoge el tipo de asignación",
     "CHOOSEAMOUNT": "Escoge la cantidad",
@@ -315,6 +377,9 @@
     "EDIT": "Editar",
     "DELETE": "Eliminar",
     "SELECTAVATAR": "Selecciona un avatar",
-    "GOBACK": "Volver"
+    "GOBACK": "Volver",
+    "ME": "Yo",
+    "OF": "de",
+    "ADD": "Añadir"
   }
 }

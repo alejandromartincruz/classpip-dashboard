@@ -73,7 +73,6 @@ export class HomeComponent implements OnInit {
 
     this.levelService.getAllRanks()
       .subscribe((allRanks: Rango[]) => {
-        allRanks.sort(this.levelService.sortFunction);
         this.allRanks = allRanks;
       });
 
@@ -124,6 +123,7 @@ export class HomeComponent implements OnInit {
     let actualRank: Rango;
     const rangos = this.allRanks;
     const reward = this.reward;
+
     Object.keys(rangos).forEach(
       function (index) {
         if (reward.rank === rangos[index].nombreRango) {
@@ -139,21 +139,23 @@ export class HomeComponent implements OnInit {
     const student_points = JSON.parse(point_obj);
     const allPoints = this.allPoints;
     const result = [];
-
-    Object.keys(student_points).forEach(
-      function (index) {
-        const this_point = allPoints.filter(function (point) {
-          if (parseInt(point.id, 10) === parseInt(index, 10)) {
-            const point_value = point.value;
-            point.value = point_value * student_points[index];
-            return point;
+    if (allPoints) {
+      Object.keys(student_points).forEach(
+        function (index) {
+          const this_point = allPoints.filter(function (point) {
+            if (parseInt(point.id, 10) === parseInt(index, 10)) {
+              const point_value = point.value;
+              point.value = point_value * student_points[index];
+              return point;
+            }
+          });
+          if (this_point.length > 0) {
+            result.push(this_point[0]);
           }
-        });
-        if (this_point.length > 0) {
-          result.push(this_point[0]);
         }
-      }
-    );
+      );
+    }
+
 
     return result;
   }

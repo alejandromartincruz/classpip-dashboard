@@ -15,7 +15,10 @@
     "LANGUAGE": "Idioma",
     "RANKING": "Ranking d'estudiants",
     "NEXTLEVELPOINTS": "Punts per a el seguent nivell: ",
-    "LEVEL": "Nivell"
+    "LEVEL": "Nivell",
+    "MYPOS": "La meva posició",
+    "RANK": "Rang",
+    "POINTS": "Punts"
   },
   "LOGIN": {
     "USERNAME": "Nom d'usuari",
@@ -34,6 +37,35 @@
     "ID": "Id. Grup",
     "CHOOSE": "Tria el grup",
     "NOASSIGN": "No assignar grup"
+  },
+  "GRADE": {
+    "GRADE": "Curs",
+    "GRADELIST": "Llistat de cursos",
+    "NEWGRADE": "Nou curs",
+    "NEWGRADEFORM": "Formulari de Curs",
+    "CREATINGGRADE": "Creant Nou Curs",
+    "EDITINGGRADE": "Editant curs",
+    "NAME": "Nom del curs",
+    "CREATED": "Curs creat correctament",
+    "EDITED": "Curs editat correctament",
+    "DELETED": "Curs esborrat correctament",
+    "CONFIRMDELETE": "Segur que vols esborrar el curs amb id {{elementId}}?",
+    "CONFIRMRELDELETE": "Si acceptes, esborraras la relació d'aquest curs amb la materia amb id {{elementId}}. Estas segur?",
+    "SELECTMATTER": "Sel·leciona una materia"
+  },
+  "MATTER": {
+    "MATTER": "Matèria",
+    "MATTERLIST": "Llistat d'assignatures",
+    "NEWMATTER": "Nova assignatura",
+    "NEWMATTERFORM": "Formulari d'assignatura",
+    "CREATINGMATTER": "Creant Nova assignatura",
+    "EDITINGMATTER": "Editant assignatura",
+    "NAME": "Nom de la assignatura",
+    "CREATED": "Assignatura creada correctament",
+    "EDITED": "Assignatura editada correctament",
+    "DELETED": "Assignatura esborrada correctament",
+    "CONFIRMDELETE": "Segur que vols esborrar l'assignatura amb id {{elementId}}?",
+    "SELECTGRADE": "Sel·lecciona un curs"
   },
   "TEACHER": {
     "ID": "Id. Professor",
@@ -54,7 +86,7 @@
     "CREATED": "Nou professor creat correctament",
     "EDITED": "Professor modificat amb èxit",
     "DELETED": "Professor esborrat correctament",
-    "CONFIRMDELETE": "Segur que vols esborrar el professor amb id {{teacherId}}?",
+    "CONFIRMDELETE": "Segur que vols esborrar el professor amb id {{elementId}}?",
     "NEWTEACHER": "Crear un nou professor"
   },
   "STUDIENTS": {
@@ -65,7 +97,21 @@
     "EMAIL": "Email",
     "TITLE": "Estudiants",
     "CHOOSE": "Tria l'estudiant",
-    "SHOW": "Mostrar estudiants"
+    "SHOW": "Mostrar estudiants",
+    "STUDENTSLIST": "Llistat d'estudiants",
+    "USERNAME": "Nom d'usuari",
+    "PASSWORD": "Contrasenya",
+    "NEWPASSWORD": "Introdueix una nova contrasenya",
+    "CONFIRMPASSWORD": "Confirmar contrasenya",
+    "PROFILEIMAGE": "Imatge de perfil",
+    "NEWSTUDENTSFORM": "Formulari d'estudiant",
+    "CREATINGSTUDENT": "Creant nou estudiant",
+    "EDITINGSTUDENT": "Editant Estudiant amb id ",
+    "CREATED": "Nou Estudiant creat correctament",
+    "EDITED": "Estudiant modificat amb èxit",
+    "DELETED": "Estudiant esborrat correctament",
+    "CONFIRMDELETE": "Segur que vols esborrar el Estudiant amb id {{elementId}}?",
+    "NEWSTUDENT": "Crear un nou Estudiant"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Qüestionaris",
@@ -300,6 +346,22 @@
     "CREATINGSCHOOL": "Creant nova escola",
     "EDITINGSCHOOL": "Editant escola amb id "
   },
+  "RANKS": {
+    "RANK": "Rang",
+    "RANKS": "Rangs",
+    "RANKSLIST": "Llistat de rangs",
+    "NEWRANK": "Nou Rang",
+    "NEWRANKFORM": "Formulari de Rang",
+    "CREATINGRANK": "Creant Nou rang",
+    "EDITINGRANK": "Editant rang",
+    "NAME": "Nom del rang",
+    "POINTS": "Número de punts per asolir el rang",
+    "IMAGE": "Url de la imatge del rang",
+    "CREATED": "Rang creat correctament",
+    "EDITED": "Rang editat correctament",
+    "DELETED": "Rang esborrat correctament",
+    "CONFIRMDELETE": "Segur que vols esborrar el Rang amb id {{elementId}}?"
+  },
   "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Tria el tipus d'assignació",
     "CHOOSEAMOUNT": "Tria la quantitat",
@@ -316,6 +378,9 @@
     "DELETE": "Eliminar",
     "SAVE": "Guardar",
     "SELECTAVATAR": "Sel·lecciona un avatar",
-    "GOBACK": "Tornar"
+    "GOBACK": "Tornar",
+    "ME": "Jo",
+    "OF": "de",
+    "ADD": "Afegir"
   }
 }

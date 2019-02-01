@@ -5,13 +5,22 @@ export class Rango {
   private _nombreRango: string;
   private _imageRangoLink: string;
   private _altImageRangoLink: string;
+  private _schoolId: number;
 
-  constructor(id?: string, nombreRango?: string, puntosRango?: number, imageRangoLink?: string, altImageRangoLink?: string) {
+  constructor(
+    id?: string,
+    nombreRango?: string,
+    puntosRango?: number,
+    imageRangoLink?: string,
+    altImageRangoLink?: string,
+    schoolId?: number
+  ) {
     this._id = id;
     this._nombreRango = nombreRango;
     this._puntosRango = puntosRango;
     this._imageRangoLink = imageRangoLink;
     this._altImageRangoLink = altImageRangoLink;
+    this._schoolId = schoolId;
   }
 
   /* tslint:disable */
@@ -24,6 +33,7 @@ export class Rango {
       result.puntosRango = object.puntosRango;
       result.imageRangoLink = object.imageRangoLink;
       result.altImageRangoLink = object.altImageRangoLink;
+      result.schoolId = object.schoolId;
     }
     return result;
   }
@@ -78,6 +88,14 @@ export class Rango {
 
   public set altImageRangoLink(value: string) {
     this._altImageRangoLink = value;
+  }
+
+  public get schoolId(): number {
+    return this._schoolId;
+  }
+
+  public set schoolId(value: number) {
+    this._schoolId = value;
   }
 
 }

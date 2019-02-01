@@ -3,6 +3,8 @@
 // Plus imports for other components in your app.
 @include mat-core();
 
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 @import './variables';
 @import './mixins';
 @import './materialize';
@@ -25,10 +27,10 @@ $theme: mat-light-theme($classpip-app-primary, $classpip-app-accent, $classpip-a
 
 html,
 body {
-  font-family: "Roboto", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  margin: 0;
   background-color: $classpip-background;
+  font-family: 'Roboto', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
   height: 100%;
+  margin: 0;
 }
 
 app-root>.container {
@@ -82,7 +84,7 @@ app-root>.container {
   }
 
   .display-level {
-    font-size: 9em;
+    font-size: 5em;
     color: #b90000;
     text-align: center;
   }
@@ -101,7 +103,7 @@ app-root>.container {
   }
 
   .display-points {
-    font-size: 2.5em;
+    font-size: 2em;
     text-align: center;
   }
 
@@ -112,7 +114,7 @@ app-root>.container {
   .student-badge {
     position: relative;
     display: inline-block;
-    width: 50%;
+    width: 33.33%;
     padding: 10px 10px 0;
 
     img {
@@ -184,6 +186,174 @@ app-root>.container {
     font-size: 20px;
   }
 }
+
+#hall-of-fame {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  text-align: center;
+
+  .ranking-title {
+    color: #1e3a5a;
+    text-transform: uppercase;
+    text-align: left;
+    padding-left: 1em;
+  }
+
+  .student {
+    display: inline-block;
+    font-family: $classpip-lato;
+    margin: 10px 1%;
+
+    .student-inner {
+      background: #fff;
+      margin: 0 auto;
+      max-width: 100%;
+      min-width: 256px;
+      position: relative;
+      border: 1px solid #E5E5E5;
+
+      .entry-title {
+        background: #53CFE9;
+        height: 140px;
+        position: relative;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 30px;
+      }
+
+      .entry-title>h3 {
+        background: #20BADA;
+        font-size: 20px;
+        padding: 5px 0;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .entry-title .position {
+        position: absolute;
+        bottom: -25px;
+        background: #20BADA;
+        height: 95px;
+        width: 95px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        border-radius: 50px;
+        border: 5px solid #fff;
+        line-height: 80px;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .position span {
+        position: absolute;
+        font-size: 9px;
+        bottom: -10px;
+        left: 30px;
+        font-weight: 400;
+      }
+
+      .entry-content {
+        color: #323232;
+      }
+
+      .entry-content ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+      }
+
+      .entry-content li {
+        border-bottom: 1px solid #E5E5E5;
+        padding: 10px 0;
+      }
+
+      .entry-content li:last-child {
+        border: none;
+      }
+
+      .btn {
+        padding: 3em 0;
+        text-align: center;
+      }
+
+      .btn a {
+        background: #323232;
+        padding: 10px 30px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-decoration: none
+      }
+
+    }
+
+    &.basic .entry-title {
+      background: #75DDD9;
+    }
+
+    &.basic .entry-title>h3 {
+      background: #44CBC6;
+    }
+
+    &.basic .entry-title .position {
+      background: #44CBC6;
+    }
+
+    &.standard .entry-title {
+      background: #4484c1;
+    }
+
+    &.standard .entry-title>h3 {
+      background: #3772aa;
+    }
+
+    &.standard .entry-title .position {
+      background: #3772aa;
+    }
+
+    &.ultimite .entry-title>h3 {
+      background: #DD4B5E;
+    }
+
+    &.ultimite .entry-title {
+      background: #F75C70;
+    }
+
+    &.ultimite .entry-title .position {
+      background: #DD4B5E;
+    }
+
+    &.first {
+      margin-left: 0;
+    }
+
+    &.last {
+      margin-right: 0;
+    }
+  }
+
+  .hot {
+    position: absolute;
+    top: -7px;
+    background: #F80;
+    color: #fff;
+    text-transform: uppercase;
+    z-index: 2;
+    padding: 2px 5px;
+    font-size: 9px;
+    border-radius: 2px;
+    right: 10px;
+    font-weight: 700;
+  }
+
+}
+
+
+
 
 @import './tablet';
 @import './desktop';

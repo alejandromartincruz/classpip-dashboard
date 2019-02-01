@@ -1,12 +1,12 @@
 <div class="language-content">
 
-<h3>{{ 'HOME.LANGUAGE' | translate }}</h3>
-<mat-nav-list *ngIf="idioms">
+  <h3>{{ 'HOME.LANGUAGE' | translate }}</h3>
+  <mat-nav-list *ngIf="idioms">
     <mat-list-item *ngFor="let item of idioms" (click)="choose(item.value)">
       <h4 mat-line>{{ item.label }}</h4>
     </mat-list-item>
-</mat-nav-list>
+  </mat-nav-list>
   <br><br>
-<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 
 </div>

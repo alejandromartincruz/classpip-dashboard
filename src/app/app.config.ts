@@ -26,6 +26,8 @@ export class AppConfig {
   public static get COLLECTION_URL(): string { return this.SERVER_URL + '/api/collectionCards'; }
   public static get CARD_URL(): string { return this.SERVER_URL + '/api/cards'; }
   public static get ONLY_REWARDS_URL(): string { return this.SERVER_URL + '/api/rewards'; }
+  public static get NEW_MATTER(): string { return this.SERVER_URL + '/api/matters/replaceOrCreate'; }
+
 
 
   public static get LOGIN_URL(): string { return '/login'; }

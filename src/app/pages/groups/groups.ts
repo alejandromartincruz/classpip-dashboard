@@ -12,7 +12,7 @@ import { Route, ActivatedRoute, Router } from '@angular/router';
 export class GroupsComponent implements OnInit {
   public returnUrl: string;
   public groups: Array<Group>;
-  public isTeacher: boolean = false;
+  public isTeacher = false;
 
   constructor(
     public route: ActivatedRoute,
@@ -32,11 +32,11 @@ export class GroupsComponent implements OnInit {
 
 
     if (this.utilsService.role === Role.TEACHER || this.utilsService.role === Role.STUDENT) {
-      if(this.utilsService.role === Role.TEACHER){this.isTeacher = true;}
+      if (this.utilsService.role === Role.TEACHER) { this.isTeacher = true; }
       this.loadingService.show();
       this.groupService.getMyGroups().subscribe(
         ((groups: Array<Group>) => {
-          this.groups = groups.sort((n1,n2)=> +n1.id - +n2.id );
+          this.groups = groups.sort((n1, n2) => +n1.id - +n2.id);
           this.loadingService.hide();
         }),
         ((error: Response) => {
@@ -46,8 +46,7 @@ export class GroupsComponent implements OnInit {
     }
   }
 
-  showStudents(group: Group)
-  {
+  showStudents(group: Group) {
     this.router.navigate([this.returnUrl, group.id]);
 
 

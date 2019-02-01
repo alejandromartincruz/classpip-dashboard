@@ -7,6 +7,7 @@ export class Student {
   private _name: string;
   private _surname: string;
   private _username: string;
+  private _profileImage: string;
   private _email: string;
   private _schoolId: number;
   private _avatarId: number;
@@ -14,10 +15,11 @@ export class Student {
   private _rewards: Reward;
   private _totalPoints: number;
 
-  constructor(name?: string, surname?: string, username?: string,
+  constructor(name?: string, surname?: string, profileImage?: string, username?: string,
     email?: string, schoolId?: number, avatarId?: number) {
     this._name = name;
     this._surname = surname;
+    this._profileImage = profileImage;
     this._username = username;
     this._email = email;
     this._schoolId = schoolId;
@@ -32,6 +34,7 @@ export class Student {
       result.id = object.id;
       result.name = object.name;
       result.surname = object.surname;
+      result.profileImage = object.profileImage;
       result.username = object.username;
       result.email = object.email;
       result.schoolId = object.schoolId;
@@ -77,6 +80,14 @@ export class Student {
 
   public set surname(value: string) {
     this._surname = value;
+  }
+
+  public get profileImage(): string {
+    return this._profileImage;
+  }
+
+  public set profileImage(value: string) {
+    this._profileImage = value;
   }
 
   public get username(): string {

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
-import { TeacherService, AlertService, AvatarService, UtilsService, LoadingService } from '../../shared/services';
-import { AppConfig } from '../../app.config';
-import { Teacher, Avatar, Login, Credentials } from '../../shared/models';
+import { TeacherService, AlertService, AvatarService, UtilsService, LoadingService } from '../../../shared/services';
+import { AppConfig } from '../../../app.config';
+import { Teacher, Avatar, Login } from '../../../shared/models';
 
 @Component({
   selector: 'app-teacher-form',
@@ -16,7 +16,6 @@ export class TeacherFormComponent implements OnInit, OnChanges {
   newTeacher = new Teacher();
   @Output() newTeacherChange = new EventEmitter<Teacher>();
   avatars: Avatar[];
-  credentials = new Credentials();
 
   constructor(
     public teacherService: TeacherService,

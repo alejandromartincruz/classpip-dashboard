@@ -1,7 +1,7 @@
 <div class="home-content">
   <div>
     <button mat-icon-button (click)="goBack();" color="primary" class="go-back-btn">
-      <mat-icon aria-label="Example icon-button with a heart icon">arrow_back_ios</mat-icon>
+      <mat-icon>arrow_back_ios</mat-icon>
       <span>{{ 'COMMON.GOBACK' | translate }}</span>
     </button>
   </div>
@@ -28,42 +28,225 @@
     </mat-card-actions>
   </mat-card>
 
-  <mat-card *ngIf="school" class="teachers-card">
+  <mat-tab-group (selectedTabChange)="tabClick($event)">
+    <mat-tab label="{{ 'TEACHER.TEACHERSLIST' | translate }}">
+      <mat-card *ngIf="school" class="teachers-card">
 
-    <mat-card-header>
-      <h3>{{ 'TEACHER.TEACHERSLIST' | translate }}</h3>
-      <button mat-raised-button color="primary" (click)="scrollToForm()" class="right">{{ 'TEACHER.NEWTEACHER' |
-        translate }}</button>
-    </mat-card-header>
+        <mat-card-header>
+          <h3>{{ 'TEACHER.TEACHERSLIST' | translate }}</h3>
+          <button mat-raised-button color="primary" (click)="scrollToForm('teacherForm')" class="right">{{
+            'TEACHER.NEWTEACHER' |
+            translate }}</button>
+        </mat-card-header>
 
-    <mat-card-content class="list-of-teachers">
-      <mat-list>
-        <mat-list-item *ngFor="let teacher of school.teachers | slice: paginationFrom(pageEvent) : paginationTo(pageEvent)">
+        <mat-card-content class="list-of-teachers">
+          <mat-list>
+            <mat-list-item *ngFor="let teacher of school.teachers | slice: paginationFrom(pageEvent) : paginationTo(pageEvent)">
 
-          <img matListAvatar src="{{ teacher.profileImage }}" alt="profile image of {{ teacher.name }}">
-          <h4 mat-line><b>{{ teacher.name }} {{teacher.surname}}</b></h4>
-          <p mat-line>{{ teacher.email }}</p>
+              <img matListAvatar src="{{ teacher.profileImage }}" alt="profile image of {{ teacher.name }}">
+              <h4 mat-line><b>{{ teacher.name }} {{teacher.surname}}</b></h4>
+              <p mat-line>{{ teacher.email }}</p>
 
-          <button mat-raised-button color="primary" (click)="editTeacherAction(teacher.id)">
-            <mat-icon>edit</mat-icon>
-            <span>{{ 'COMMON.EDIT' | translate }}</span>
-          </button>
-          <button mat-raised-button color="warn" (click)="openDeleteTeacherDialog(teacher.id)">
-            <mat-icon>delete</mat-icon>
-            <span>{{ 'COMMON.DELETE' | translate }}</span>
-          </button>
+              <button mat-raised-button color="primary" (click)="editAction(teacher.id, 'teacherForm')">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'COMMON.EDIT' | translate }}</span>
+              </button>
+              <button mat-raised-button color="warn" (click)="openDeleteDialog(teacher.id, 'teacherForm')">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'COMMON.DELETE' | translate }}</span>
+              </button>
 
-        </mat-list-item>
-      </mat-list>
-      <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
-    </mat-card-content>
-  </mat-card>
+            </mat-list-item>
+          </mat-list>
+          <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
+        </mat-card-content>
+      </mat-card>
 
-  <mat-card *ngIf="school">
-    <mat-card-header></mat-card-header>
-    <mat-card-content>
-      <app-teacher-form [editTeacher]="editTeacher" [schoolId]="school.id" (newTeacherChange)="newTeacherHandler($event)"></app-teacher-form>
-    </mat-card-content>
-  </mat-card>
+      <mat-card *ngIf="school">
+        <mat-card-header></mat-card-header>
+        <mat-card-content>
+          <app-teacher-form [editTeacher]="editTeacher" [schoolId]="school.id" (newTeacherChange)="newTeacherHandler($event)"></app-teacher-form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="{{ 'GRADE.GRADELIST' | translate }}">
+      <mat-card *ngIf="school" class="teachers-card">
+        <mat-card-header>
+          <h3>{{ 'GRADE.GRADELIST' | translate }}</h3>
+          <button mat-raised-button color="primary" (click)="scrollToForm('gradeForm')" class="right">{{
+            'GRADE.NEWGRADE' |
+            translate }}</button>
+        </mat-card-header>
+
+        <mat-card-content class="list-of-teachers">
+          <mat-list>
+            <mat-list-item *ngFor="let grade of school.grades">
+
+              <h4 mat-line><b>{{ grade.name }}</b></h4>
+              <p mat-line>Id: {{ grade.id }}</p>
+
+              <button mat-raised-button color="primary" (click)="editAction(grade.id, 'gradeForm')">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'COMMON.EDIT' | translate }}</span>
+              </button>
+              <button mat-raised-button color="warn" (click)="openDeleteDialog(grade.id, 'gradeForm')">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'COMMON.DELETE' | translate }}</span>
+              </button>
+
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="school">
+        <mat-card-header></mat-card-header>
+        <mat-card-content>
+          <app-grade-form [editGrade]="editGrade" [schoolId]="school.id" (newGradeChange)="newGradeHandler($event)"></app-grade-form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="{{ 'MATTER.MATTERLIST' | translate }}">
+      <mat-card *ngIf="school" class="teachers-card">
+        <mat-card-header>
+          <h3>{{ 'MATTER.MATTERLIST' | translate }}</h3>
+          <button mat-raised-button color="primary" (click)="scrollToForm('matterForm')" class="right">{{
+            'MATTER.NEWMATTER' |
+            translate }}</button>
+        </mat-card-header>
+
+        <mat-card-content class="list-of-teachers">
+          <mat-list>
+            <mat-list-item *ngFor="let matter of school.matters">
+
+              <h4 mat-line><b>{{ matter.name }}</b></h4>
+              <p mat-line>Id: {{ matter.id }}</p>
+
+              <button mat-raised-button color="primary" (click)="editAction(matter.id, 'matterForm')">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'COMMON.EDIT' | translate }}</span>
+              </button>
+              <button mat-raised-button color="warn" (click)="openDeleteDialog(matter.id, 'matterForm')">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'COMMON.DELETE' | translate }}</span>
+              </button>
+
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card *ngIf="school">
+        <mat-card-header></mat-card-header>
+        <mat-card-content>
+          <app-matter-form [editMatter]="editMatter" [schoolId]="school.id" [grades]="school.grades" (newMatterChange)="newMatterHandler($event)"></app-matter-form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="relacion curso/materia">
+      <mat-card *ngIf="school">
+        <mat-card-header>
+          <h3>Listado de relaciones entre curso y materia</h3>
+        </mat-card-header>
+
+        <mat-card-content>
+          <mat-list *ngIf="gradeMatters" class="grade-matter-list">
+            <ng-container *ngFor="let grade of gradeMatters">
+              <h3 mat-subheader>{{grade.name}}</h3>
+              <mat-list-item *ngFor="let matter of grade.matters">
+                <h4 mat-line>{{matter.name}}</h4>
+                <p mat-line>id: {{matter.id}} </p>
+                <button mat-raised-button color="warn" (click)="openDeleteDialog(matter.id, 'gradeMatterRelForm'+grade.id)"
+                  class="delete-rel">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{ 'COMMON.DELETE' | translate }}</span>
+                </button>
+              </mat-list-item>
+              <app-grade-matter-rel *ngIf="grade" [grade]="grade" (newRel)="newRelHandler($event)"></app-grade-matter-rel>
+              <mat-divider></mat-divider>
+            </ng-container>
+          </mat-list>
+        </mat-card-content>
+        <!-- haciendo ahora -->
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="{{ 'RANKS.RANKSLIST' | translate }}">
+      <mat-card *ngIf="school" class="teachers-card">
+        <mat-card-header>
+          <h3>{{ 'RANKS.RANKSLIST' | translate }}</h3>
+          <button mat-raised-button color="primary" (click)="scrollToForm('rankForm')" class="right">{{
+            'RANKS.NEWRANK' |
+            translate }}</button>
+        </mat-card-header>
+
+        <mat-card-content class="list-of-teachers">
+          <mat-list>
+            <mat-list-item *ngFor="let rank of school.ranges">
+              <img matListAvatar src="{{ rank.imageRangoLink }}" alt="profile image of {{ rank.nombreRango }}">
+              <h4 mat-line><b>{{ rank.nombreRango }}</b></h4>
+              <p mat-line>{{ 'HOME.POINTS' | translate }}: {{ rank.puntosRango }}</p>
+
+              <button mat-raised-button color="primary" (click)="editAction(rank.id, 'rankForm')">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'COMMON.EDIT' | translate }}</span>
+              </button>
+              <button mat-raised-button color="warn" (click)="openDeleteDialog(rank.id, 'rankForm')">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'COMMON.DELETE' | translate }}</span>
+              </button>
+
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card *ngIf="school">
+        <mat-card-header></mat-card-header>
+        <mat-card-content>
+          <app-rank-form [editRank]="editRank" [schoolId]="school.id" [ranks]="school.ranges" (newRankChange)="newRankHandler($event)"></app-rank-form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="{{ 'STUDIENTS.STUDENTSLIST' | translate }}">
+      <mat-card *ngIf="school" class="teachers-card">
+        <mat-card-header>
+          <h3>{{ 'STUDIENTS.STUDENTSLIST' | translate }}</h3>
+          <button mat-raised-button color="primary" (click)="scrollToForm('studentForm')" class="right">{{
+            'STUDIENTS.NEWSTUDENT' | translate }}</button>
+        </mat-card-header>
+
+        <mat-card-content class="list-of-teachers">
+          <mat-list>
+            <mat-list-item *ngFor="let student of school.students">
+              <img matListAvatar src="{{ student.profileImage }}" alt="profile image of {{ student.name }} {{ student.surname }}">
+              <h4 mat-line><b>{{ student.name }} {{ student.surname }}</b></h4>
+
+              <button mat-raised-button color="primary" (click)="editAction(student.id, 'studentForm')">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'COMMON.EDIT' | translate }}</span>
+              </button>
+              <button mat-raised-button color="warn" (click)="openDeleteDialog(student.id, 'studentForm')">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'COMMON.DELETE' | translate }}</span>
+              </button>
+
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card *ngIf="school">
+        <mat-card-header></mat-card-header>
+        <mat-card-content>
+          <app-student-form [editStudent]="editStudent" [schoolId]="school.id" [students]="school.students"
+            (newStudentChange)="newStudentHandler($event)"></app-student-form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
 
 </div>

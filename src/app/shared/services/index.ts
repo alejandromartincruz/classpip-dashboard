@@ -17,3 +17,4 @@ export * from './collection.service';
 export * from './level.service';
 export * from './reward.service';
 export * from './teacher.service';
+export * from './student.service';

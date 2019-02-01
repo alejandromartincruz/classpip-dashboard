@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Login, Role } from '../../shared/models/index';
 import { AppConfig } from '../../app.config';
@@ -13,7 +13,7 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 })
 export class LanguageComponent implements OnInit {
 
-  idioms: any[] = [];
+  idioms = [];
 
   constructor(
     public alertService: AlertService,
@@ -22,9 +22,9 @@ export class LanguageComponent implements OnInit {
     public dialog: MatDialog,
     public translateService: TranslateService,
     public dialogRef: MatDialogRef<LanguageComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data) {
 
-      this.idioms = [
+    this.idioms = [
       {
         value: 'ca',
         label: 'Català'
@@ -60,4 +60,4 @@ export class LanguageComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  }
+}

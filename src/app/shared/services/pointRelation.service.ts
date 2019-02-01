@@ -675,7 +675,11 @@ export class PointRelationService {
 
     };
 
-    this.rewardService.addPointsProcess(studentId, pointId, value);
+    this.pointService.getPoint(parseInt(pointId, 10)).subscribe(
+      (point: Point) => {
+        this.rewardService.addPointsProcess(studentId, point.id, point.value);
+      }
+    );
 
     return this.http.post(url, postParams, options)
       .map(response => {

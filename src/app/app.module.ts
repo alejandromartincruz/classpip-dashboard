@@ -87,11 +87,17 @@ import { StudentHomeComponent } from './pages/student-home/student-home.componen
 import { SchoolComponent } from './pages/school/school.component';
 import { TeacherHomeComponent } from './pages/teacher-home/teacher-home.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
-import { SchoolFormComponent } from './pages/school-form/school-form.component';
+import { SchoolFormComponent } from './pages/forms/school-form/school-form.component';
 import { MatPaginatorModule, MatDialogModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { SchoolDetailsComponent } from './pages/school-details/school-details.component';
-import { TeacherFormComponent } from './pages/teacher-form/teacher-form.component';
+import { TeacherFormComponent } from './pages/forms/teacher-form/teacher-form.component';
+import { GradeFormComponent } from './pages/forms/grade-form/grade-form.component';
+import { MatterFormComponent } from './pages/forms/matter-form/matter-form.component';
+import { RankFormComponent } from './pages/forms/rank-form/rank-form.component';
+import { StudentFormComponent } from './pages/forms/student-form/student-form.component';
+import { StudentService } from './shared/services/student.service';
+import { GradeMatterRelComponent } from './pages/forms/grade-matter-rel/grade-matter-rel.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -147,7 +153,12 @@ export function createTranslateLoader(http: Http) {
     SchoolFormComponent,
     ConfirmationDialogComponent,
     SchoolDetailsComponent,
-    TeacherFormComponent
+    TeacherFormComponent,
+    GradeFormComponent,
+    MatterFormComponent,
+    RankFormComponent,
+    StudentFormComponent,
+    GradeMatterRelComponent
   ],
   imports: [
     BrowserModule,
@@ -185,7 +196,8 @@ export function createTranslateLoader(http: Http) {
     CollectionService,
     LevelService,
     RewardService,
-    TeacherService
+    TeacherService,
+    StudentService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ConfirmationDialogComponent]

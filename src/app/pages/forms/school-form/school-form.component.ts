@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { School } from '../../shared/models';
-import { SchoolService, AlertService } from '../../shared/services';
+import { School } from '../../../shared/models';
+import { SchoolService, AlertService } from '../../../shared/services';
 import { TranslateService } from 'ng2-translate';
 
 @Component({

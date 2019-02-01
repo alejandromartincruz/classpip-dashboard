@@ -5,3 +5,12 @@
 mat-list-item {
   border-bottom: 1px solid #cacaca;
 }
+
+.grade-matter-list mat-list-item {
+  border-bottom: 0;
+  padding-left: 20px;
+
+  .delete-rel {
+    min-width: 120px;
+  }
+}

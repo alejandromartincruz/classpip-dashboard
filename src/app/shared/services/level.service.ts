@@ -16,15 +16,15 @@ export class LevelService {
     public utilsService: UtilsService
   ) { }
 
-  public getLevel(points: Number): Number {
+  public getLevel(points: number): number {
     if (points <= 0) {
       points = 1;
     }
-    const level = Math.floor(points.valueOf() / 10);
+    const level = Math.floor(points / 10);
     return level;
   }
 
-  public getRank(points: Number): Rango {
+  public getRank(points: number): Rango {
 
     const options = this.utilsService.getOptions();
 
@@ -50,17 +50,10 @@ export class LevelService {
   public getAllRanks(): Observable<Rango[]> {
 
     const options = this.utilsService.getOptions();
+    const url = AppConfig.RANGE_URL + '?filter[order]=puntosRango%20ASC';
 
-    return this.http.get(AppConfig.RANGE_URL, options)
+    return this.http.get(url, options)
       .map((response: Response) => Rango.toObjectArray(response.json()));
-  }
-
-  public sortFunction(a, b) {
-    if (a['puntosRango'] === b['puntosRango']) {
-      return 0;
-    } else {
-      return (a['puntosRango'] < b['puntosRango']) ? -1 : 1;
-    }
   }
 
   public getNextLevelPoints(points: Number): number {
@@ -70,6 +63,71 @@ export class LevelService {
     }
 
     return nextLevelPoints;
+  }
+
+  public postRank(postParams: Rango): Observable<Rango> {
+
+    const options = this.utilsService.getOptions();
+    const postUrl = AppConfig.RANGE_URL;
+    const postData = {
+      // tslint:disable-next-line:quotemark
+      "nombreRango": postParams.nombreRango,
+      // tslint:disable-next-line:quotemark
+      "puntosRango": postParams.puntosRango,
+      // tslint:disable-next-line:quotemark
+      "imageRangoLink": postParams.imageRangoLink,
+      // tslint:disable-next-line:quotemark
+      "schoolId": postParams.schoolId
+    };
+
+    return this.http.post(postUrl, postData, options)
+      .map((response: Response) => {
+        return Rango.toObject(response.json());
+      })
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+
+  }
+
+  public editRank(patchParams: Rango): Observable<Rango> {
+
+    const options = this.utilsService.getOptions();
+    const postUrl = AppConfig.RANGE_URL + '/' + patchParams.id;
+    const patchData = {
+      // tslint:disable-next-line:quotemark
+      "nombreRango": patchParams.nombreRango,
+      // tslint:disable-next-line:quotemark
+      "puntosRango": patchParams.puntosRango,
+      // tslint:disable-next-line:quotemark
+      "imageRangoLink": patchParams.imageRangoLink,
+      // tslint:disable-next-line:quotemark
+      "schoolId": patchParams.schoolId
+    };
+
+    return this.http.put(postUrl, patchData, options)
+      .map((response: Response) => {
+        return Rango.toObject(response.json());
+      })
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+  }
+
+  public deleteRank(rankId: number): Observable<Rango> {
+
+    const options = this.utilsService.getOptions();
+    const deleteUrl = AppConfig.RANGE_URL + '/' + rankId;
+
+    return this.http.delete(deleteUrl, options)
+      .map(response => {
+        return response;
+      })
+      .catch((error: Response) => this.utilsService.handleAPIError(error));
+  }
+
+  public sortFunction(a, b) {
+    if (a['puntosRango'] === b['puntosRango']) {
+      return 0;
+    } else {
+      return (a['puntosRango'] < b['puntosRango']) ? -1 : 1;
+    }
   }
 
 }

@@ -35,7 +35,7 @@
           <td class="center">{{student.rewards.level}}</td>
           <td>{{student.rewards.rank}}</td>
           <td *ngFor="let point of allPoints" class="center">
-            {{student.points[point.id]}}
+            {{student.rewards.points_obj[point.id]}}
           </td>
         </tr>
       </table>

@@ -24,6 +24,7 @@ export * from './card';
 export * from './collectionCard';
 export * from './resultPoints';
 export * from './resultBadges';
+export * from './reward';
 
 
 

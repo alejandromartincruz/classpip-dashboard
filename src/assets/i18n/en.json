@@ -15,7 +15,10 @@
     "LANGUAGE": "Language",
     "RANKING": "Student's Ranking",
     "NEXTLEVELPOINTS": "Points to next level: ",
-    "LEVEL": "Level"
+    "LEVEL": "Level",
+    "MYPOS": "My position",
+    "RANK": "Rank",
+    "POINTS": "points"
   },
   "LOGIN": {
     "USERNAME": "Username",
@@ -34,6 +37,35 @@
     "ID": "Group Id",
     "CHOOSE": "Choose the group",
     "NOASSIGN": "Do not assign group"
+  },
+  "GRADE": {
+    "GRADE": "Grade",
+    "GRADELIST": "Grade's list",
+    "NEWGRADE": "New grade",
+    "NEWGRADEFORM": "Grade's form",
+    "CREATINGGRADE": "Creating new grade",
+    "EDITINGGRADE": "Editing grade",
+    "NAME": "grade's name",
+    "CREATED": "Grade created succesfully",
+    "EDITED": "Grade edited successfully",
+    "DELETED": "Grade deleted successfully",
+    "CONFIRMDELETE": "Are you sure that you want to delete Grade with id {{elementId}}?",
+    "CONFIRMRELDELETE": "Accepting you will delete the relation between this grade and the matted with id {{elementId}}. Are you sure?",
+    "SELECTMATTER": "Select one matter"
+  },
+  "MATTER": {
+    "MATTER": "Matter",
+    "MATTERLIST": "Matter's list",
+    "NEWMATTER": "New matter",
+    "NEWMATTERFORM": "Matter's form",
+    "CREATINGMATTER": "Creating new matter",
+    "EDITINGMATTER": "Editing matter",
+    "NAME": "Matter's name",
+    "CREATED": "Matter created successfully",
+    "EDITED": "Matter edited successfully",
+    "DELETED": "Matter deleted successfully",
+    "CONFIRMDELETE": "Are you sure that you want to delete Matter with id {{elementId}}?",
+    "SELECTGRADE": "Select a grade"
   },
   "TEACHER": {
     "ID": "Teacher Id",
@@ -55,7 +87,7 @@
     "CREATED": "New teacher created successfully",
     "EDITED": "Teacher edited successfully",
     "DELETED": "Teacher deleted successfully",
-    "CONFIRMDELETE": "Are you sure that you want to delete teacher with id {{teacherId}}?",
+    "CONFIRMDELETE": "Are you sure that you want to delete teacher with id {{elementId}}?",
     "NEWTEACHER": "Create new teacher"
   },
   "STUDIENTS": {
@@ -66,7 +98,21 @@
     "EMAIL": "Email",
     "TITLE": "Students",
     "CHOOSE": "Choose the student",
-    "SHOW": "Show students"
+    "SHOW": "Show students",
+    "STUDENTSLIST": "Student's list",
+    "USERNAME": "User name",
+    "PASSWORD": "Password",
+    "NEWPASSWORD": "Fill with a new password",
+    "CONFIRMPASSWORD": "Confirm password",
+    "PROFILEIMAGE": "profile image url",
+    "NEWSTUDENTSFORM": "Student's form",
+    "CREATINGSTUDENT": "Creating new student",
+    "EDITINGSTUDENT": "Editing student with id ",
+    "CREATED": "New teacstudenther created successfully",
+    "EDITED": "Student edited successfully",
+    "DELETED": "Student deleted successfully",
+    "CONFIRMDELETE": "Are you sure that you want to delete student with id {{elementId}}?",
+    "NEWSTUDENT": "Create new student"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Questionnaires",
@@ -301,6 +347,22 @@
     "CREATINGSCHOOL": "Creanting new school",
     "EDITINGSCHOOL": "Editing school with id "
   },
+  "RANKS": {
+    "RANK": "Rank",
+    "RANKS": "Ranks",
+    "RANKSLIST": "Ranks' list",
+    "NEWRANK": "New rank",
+    "NEWRANKFORM": "Rank's form",
+    "CREATINGRANK": "Creating new Rank",
+    "EDITINGRANK": "Editing Rank",
+    "NAME": "Rank's name",
+    "POINTS": "Points to reach the rank",
+    "IMAGE": "Rank's image url",
+    "CREATED": "Rank created succesfully",
+    "EDITED": "Rank edited successfully",
+    "DELETED": "Rank deleted successfully",
+    "CONFIRMDELETE": "Are you sure that you want to delete Rank with id {{elementId}}?"
+  },
   "COMMON": {
     "TYPEASSIGNMENTCHOOSE": "Choose an assignment type",
     "CHOOSEAMOUNT": "Choose the quantity",
@@ -316,6 +378,9 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "SELECTAVATAR": "Select avatar",
-    "GOBACK": "Go back"
+    "GOBACK": "Go back",
+    "ME": "Me",
+    "OF": "of",
+    "ADD": "Add"
   }
 }

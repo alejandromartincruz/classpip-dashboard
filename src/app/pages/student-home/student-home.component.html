@@ -5,21 +5,19 @@
       <span *ngIf="profile" class="student-name">{{ profile.name }} {{ profile.surname }}</span>
     </div>
     <div class="col s12 m6">
-      <div class="next-points-row">{{ 'HOME.NEXTLEVELPOINTS' | translate }}<b class="next-level-points">{{reward.next_level_points
-          -
-          reward.points}}</b></div>
-      <div *ngIf="reward.next_level_points != 10" class="progressbar"><progress id="progressbar" value="{{10 - (reward.next_level_points - reward.points)}}"
+      <div class="next-points-row">{{ 'HOME.NEXTLEVELPOINTS' | translate }}<b class="next-level-points">{{reward.next_level_points}}</b></div>
+      <div *ngIf="reward.next_level_points != 10" class="progressbar"><progress id="progressbar" value="{{10 - (reward.next_level_points )}}"
           max="10"></progress></div>
       <div *ngIf="reward.next_level_points == 10" class="progressbar"><progress id="progressbar" value="0" max="10"></progress></div>
     </div>
   </div>
   <div class="divider"></div>
   <div class="row" *ngIf="reward">
-    <div class="col s6 m4 line-right no-padding">
+    <div class="col s7 m4 line-right no-padding">
       <img *ngIf="rank" class="rank-image" src="{{rank.imageRangoLink}}" alt="imagen del rango">
       <h4 *ngIf="rank" class="rank-title">{{rank.nombreRango}}</h4>
     </div>
-    <div class="col s6 m4 line-right">
+    <div class="col s5 m4 line-right">
       <span class="level-title">{{ 'HOME.LEVEL' | translate }}</span>
       <div class="display-level">{{reward.level}}</div>
       <span class="points-title">{{ 'POINTS.TITLE' | translate }}</span>
@@ -35,5 +33,40 @@
       </div>
     </div>
   </div>
+
+  <div id="hall-of-fame" *ngIf="studentsWithRewards">
+    <h2 class="ranking-title">{{ 'HOME.RANKING' | translate }}</h2>
+    <!--student tab-->
+    <div class="student" *ngFor="let student of studentsWithRewards | slice: paginationFrom(pageEvent) : paginationTo(pageEvent); let index = index; let first = first; let last = last; let even = even; let odd = odd"
+      [ngClass]="{'ultimite': (first && even), 'standard': (odd && !first && !last), 'basic': (last && even ), first: first, last: last}">
+      <div class="student-inner">
+        <div *ngIf="student.id == profile.id" class="hot">{{ 'HOME.MYPOS' |translate }}</div>
+        <div class="entry-title">
+          <h3>{{ student.name }} {{ student.surname }}</h3>
+          <div class="position" [style.background-image]="getStyle(student.profileImage)" [style.background-position]="'center'"
+            [style.background-size]="'cover'">{{ (pageEvent.pageIndex * pageEvent.pageSize) +
+            index +1 }}<span></span>
+          </div>
+        </div>
+        <div class="entry-content">
+          <ul>
+            <li>{{ 'HOME.LEVEL' | translate }} <strong>{{ student.rewards.level}}</strong></li>
+            <li>{{ 'POINTS.TITLE' | translate }} <strong>{{ student.rewards.points}}</strong></li>
+            <li>{{ 'HOME.RANK' | translate }}: <strong>{{ student.rewards.rank}}</strong></li>
+          </ul>
+        </div>
+        <!--
+          TODO module to send messages to another students
+          <div class="btn">
+            <a href="#">Send message</a>
+          </div>
+        -->
+      </div>
+    </div>
+    <!-- end of student tab-->
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
+  </div>
+
+
   <app-school *ngIf="school" [school]="school"></app-school>
 </div>

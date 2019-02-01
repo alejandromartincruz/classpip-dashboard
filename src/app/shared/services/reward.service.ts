@@ -10,6 +10,7 @@ import { Student } from '../models/student';
 import { Point } from '../models/point';
 import { Reward } from '../models/reward';
 import { Rango } from '../models/rango';
+import { LevelService } from './level.service';
 
 
 @Injectable()
@@ -22,31 +23,39 @@ export class RewardService {
 
   constructor(
     public http: Http,
-    public utilsService: UtilsService
+    public utilsService: UtilsService,
+    public levelService: LevelService
   ) { }
 
   public addPointsProcess(studentId: string, pointId: string, value: number) {
-    this.getRanks(studentId, pointId, value);
+    this.levelService.getAllRanks().subscribe(
+      (response: Rango[]) => {
+        this.ranks = response;
+        this.rewardCheck(studentId, pointId, value);
+      });
   }
 
-  public checkIfRewardExists(studentId: string, pointId: string, value: number) {
+  public rewardCheck(studentId: string, pointId: string, value: number) {
+    this.checkIfRewardExists(studentId).subscribe(
+      (res: Array<boolean>) => {
+        this.exists = res['exists'];
+        if (this.exists) {
+          this.addPoint(studentId, pointId, value);
+        } else {
+          this.addPointToNewReward(studentId, pointId, value);
+        }
+
+      }
+    );
+  }
+
+  public checkIfRewardExists(studentId: string): Observable<Array<boolean>> {
 
     const options = this.utilsService.getOptions();
     const url = AppConfig.ONLY_REWARDS_URL + '/' + studentId + AppConfig.EXISTS_URL;
 
-    this.http.get(url, options)
-      .map((res: Response) => res.json())
-      .subscribe(
-        (response) => {
-          this.exists = response.exists;
-          if (this.exists) {
-            this.addPoint(studentId, pointId, value);
-          } else {
-            this.addPointToNewReward(studentId, pointId, value);
-          }
-
-        }
-      );
+    return this.http.get(url, options)
+      .map((res: Response) => res.json());
   }
 
   public addPointToNewReward(studentId: string, pointId: string, value: number) {
@@ -64,7 +73,7 @@ export class RewardService {
       .subscribe(
         (reward) => {
           this.reward = reward;
-          this.postPoint(value, pointId);
+          this.postPointToReward(value, pointId);
         }
       );
 
@@ -81,12 +90,15 @@ export class RewardService {
     this.reward.rank = 'no rank';
   }
 
-  private postPoint(value: number, pointId: string) {
+  private postPointToReward(value: number, pointId: string) {
 
     const options = this.utilsService.getOptions();
-    const pointsEarned = this.reward.points + value;
+    let pointsEarned = this.reward.points + value;
+    if (pointsEarned <= 0) {
+      pointsEarned = 0;
+    }
     this.reward.points = pointsEarned;
-    this.reward.level = this.getLevel(this.reward.points);
+    this.reward.level = this.levelService.getLevel(this.reward.points);
     this.reward.next_level_points = this.getNextLevelPoints(this.reward.points);
     this.reward.points_obj = this.addPointObj(this.reward.points_obj, pointId);
     this.reward.badges_obj = this.addBadgeObj(this.reward.badges_obj, '0');
@@ -130,7 +142,7 @@ export class RewardService {
       // tslint:disable-next-line:quotemark
       "badges_obj": this.reward.badges_obj,
       // tslint:disable-next-line:quotemark
-      "level": this.getLevel(value),
+      "level": this.levelService.getLevel(value),
       // tslint:disable-next-line:quotemark
       "next_level_points": this.getNextLevelPoints(value),
       // tslint:disable-next-line:quotemark
@@ -142,13 +154,10 @@ export class RewardService {
 
   }
 
-  private getLevel(points: number): number {
-    const level = Math.floor(points / 10);
-    return level;
-  }
-
   private getNextLevelPoints(points: number): number {
-    let nextLevelPoints = Math.ceil(points / 10) * 10;
+
+    let nextLevelPoints = (Math.ceil(points / 10) * 10) - points;
+
     if (points === nextLevelPoints) {
       nextLevelPoints = nextLevelPoints + 10;
     }
@@ -196,28 +205,6 @@ export class RewardService {
     return newRank;
   }
 
-  private getRanks(studentId: string, pointId: string, value: number) {
-
-    const options = this.utilsService.getOptions();
-
-    this.http.get(AppConfig.RANGE_URL, options)
-      .map((res: Response) => res.json())
-      .subscribe(
-        (response: Rango[]) => {
-          response.sort(this.sortFunction);
-          this.ranks = response;
-          this.checkIfRewardExists(studentId, pointId, value);
-        });
-  }
-
-  private sortFunction(a, b) {
-    if (a['puntosRango'] === b['puntosRango']) {
-      return 0;
-    } else {
-      return (a['puntosRango'] < b['puntosRango']) ? -1 : 1;
-    }
-  }
-
   public getStudentReward(studentId: number): Observable<Reward> {
 
     const options = this.utilsService.getOptions();
@@ -254,6 +241,40 @@ export class RewardService {
 
     return this.http.get(url, options)
       .map((response: Response) => Student.toObjectArray(response.json()));
+  }
+
+  public newReward(studentId) {
+
+    const options = this.utilsService.getOptions();
+    const postUrl = AppConfig.ONLY_REWARDS_URL;
+
+    const postParams = {
+      // tslint:disable-next-line:quotemark
+      "id": studentId,
+      // tslint:disable-next-line:quotemark
+      "points": 0,
+      // tslint:disable-next-line:quotemark
+      "points_obj": JSON.stringify({}),
+      // tslint:disable-next-line:quotemark
+      "badges_obj": JSON.stringify({}),
+      // tslint:disable-next-line:quotemark
+      "level": 0,
+      // tslint:disable-next-line:quotemark
+      "next_level_points": this.getNextLevelPoints(0),
+      // tslint:disable-next-line:quotemark
+      "rank": "bronce"
+    };
+
+    this.http.post(postUrl, postParams, options)
+      .subscribe();
+  }
+
+  public deleteReward(studentId) {
+    const options = this.utilsService.getOptions();
+    const url = AppConfig.ONLY_REWARDS_URL + '/' + studentId;
+
+    this.http.delete(url, options)
+      .subscribe();
   }
 
 }
