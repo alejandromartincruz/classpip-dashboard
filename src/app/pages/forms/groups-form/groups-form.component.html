@@ -1,0 +1,28 @@
+<form id="groupForm{{gradeId}}{{matterId}}" #groupForm{{gradeId}}{{matterId}}="ngForm" (ngSubmit)="saveGroup(gradeId, matterId);">
+
+  <div class="row">
+    <div class="col s12">
+      <mat-form-field>
+        <input type="text" matInput required [(ngModel)]="newGroup.name" placeholder="{{'GROUPS.NAME'| translate}}"
+          name="name">
+        <mat-hint align="end"></mat-hint>
+      </mat-form-field>
+      <mat-form-field *ngIf="teachers">
+        <mat-select matSelect required placeholder="{{'TEACHER.SELECTTEACHER'| translate}}" [(ngModel)]="newGroup.teacherId"
+          name="groups">
+          <mat-option>None</mat-option>
+          <ng-container *ngFor="let teacher of teachers">
+            <mat-option [value]="teacher.id">
+              <span class="option-text">{{teacher.name}} {{teacher.surname}}</span>
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-hint align="end"></mat-hint>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="btn-form create" [disabled]="newGroup.teacherId === undefined">{{
+        'COMMON.ADD' | translate }}</button>
+    </div>
+  </div>
+
+  <div style="clear: both;"></div>
+</form>

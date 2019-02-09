@@ -8,7 +8,7 @@ export class Point {
   private _teacherId: number;
 
 
-  constructor(id?: string,name?: string, value?: number, image?: string, schoolId?: number,
+  constructor(id?: string, name?: string, value?: number, image?: string, schoolId?: number,
     teacherId?: number) {
     this._id = id;
     this._name = name;
@@ -21,7 +21,7 @@ export class Point {
   /* tslint:disable */
   static toObject(object: any): Point {
     /* tslint:enable */
-    let result: Point = new Point();
+    const result: Point = new Point();
     if (object != null) {
       result.id = object.id;
       result.name = object.name;
@@ -35,7 +35,7 @@ export class Point {
   /* tslint:disable */
   static toObjectArray(object: any): Array<Point> {
     /* tslint:enable */
-    let resultArray: Array<Point> = new Array<Point>();
+    const resultArray: Array<Point> = new Array<Point>();
     if (object != null) {
       for (let i = 0; i < object.length; i++) {
         resultArray.push(Point.toObject(object[i]));

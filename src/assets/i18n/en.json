@@ -36,7 +36,16 @@
     "LIST": "List of groups",
     "ID": "Group Id",
     "CHOOSE": "Choose the group",
-    "NOASSIGN": "Do not assign group"
+    "NOASSIGN": "Do not assign group",
+    "CONFIRMDELETE": "Are you sure that you want to delete Group with id {{elementId}}?",
+    "RELATION": "Groups/Students relation",
+    "STUDENTSLIST": "Student's list by group",
+    "NAME": "Group's name",
+    "CREATED": "New group created successfully",
+    "DELETED": "Group deletd successfully",
+    "STUDENTDELETED": "Student removed from group successfully",
+    "CONFIRMREMOVAL": "Are you sure that you want to remove student with id {{elementId}} from group?",
+    "STUDENTADDED": "Student added to group successfully"
   },
   "GRADE": {
     "GRADE": "Grade",
@@ -51,7 +60,10 @@
     "DELETED": "Grade deleted successfully",
     "CONFIRMDELETE": "Are you sure that you want to delete Grade with id {{elementId}}?",
     "CONFIRMRELDELETE": "Accepting you will delete the relation between this grade and the matted with id {{elementId}}. Are you sure?",
-    "SELECTMATTER": "Select one matter"
+    "SELECTMATTER": "Select one matter",
+    "RELATION": "Grade/Matter relation",
+    "ADDMATTER": "Matter added to grade successfully",
+    "REMOVEMATTER": "Matter removed from grade successfully"
   },
   "MATTER": {
     "MATTER": "Matter",
@@ -88,7 +100,8 @@
     "EDITED": "Teacher edited successfully",
     "DELETED": "Teacher deleted successfully",
     "CONFIRMDELETE": "Are you sure that you want to delete teacher with id {{elementId}}?",
-    "NEWTEACHER": "Create new teacher"
+    "NEWTEACHER": "Create new teacher",
+    "SELECTTEACHER": "Select a teacher"
   },
   "STUDIENTS": {
     "ID": "Student Id",
@@ -112,7 +125,8 @@
     "EDITED": "Student edited successfully",
     "DELETED": "Student deleted successfully",
     "CONFIRMDELETE": "Are you sure that you want to delete student with id {{elementId}}?",
-    "NEWSTUDENT": "Create new student"
+    "NEWSTUDENT": "Create new student",
+    "SELECT": "Select a student"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Questionnaires",
@@ -381,6 +395,7 @@
     "GOBACK": "Go back",
     "ME": "Me",
     "OF": "of",
-    "ADD": "Add"
+    "ADD": "Add",
+    "CONFIRM": "Confirm"
   }
 }

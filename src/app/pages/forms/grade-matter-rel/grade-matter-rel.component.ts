@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatterService, GradeService } from '../../../shared/services';
+import { MatterService, GradeService, AlertService, LoadingService } from '../../../shared/services';
 import { Matter, Grade } from '../../../shared/models';
 import { MatterGradeRel } from '../../../shared/models/matterGradeRel';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'app-grade-matter-rel',
@@ -17,7 +18,10 @@ export class GradeMatterRelComponent implements OnInit {
 
   constructor(
     public matterService: MatterService,
-    public gradeService: GradeService
+    public gradeService: GradeService,
+    public alertService: AlertService,
+    public translateService: TranslateService,
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -31,6 +35,7 @@ export class GradeMatterRelComponent implements OnInit {
   saveGradeMatterRel() {
     this.gradeService.saveGradeMatterRel(this.gradeMatterRel.gradeId, this.gradeMatterRel.matterId).subscribe(
       (rel: MatterGradeRel) => {
+        this.alertService.show(this.translateService.instant('GRADE.ADDMATTER'));
         this.newRel.emit(rel);
       }
     );

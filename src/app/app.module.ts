@@ -98,6 +98,8 @@ import { RankFormComponent } from './pages/forms/rank-form/rank-form.component';
 import { StudentFormComponent } from './pages/forms/student-form/student-form.component';
 import { StudentService } from './shared/services/student.service';
 import { GradeMatterRelComponent } from './pages/forms/grade-matter-rel/grade-matter-rel.component';
+import { GroupsFormComponent } from './pages/forms/groups-form/groups-form.component';
+import { GroupStudentsFormComponent } from './pages/forms/group-students-form/group-students-form.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -158,7 +160,9 @@ export function createTranslateLoader(http: Http) {
     MatterFormComponent,
     RankFormComponent,
     StudentFormComponent,
-    GradeMatterRelComponent
+    GradeMatterRelComponent,
+    GroupsFormComponent,
+    GroupStudentsFormComponent
   ],
   imports: [
     BrowserModule,

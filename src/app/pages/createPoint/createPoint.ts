@@ -32,6 +32,7 @@ export class CreatePointComponent implements OnInit {
 
 
 
+    // tslint:disable-next-line:no-any
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.utilsService.currentUser = Login.toObject(localStorage.getItem(AppConfig.LS_USER));
@@ -45,10 +46,9 @@ export class CreatePointComponent implements OnInit {
   }
   createPoint(): void {
 
-    if (this.name == "" || !this.value || this.image == "") {
+    if (this.name === '' || !this.value || this.image === '') {
       this.alertService.show(this.translateService.instant('ERROR.EMPTYFIELDS'));
-    }
-    else {
+    } else {
 
       this.pointService.savePoint(this.name, this.value, this.image).subscribe(
         ((newPoint: Point) => {

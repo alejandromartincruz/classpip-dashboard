@@ -36,7 +36,16 @@
     "LIST": "Lista de grupos",
     "ID": "Id. Grupo",
     "CHOOSE": "Escoge el grupo",
-    "NOASSIGN": "No asignar grupo"
+    "NOASSIGN": "No asignar grupo",
+    "CONFIRMDELETE": "Seguro que quieres borrar el grupo con id {{elementId}}?",
+    "RELATION": "relación grupos/estudiantes",
+    "STUDENTSLIST": "Listado de estudiantes por grupo",
+    "NAME": "Nombre del grupo",
+    "CREATED": "Nuevo grupo creado correctamente",
+    "DELETED": "Grupo borrado correctamente",
+    "STUDENTDELETED": "Estudiante eliminado del grupo con éxito",
+    "CONFIRMREMOVAL": "Seguro que quieres quitar el estudiante con id {{elementId}} del grupo?",
+    "STUDENTADDED": "Estudiante añadido al grupo correctamente"
   },
   "GRADE": {
     "GRADE": "Curso",
@@ -51,7 +60,10 @@
     "DELETED": "Curso borrado correctamente",
     "CONFIRMDELETE": "Seguro que quieres borrar el curso con id {{elementId}}?",
     "CONFIRMRELDELETE": "Si aceptas, borraras la relación de este curso con la materia con id {{elementId}}. Estas seguro?",
-    "SELECTMATTER": "Selecciona una materia"
+    "SELECTMATTER": "Selecciona una materia",
+    "RELATION": "relacion curso/materia",
+    "ADDMATTER": "Materia añadida al curso correctamente",
+    "REMOVEMATTER": "Materia eliminada del curso correctamente"
   },
   "MATTER": {
     "MATTER": "Materia",
@@ -87,7 +99,8 @@
     "EDITED": "Profesor editado correctamente",
     "DELETED": "Profesor borrado correctamente",
     "CONFIRMDELETE": "¿Seguro que quieres borrar el profesor con id {{elementId}}?",
-    "NEWTEACHER": "Crear nuevo profesor"
+    "NEWTEACHER": "Crear nuevo profesor",
+    "SELECTTEACHER": "Selecciona un profesor"
   },
   "STUDIENTS": {
     "ID": "Id. Estudiante",
@@ -111,7 +124,8 @@
     "EDITED": "Estudiante modificado con exito",
     "DELETED": "Estudiante borrado correctamente",
     "CONFIRMDELETE": "¿Seguro que quieres borrar el estudiante con id {{elementId}}?",
-    "NEWSTUDENT": "Crear un nuevo Estudiante"
+    "NEWSTUDENT": "Crear un nuevo Estudiante",
+    "SELECT": "Selecciona a un estudiante"
   },
   "QUESTIONNAIRES": {
     "TITLE": "Cuestionarios",
@@ -380,6 +394,7 @@
     "GOBACK": "Volver",
     "ME": "Yo",
     "OF": "de",
-    "ADD": "Añadir"
+    "ADD": "Añadir",
+    "CONFIRM": "Confirmar"
   }
 }

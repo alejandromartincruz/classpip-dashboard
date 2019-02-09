@@ -5,12 +5,12 @@ import {
   SchoolService, UserService, LoadingService,
   AlertService, UtilsService, TeacherService,
   GradeService, MatterService, LevelService,
-  StudentService, RewardService
+  StudentService, RewardService, GroupService
 } from '../../shared/services';
 import {
   School, Login, Profile,
   Teacher, Grade, Matter,
-  Student, Rango
+  Student, Rango, Group
 } from '../../shared/models/index';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { PageEvent } from '@angular/material';
@@ -40,6 +40,8 @@ export class SchoolDetailsComponent implements OnInit {
   public editRank: Rango;
   public editStudent: Student;
   public gradeMatters: Grade[];
+  public groups: Group[];
+  public editGroup: Group;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,7 +59,8 @@ export class SchoolDetailsComponent implements OnInit {
     public matterService: MatterService,
     public levelService: LevelService,
     public studentService: StudentService,
-    public rewardService: RewardService
+    public rewardService: RewardService,
+    public groupService: GroupService
   ) {
     this.utilsService.currentUser = Login.toObject(localStorage.getItem(AppConfig.LS_USER));
     this.utilsService.role = Number(localStorage.getItem(AppConfig.LS_ROLE));
@@ -119,8 +122,12 @@ export class SchoolDetailsComponent implements OnInit {
       this.dialogRef.componentInstance.confirmMessage = this.translateService.instant('RANKS.CONFIRMDELETE', { elementId });
     } else if (formId === 'studentForm') {
       this.dialogRef.componentInstance.confirmMessage = this.translateService.instant('STUDIENTS.CONFIRMDELETE', { elementId });
+    } else if (formId === 'GroupForm') {
+      this.dialogRef.componentInstance.confirmMessage = this.translateService.instant('GROUPS.CONFIRMDELETE', { elementId });
     } else if (formId.indexOf('gradeMatterRelForm') >= 0) {
       this.dialogRef.componentInstance.confirmMessage = this.translateService.instant('GRADE.CONFIRMRELDELETE', { elementId });
+    } else if (formId.indexOf('groupStudentsForm') >= 0) {
+      this.dialogRef.componentInstance.confirmMessage = this.translateService.instant('GROUPS.CONFIRMREMOVAL', { elementId });
     }
 
     this.dialogRef.afterClosed().subscribe(result => {
@@ -152,6 +159,13 @@ export class SchoolDetailsComponent implements OnInit {
             this.school.students = this.school.students.filter(student => parseInt(student.id, 10) !== elementId);
             this.alertService.show(this.translateService.instant('STUDIENTS.DELETED'));
           });
+        } else if (formId === 'GroupForm') {
+          this.groupService.deleteGroup(elementId).subscribe(
+            response => {
+              this.getGroups();
+              this.alertService.show(this.translateService.instant('GROUPS.DELETED'));
+            }
+          );
         } else if (formId.indexOf('gradeMatterRelForm') >= 0) {
           const gradeId = parseInt(formId.slice(-1), 10);
           const matterId = elementId;
@@ -161,8 +175,19 @@ export class SchoolDetailsComponent implements OnInit {
               this.gradeService.getGradesWithMatters(parseInt(this.school.id, 10)).subscribe(
                 (grades: Grade[]) => {
                   this.gradeMatters = grades;
+                  this.alertService.show(this.translateService.instant('GRADE.REMOVEMATTER'));
                 }
               );
+            }
+          );
+        } else if (formId.indexOf('groupStudentsForm') >= 0) {
+          const groupId = parseInt(formId.slice(-1), 10);
+          const studentId = elementId;
+
+          this.groupService.removeStudentFromGroup(studentId, groupId).subscribe(
+            (response) => {
+              this.getGroups();
+              this.alertService.show(this.translateService.instant('GROUPS.STUDENTDELETED'));
             }
           );
         }
@@ -215,11 +240,15 @@ export class SchoolDetailsComponent implements OnInit {
   }
 
   newRelHandler(newRel) {
-    this.gradeService.getGradesWithMatters(parseInt(this.school.id, 10)).subscribe(
-      (grades: Grade[]) => {
-        this.gradeMatters = grades;
-      }
-    );
+    this.getGradeMatters();
+  }
+
+  newGroupHandler(newGroup) {
+    this.getGroups();
+  }
+
+  newGroupStudentHandler(newRel) {
+    this.getGroups();
   }
 
   paginationFrom(pageEvent) {
@@ -236,12 +265,31 @@ export class SchoolDetailsComponent implements OnInit {
 
   tabClick(tab) {
     if (tab.index === 3) {
-      this.gradeService.getGradesWithMatters(parseInt(this.school.id, 10)).subscribe(
-        (grades: Grade[]) => {
-          this.gradeMatters = grades;
-        }
-      );
+      this.getGradeMatters();
     }
+    if (tab.index === 4) {
+      this.getGradeMatters();
+      this.getGroups();
+    }
+    if (tab.index === 6) {
+      this.getGroups();
+    }
+  }
+
+  getGradeMatters() {
+    this.gradeService.getGradesWithMatters(parseInt(this.school.id, 10)).subscribe(
+      (grades: Grade[]) => {
+        this.gradeMatters = grades;
+      }
+    );
+  }
+
+  getGroups() {
+    this.groupService.getGroupsBySchool(parseInt(this.school.id, 10)).subscribe(
+      (groups: Group[]) => {
+        this.groups = groups;
+      }
+    );
   }
 
   private getStyle(url: string) {
